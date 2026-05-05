@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap');
+
+/* Reseteo basico para que se vea igual en todos los navegadores */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-soft: #fefefe;
+  --border: #e2e8f0;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --brand: #f43f5e;
+  --brand-hover: #e11d48;
+  --brand-gradient: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  --brand-gradient-hover: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  --chef-accent: #e11d48;
+  --success: #16a34a;
+  --shadow-soft: 0 8px 22px -16px rgba(15, 23, 42, 0.35);
+  --shadow-hover: 0 18px 30px -20px rgba(15, 23, 42, 0.45);
+  --motion-ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-fast: 0.2s;
+  --motion-base: 0.3s;
+  --motion-slow: 0.36s;
+  --page-max-width: 1200px;
+  --page-fluid-width: min(var(--page-max-width), calc(100% - 2px));
+  /* margen lateral movil (lo mismo que la cabecera) */
+  --layout-inline-mobile: 16px;
+  /* Corte único vista táctil/compacta en la app: max-width 900px (PageHeader, nav, recetas, etc.) */
+  --font-ui: 'Manrope', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-ui);
+  line-height: 1.5;
+  font-size: 16px;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(241, 245, 249, 0.9) 0%, transparent 34%),
+    radial-gradient(circle at 95% 10%, rgba(226, 232, 240, 0.78) 0%, transparent 28%),
+    var(--bg);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 10px;
+  z-index: 1000;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #be123c;
+  background: #ffffff;
+  color: #9f1239;
+  text-decoration: none;
+  font-weight: 800;
+  transform: translateY(-140%);
+  transition: transform var(--motion-fast) var(--motion-ease-soft);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 3px solid rgba(190, 18, 60, 0.24);
+  outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid rgba(190, 18, 60, 0.24);
+  outline-offset: 2px;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  display: block;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+img,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.app-main {
+  padding-top: clamp(70px, 10vw, 102px);
+  padding-left: clamp(12px, 3.5vw, 28px);
+  padding-right: clamp(12px, 3.5vw, 28px);
+  padding-bottom: clamp(20px, 3vw, 32px);
+  overflow-y: auto;
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+::selection {
+  background: #ffe4ea;
+  color: #7f1d1d;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.view-section {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: clamp(18px, 3.5vw, 30px) clamp(10px, 2.8vw, 20px);
+  animation: fadeIn 0.4s ease-out;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* pestañas compra/historial: mismos bordes que el contenido */
+.compras-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  gap: 14px;
+}
+
+.compras-shell > .page-tabs {
+  align-self: stretch;
+  margin-bottom: 0;
+}
+
+.view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.view-title h1 {
+  font-size: 2rem;
+  color: var(--text-main);
+  margin-bottom: 5px;
+}
+
+.view-title p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* --- TARJETAS (CARDS) --- */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: clamp(12px, 2.5vw, 20px);
+}
+
+.card {
+  background-color: var(--surface);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border);
+  transition: transform var(--motion-base) var(--motion-ease-soft), box-shadow var(--motion-base) var(--motion-ease-soft);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* --- BOTONES PRINCIPALES --- */
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--brand);
+  color: var(--surface);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-fast) var(--motion-ease-soft),
+    transform var(--motion-fast) var(--motion-ease-soft),
+    box-shadow var(--motion-base) var(--motion-ease-soft);
+  box-shadow: 0 10px 18px -14px rgba(244, 63, 94, 0.6);
+}
+
+.action-btn:hover {
+  background-color: var(--brand-hover);
+}
+
+.action-btn:active {
+  transform: scale(0.97);
+}
+
+.action-btn:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --border: #94a3b8;
+    --text-muted: #334155;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .app-main {
+    padding-top: clamp(86px, 13vw, 108px);
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --page-fluid-width: min(var(--page-max-width), 100%);
+  }
+
+  .app-main {
+    padding-left: var(--layout-inline-mobile);
+    padding-right: var(--layout-inline-mobile);
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .view-section {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .view-section.auth-only-view {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .view-header {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    gap: 12px;
+  }
+
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .view-title h1 {
+    font-size: 1.65rem;
+    letter-spacing: -0.02em;
+  }
+
+  .grid-cards {
+    gap: 12px; /* Tarjetas mas juntas en movil */
+  }
+
+  .card {
+    padding: 16px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .view-title h1 {
+    font-size: 1.4rem;
+  }
+}
+
+.route-loading {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.app-toast {
+  position: fixed;
+  bottom: 1.35rem;
+  left: 50%;
+  z-index: 99999;
+  max-width: min(92vw, 380px);
+  padding: 0.75rem 1.15rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.2);
+  transform: translateX(-50%) translateY(130%);
+  opacity: 0;
+  transition: transform 0.32s var(--motion-ease-soft), opacity 0.28s ease;
+  pointer-events: none;
+}
+
+.app-toast--visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.app-toast--ok {
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #334155;
+}
+
+.app-toast--error {
+  background: #fff1f2;
+  color: #9f1239;
+  border: 1px solid #fecdd3;
+}

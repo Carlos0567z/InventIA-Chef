@@ -1,0 +1,366 @@
+.recetas-pendientes-container {
+  max-width: var(--page-max-width);
+  width: var(--page-fluid-width);
+  padding: 12px 0 28px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.recetas-pendientes-hero {
+  position: relative;
+  border-radius: 24px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  padding: clamp(28px, 5vw, 40px);
+  background:
+    radial-gradient(circle at top left, rgba(244, 63, 94, 0.12), transparent 40%),
+    radial-gradient(circle at 100% 20%, rgba(224, 231, 255, 0.28), transparent 35%),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.97));
+  box-shadow: 0 24px 40px -34px rgba(15, 23, 42, 0.34);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.recetas-pendientes-hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.recetas-pendientes-hero-copy .kicker {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #f43f5e;
+  margin: 0;
+}
+
+.recetas-pendientes-hero-copy h1 {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  margin: 0;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+.recetas-pendientes-hero-copy p {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0;
+  max-width: 50ch;
+  line-height: 1.55;
+}
+
+.recetas-pendientes-action-btn {
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.recetas-pendientes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 0;
+}
+
+.recetas-pendientes-card {
+  position: relative;
+  padding: 0;
+  border-radius: 18px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: linear-gradient(180deg, #fafbfc 0%, #f8fafc 100%);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition:
+    transform var(--motion-base) var(--motion-ease-soft),
+    box-shadow var(--motion-base) var(--motion-ease-soft),
+    border-color var(--motion-base) var(--motion-ease-soft);
+  box-shadow: 0 16px 28px -24px rgba(15, 23, 42, 0.28);
+}
+
+.recetas-pendientes-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(226, 232, 240, 1);
+  box-shadow: 0 24px 40px -20px rgba(15, 23, 42, 0.42);
+}
+
+.recetas-pendientes-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: linear-gradient(135deg, #eef2f7, #e2e8f0);
+}
+
+.recetas-pendientes-card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 8px;
+}
+
+.recetas-pendientes-card-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.recetas-pendientes-card-meta {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+/* Pie de la tarjeta (acciones) */
+.recetas-pendientes-card-actions {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding-top: 14px;
+}
+
+.recetas-pendientes-card-actions.hechas {
+  grid-template-columns: 1fr;
+}
+
+.btn-card-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-weight: 800;
+  font-size: 0.82rem;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 18px -16px rgba(15, 23, 42, 0.15);
+  transition: all var(--motion-fast) var(--motion-ease-soft);
+}
+
+.btn-hecha {
+  color: #10b981;
+  border-color: #d1fae5;
+}
+
+.btn-hecha:hover {
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 24px -16px rgba(16, 185, 129, 0.4);
+}
+
+.btn-delete-pending {
+  color: #f43f5e;
+  border-color: #ffe4e6;
+}
+
+.btn-delete-pending:hover {
+  background: linear-gradient(180deg, #f43f5e 0%, #e11d48 100%);
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 24px -16px rgba(244, 63, 94, 0.4);
+}
+
+/* Recetas hechas */
+.recetas-pendientes-done-section {
+  margin-top: 32px;
+}
+
+.recetas-pendientes-done-header {
+  margin-bottom: 18px;
+}
+
+.recetas-pendientes-done-header h2 {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin: 0 0 8px;
+  color: #0f172a;
+}
+
+.recetas-pendientes-done-header p {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+  max-width: 55ch;
+  line-height: 1.5;
+}
+
+.recetas-pendientes-card.hecha {
+  opacity: 0.92;
+}
+
+.recetas-pendientes-card.hecha:hover {
+  opacity: 1;
+}
+
+.recetas-pendientes-card-hecha-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 118, 110, 0.08);
+  pointer-events: none;
+  border-radius: 18px;
+}
+
+.btn-undo-pending {
+  color: #64748b;
+  border-color: #e2e8f0;
+}
+
+.btn-undo-pending:hover {
+  background: linear-gradient(180deg, #64748b 0%, #475569 100%);
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 24px -16px rgba(100, 116, 139, 0.4);
+}
+
+/* Listas vacias / sin datos */
+.recetas-pendientes-empty {
+  grid-column: 1 / -1;
+  padding: 48px 24px;
+  text-align: center;
+  border-radius: 18px;
+  border: 2px dashed rgba(226, 232, 240, 0.8);
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.6), rgba(241, 245, 249, 0.4));
+}
+
+.recetas-pendientes-empty-icon {
+  font-size: 3rem;
+  color: #cbd5e1;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.recetas-pendientes-empty-text {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.recetas-pendientes-empty-hint {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin: 8px 0 0;
+  font-style: italic;
+}
+
+/* Estilo base de botones */
+.recetas-pendientes-action {
+  padding: 11px 20px;
+  border-radius: 12px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: 'Manrope', system-ui, sans-serif;
+  cursor: pointer;
+  transition:
+    transform var(--motion-fast) var(--motion-ease-soft),
+    box-shadow var(--motion-base) var(--motion-ease-soft),
+    background var(--motion-fast) var(--motion-ease-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.02em;
+}
+
+.recetas-pendientes-action:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.recetas-pendientes-generate-btn {
+  background: var(--brand-gradient);
+  color: white;
+  box-shadow: 0 12px 20px -8px rgba(244, 63, 94, 0.35);
+}
+
+.recetas-pendientes-generate-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px -4px rgba(244, 63, 94, 0.42);
+}
+
+.recetas-pendientes-generate-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Vista movil */
+@media (max-width: 900px) {
+  .recetas-pendientes-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .recetas-pendientes-action-btn {
+    width: 100%;
+  }
+
+  .recetas-pendientes-action {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .recetas-pendientes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+
+  .recetas-pendientes-card-image {
+    height: 160px;
+  }
+
+  .recetas-pendientes-badge-done,
+  .recetas-pendientes-badge-hecha {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .recetas-pendientes-container {
+    padding: 8px 0 20px;
+  }
+
+  .recetas-pendientes-hero {
+    padding: clamp(20px, 4vw, 28px);
+  }
+
+  .recetas-pendientes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recetas-pendientes-empty {
+    padding: 36px 16px;
+  }
+}
+
+/* Quien pide menos animacion en el sistema */
+@media (prefers-reduced-motion: reduce) {
+  .recetas-pendientes-card,
+  .recetas-pendientes-action,
+  .recetas-pendientes-badge-done,
+  .recetas-pendientes-btn-delete,
+  .recetas-pendientes-btn-undo {
+    transition: none;
+  }
+}

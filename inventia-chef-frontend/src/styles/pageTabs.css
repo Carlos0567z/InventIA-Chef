@@ -1,0 +1,111 @@
+.page-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 18px;
+  padding: 6px;
+  padding-left: max(6px, env(safe-area-inset-left, 0px));
+  padding-right: max(6px, env(safe-area-inset-right, 0px));
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 14px 30px -24px rgba(15, 23, 42, 0.35);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.page-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #475569;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 700;
+  transition: all 0.18s ease;
+}
+
+.page-tab:hover {
+  color: #e11d48;
+  background: #fff1f2;
+}
+
+.page-tab.active {
+  color: #e11d48;
+  background: #fff1f2;
+  border-color: #ffd5dc;
+}
+
+.page-tab i {
+  font-size: 0.82rem;
+}
+
+@media (max-width: 900px) {
+  .page-tabs {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    padding: 5px;
+    margin-bottom: 14px;
+  }
+
+  .page-tab {
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+    padding: 10px 8px;
+    font-size: 0.82rem;
+    line-height: 1.25;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .page-tab svg {
+    flex-shrink: 0;
+    width: 0.9em;
+    height: 0.9em;
+  }
+}
+
+/* Toggle clásicas / Chef IA: solo móvil (en escritorio, menú Recetas del header) */
+.recetas-chef-toggle {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .recetas-chef-toggle {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 16px;
+    padding: 5px;
+    gap: 6px;
+    border-radius: 999px;
+  }
+
+  .recetas-chef-toggle .page-tab {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 10px;
+    font-size: 0.84rem;
+    line-height: 1.2;
+    border-radius: 999px;
+    min-width: 0;
+  }
+
+  .recetas-chef-toggle .page-tab.active {
+    box-shadow: 0 2px 8px -4px rgba(225, 29, 72, 0.35);
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "installCommand": "cd inventia-chef-frontend && npm install",
+  "buildCommand": "npm install --prefix inventia-chef-frontend && npm run build --prefix inventia-chef-frontend",
+  "outputDirectory": "inventia-chef-frontend/dist",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://inventia-chef.onrender.com/api/:path*"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

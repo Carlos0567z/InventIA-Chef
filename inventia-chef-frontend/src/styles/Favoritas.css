@@ -1,11 +1,9 @@
 .favoritas-container {
-  max-width: var(--page-max-width);
-  width: var(--page-fluid-width);
-  padding: 12px 0 28px;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 18px;
+  box-sizing: border-box;
 }
 
 .favoritas-grid {

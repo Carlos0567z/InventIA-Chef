@@ -1,11 +1,8 @@
 .recetas-pendientes-container {
-  max-width: var(--page-max-width);
-  width: var(--page-fluid-width);
-  padding: 12px 0 28px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 18px;
+  box-sizing: border-box;
 }
 
 .recetas-pendientes-hero {
@@ -337,10 +334,6 @@
 }
 
 @media (max-width: 480px) {
-  .recetas-pendientes-container {
-    padding: 8px 0 20px;
-  }
-
   .recetas-pendientes-hero {
     padding: clamp(20px, 4vw, 28px);
   }

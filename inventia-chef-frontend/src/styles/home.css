@@ -5,14 +5,17 @@
   --home-text: #0f172a;
   --home-text-muted: #64748b;
   
-  max-width: 1400px;
   width: 100%;
   margin: 0 auto;
-  padding: clamp(28px, 5vw, 40px) clamp(12px, 4vw, 32px) clamp(48px, 10vw, 80px);
   display: flex;
   flex-direction: column;
   gap: clamp(40px, 8vw, 80px);
   box-sizing: border-box;
+}
+
+.app-main > .home-layout {
+  padding-top: clamp(28px, 5vw, 40px);
+  padding-bottom: clamp(48px, 10vw, 80px);
 }
 
 /* Tipografia y utilidades */
@@ -807,11 +810,13 @@
 /* Pantallas estrechas */
 @media (max-width: 900px) {
   .home-layout {
-    width: 100%;
-    max-width: 100%;
     box-sizing: border-box;
-    padding: 32px 0 72px;
     gap: 56px;
+  }
+
+  .app-main > .home-layout {
+    padding-top: 32px;
+    padding-bottom: 72px;
   }
 }
 

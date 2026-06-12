@@ -45,7 +45,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
   const [biografia, setBiografia] = useState('');
   const [mostrarModalPassword, setMostrarModalPassword] = useState(false);
 
-  // Estados para el recorte/previsualizaciÃ³n de imagen
+  // Estados para el recorte/previsualización de imagen
   const [imagenTemporal, setImagenTemporal] = useState(null);
   const [tipoEdicionImagen, setTipoEdicionImagen] = useState(null); // 'avatar' o 'banner'
   const [mostrarModalRecorte, setMostrarModalRecorte] = useState(false);
@@ -129,7 +129,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
         nuevaImgBanner = b64Comprimida;
       }
 
-      // Guardamos directamente en el servidor para que el usuario no tenga que darle al botÃ³n de abajo
+      // Guardamos directamente en el servidor para que el usuario no tenga que darle al botón de abajo
       showToast('Guardando imagen...', 'info');
       const response = await fetch('/api/perfil/account', {
         method: 'PUT',
@@ -155,7 +155,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
 
     } catch (error) {
       console.error('Error al procesar/guardar la imagen:', error);
-      showToast('No se ha podido guardar la imagen. IntÃ©ntalo de nuevo.', 'error');
+      showToast('No se ha podido guardar la imagen. Inténtalo de nuevo.', 'error');
     }
 
     cerrarModalRecorte();
@@ -176,11 +176,10 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
     'Vegetariano',
   ];
 
-  // LÃ³gica de pasos para completar el perfil
+  // Lógica de pasos para completar el perfil
   const pasosPerfil = [
     { id: 'avatar', label: 'Sube una foto de perfil', completado: !!imagenPerfil },
     { id: 'banner', label: 'Personaliza tu banner', completado: !!imagenBanner },
-    { id: 'alergias', label: 'Indica tus preferencias dietÃ©ticas', completado: Array.isArray(perfil?.alergias) && perfil.alergias.length > 0 },
     { id: 'receta', label: 'Publica tu primera receta', completado: misRecetas.length > 0 },
   ];
   
@@ -276,7 +275,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
     const onGoogleResponse = async (response) => {
       const credential = String(response?.credential || '').trim();
       if (!credential) {
-        setErrorAcceso('No pudimos iniciar sesiÃ³n con Google. IntÃ©ntalo de nuevo.');
+        setErrorAcceso('No pudimos iniciar sesión con Google. Inténtalo de nuevo.');
         return;
       }
 
@@ -297,7 +296,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
         saveSession({ token: data.token, user: data.user });
         redirigirTrasAcceso(data);
       } catch (error) {
-        setErrorAcceso(error.message || 'No pudimos iniciar sesiÃ³n con Google. IntÃ©ntalo de nuevo.');
+        setErrorAcceso(error.message || 'No pudimos iniciar sesión con Google. Inténtalo de nuevo.');
       } finally {
         setCargandoGoogle(false);
       }
@@ -363,7 +362,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
     const nombre = String(nombreAcceso || '').trim();
 
     if (!email || !password) {
-      setErrorAcceso('Completa correo y contraseÃ±a.');
+      setErrorAcceso('Completa correo y contraseña.');
       return;
     }
 
@@ -373,15 +372,15 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
         return;
       }
       if (password.length < 6) {
-        setErrorAcceso('La contraseÃ±a debe tener al menos 6 caracteres.');
+        setErrorAcceso('La contraseña debe tener al menos 6 caracteres.');
         return;
       }
       if (password !== String(passwordAccesoConfirmacion || '')) {
-        setErrorAcceso('La confirmaciÃ³n de contraseÃ±a no coincide.');
+        setErrorAcceso('La confirmación de contraseña no coincide.');
         return;
       }
       if (!aceptaTerminos) {
-        setErrorAcceso('Debes aceptar los tÃ©rminos para continuar.');
+        setErrorAcceso('Debes aceptar los términos para continuar.');
         return;
       }
     }
@@ -413,14 +412,14 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
       setMostrarPasswordAcceso(false);
       redirigirTrasAcceso(data);
     } catch (err) {
-      setErrorAcceso(err.message || 'No pudimos completar la autenticaciÃ³n. IntÃ©ntalo de nuevo.');
+      setErrorAcceso(err.message || 'No pudimos completar la autenticación. Inténtalo de nuevo.');
     } finally {
       setCargandoAcceso(false);
     }
   };
 
   const recuperarPassword = () => {
-    setErrorAcceso('La recuperacion de contrasena por correo aun no esta disponible.');
+    setErrorAcceso('La recuperación de contraseña por correo aún no está disponible.');
   };
 
   const abrirModalPassword = () => {
@@ -455,7 +454,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
     const hayCambiosPendientes = nombrePendiente || passwordPendiente;
 
     if (hayCambiosPendientes) {
-      const confirmar = window.confirm('Tienes cambios sin guardar. Si cierras sesiÃ³n ahora se perderÃ¡n. Â¿Quieres continuar?');
+      const confirmar = window.confirm('Tienes cambios sin guardar. Si cierras sesión ahora se perderán. ¿Quieres continuar?');
       if (!confirmar) {
         return;
       }
@@ -470,13 +469,13 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
     setMostrarModalPassword(false);
     setMensajeSesion({
       tipo: 'ok',
-      texto: 'SesiÃ³n cerrada correctamente.',
+      texto: 'Sesión cerrada correctamente.',
     });
   };
 
   const solicitarEliminacion = () => {
-    if(window.confirm('Â¿EstÃ¡s seguro de que deseas eliminar tu cuenta? Esta acciÃ³n no se puede deshacer. (Nota: Esto es una demostraciÃ³n, contacta con soporte para ejecutar la eliminaciÃ³n real)')) {
-      alert('Se ha enviado una solicitud a soporte para la eliminaciÃ³n de la cuenta.');
+    if(window.confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer. (Nota: Esto es una demostración, contacta con soporte para ejecutar la eliminación real)')) {
+      alert('Se ha enviado una solicitud a soporte para la eliminación de la cuenta.');
     }
   };
 
@@ -486,7 +485,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
 
     const nombre = String(nombreCuenta || '').trim();
     if (!nombre) {
-      setMensajeCuenta({ tipo: 'error', texto: 'El nombre no puede estar vacÃ­o.' });
+      setMensajeCuenta({ tipo: 'error', texto: 'El nombre no puede estar vacío.' });
       return;
     }
 
@@ -534,17 +533,17 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
     setMensajeAcceso(null);
 
     if (!passwordActual || !passwordNueva) {
-      setMensajePassword({ tipo: 'error', texto: 'Completa la contraseÃ±a actual y la nueva.' });
+      setMensajePassword({ tipo: 'error', texto: 'Completa la contraseña actual y la nueva.' });
       return;
     }
 
     if (passwordNueva.length < 6) {
-      setMensajePassword({ tipo: 'error', texto: 'La nueva contraseÃ±a debe tener al menos 6 caracteres.' });
+      setMensajePassword({ tipo: 'error', texto: 'La nueva contraseña debe tener al menos 6 caracteres.' });
       return;
     }
 
     if (passwordNueva !== passwordNuevaConfirmacion) {
-      setMensajePassword({ tipo: 'error', texto: 'La confirmaciÃ³n de contraseÃ±a no coincide.' });
+      setMensajePassword({ tipo: 'error', texto: 'La confirmación de contraseña no coincide.' });
       return;
     }
 
@@ -577,7 +576,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
           : '';
         setMensajePassword({
           tipo: 'error',
-          texto: `${mensaje401 || 'La contraseÃ±a actual no es vÃ¡lida.'}${sufijoRestantes}`,
+          texto: `${mensaje401 || 'La contraseña actual no es válida.'}${sufijoRestantes}`,
         });
         return;
       }
@@ -601,9 +600,9 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
       setPasswordNueva('');
       setPasswordNuevaConfirmacion('');
       cerrarModalPassword();
-      setMensajeAcceso({ tipo: 'ok', texto: 'ContraseÃ±a actualizada correctamente.' });
+      setMensajeAcceso({ tipo: 'ok', texto: 'Contraseña actualizada correctamente.' });
     } catch (error) {
-      setMensajePassword({ tipo: 'error', texto: error.message || 'No se pudo actualizar la contraseÃ±a.' });
+      setMensajePassword({ tipo: 'error', texto: error.message || 'No se pudo actualizar la contraseña.' });
     } finally {
       setGuardandoPassword(false);
     }
@@ -654,7 +653,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
           <div className="view-header">
             <div className="view-title">
               <h1>Perfil y acceso</h1>
-              <p>Inicia sesiÃ³n para editar tus preferencias.</p>
+              <p>Inicia sesión para editar tus preferencias.</p>
             </div>
           </div>
         )}
@@ -666,14 +665,14 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
                 <i className="fa-regular fa-user" />
               </div>
               <h2>{modoAcceso === 'register' ? 'Crea tu cuenta' : 'Bienvenido de nuevo'}</h2>
-              <p>{modoAcceso === 'register' ? 'Configura tu cuenta para empezar a usar InventIA Chef.' : 'Inicia sesiÃ³n para seguir con tu espacio de cocina.'}</p>
+              <p>{modoAcceso === 'register' ? 'Configura tu cuenta para empezar a usar InventIA Chef.' : 'Inicia sesión para seguir con tu espacio de cocina.'}</p>
             </div>
           )}
 
           {!authOnly && <h3>Acceso</h3>}
           {!authOnly && (
             <p className="auth-access-subtitle">
-              AquÃ­ puedes iniciar sesiÃ³n o crear una cuenta.
+              Aquí puedes iniciar sesión o crear una cuenta.
             </p>
           )}
 
@@ -683,7 +682,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
               className={modoAcceso === 'login' ? 'auth-switch-btn active' : 'auth-switch-btn'}
               onClick={() => setModoAcceso('login')}
             >
-              Iniciar sesiÃ³n
+              Iniciar sesión
             </button>
             <button
               type="button"
@@ -713,7 +712,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
               <i className="fa-regular fa-envelope" />
               <input
                 type="email"
-                placeholder="Correo electrÃ³nico"
+                placeholder="Correo electrónico"
                 value={emailAcceso}
                 onChange={(e) => setEmailAcceso(e.target.value)}
                 className="auth-input"
@@ -725,7 +724,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
               <i className="fa-solid fa-lock" />
               <input
                 type={mostrarPasswordAcceso ? 'text' : 'password'}
-                placeholder="ContraseÃ±a"
+                placeholder="Contraseña"
                 value={passwordAcceso}
                 onChange={(e) => setPasswordAcceso(e.target.value)}
                 className="auth-input"
@@ -734,7 +733,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
               <button
                 type="button"
                 className="auth-password-toggle"
-                aria-label={mostrarPasswordAcceso ? 'Ocultar contraseÃ±a' : 'Mostrar contraseÃ±a'}
+                aria-label={mostrarPasswordAcceso ? 'Ocultar contraseña' : 'Mostrar contraseña'}
                 onClick={() => setMostrarPasswordAcceso((prev) => !prev)}
               >
                 <i className={mostrarPasswordAcceso ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'} />
@@ -747,7 +746,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
                   <i className="fa-solid fa-lock" />
                   <input
                     type={mostrarPasswordAcceso ? 'text' : 'password'}
-                    placeholder="Confirmar contraseÃ±a"
+                    placeholder="Confirmar contraseña"
                     value={passwordAccesoConfirmacion}
                     onChange={(e) => setPasswordAccesoConfirmacion(e.target.value)}
                     className="auth-input"
@@ -761,7 +760,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
                     checked={aceptaTerminos}
                     onChange={(e) => setAceptaTerminos(e.target.checked)}
                   />
-                  <span>Acepto los tÃ©rminos de uso y la polÃ­tica de privacidad.</span>
+                  <span>Acepto los términos de uso y la política de privacidad.</span>
                 </label>
               </>
             )}
@@ -783,7 +782,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
                     onClick={recuperarPassword}
                     disabled={cargandoAcceso}
                   >
-                    OlvidÃ© mi contraseÃ±a
+                    Olvidé mi contraseña
                   </button>
                 </div>
               </>
@@ -879,7 +878,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
               <div className="chef-info-left">
                 <span className="badge-premium">Tu perfil</span>
                 <h1 className="chef-name">{nombreVisible}</h1>
-                <p className="chef-bio-text">{emailVisible} Â· {perfil?.rol || 'Usuario'}</p>
+                <p className="chef-bio-text">{emailVisible} · {perfil?.rol || 'Usuario'}</p>
               </div>
               
               <div className="chef-info-right">
@@ -909,7 +908,7 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
                 <form onSubmit={guardarCuenta} className="profile-form-stack">
                   <div className="profile-input-grid-2">
                     <div className="profile-input-group">
-                      <label>Nombre PÃºblico</label>
+                      <label>Nombre Público</label>
                       <input type="text" value={nombreCuenta} onChange={(e) => setNombreCuenta(e.target.value)} className="profile-text-input" placeholder="Tu nombre en la app" required />
                     </div>
                     <div className="profile-input-group">
@@ -918,16 +917,16 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
                     </div>
                   </div>
                   <div className="profile-input-group">
-                    <label>BiografÃ­a / DescripciÃ³n</label>
+                    <label>Biografía / Descripción</label>
                     <textarea 
                       value={biografia} 
                       onChange={(e) => setBiografia(e.target.value)} 
                       className="profile-text-input" 
-                      placeholder="CuÃ©ntanos un poco sobre ti (opcional)" 
+                      placeholder="Cuéntanos un poco sobre ti (opcional)" 
                       rows="3"
                       maxLength="300"
                     />
-                    <small style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>MÃ¡x. 300 caracteres.</small>
+                    <small style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Máx. 300 caracteres.</small>
                   </div>
                   <button type="submit" className="profile-action-primary" disabled={guardandoCuenta}>
                     <FaSave /> {guardandoCuenta ? 'Guardando...' : 'Guardar Cambios'}
@@ -1025,10 +1024,10 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
                 </div>
                 <div className="profile-cta-stack">
                   <button type="button" className="profile-action-secondary-full" onClick={abrirModalPassword}>
-                    <FaLock /> Cambiar ContraseÃ±a
+                    <FaLock /> Cambiar Contraseña
                   </button>
                   <button type="button" className="profile-action-danger-full" onClick={cerrarSesion}>
-                    <FaSignOutAlt /> Cerrar SesiÃ³n
+                    <FaSignOutAlt /> Cerrar Sesión
                   </button>
                   <button type="button" className="profile-action-danger-ghost" onClick={solicitarEliminacion}>
                     <FaTrash /> Eliminar Cuenta
@@ -1040,15 +1039,15 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
         </div>
       </div>
 
-      {/* Modal de Cambio de ContraseÃ±a */}
+      {/* Modal de Cambio de Contraseña */}
       {mostrarModalPassword && (
         <div className="profile-modal-overlay" onMouseDown={(e) => e.target === e.currentTarget && cerrarModalPassword()}>
           <div className="profile-modal-card">
-            <h3>Cambiar contraseÃ±a</h3>
+            <h3>Cambiar contraseña</h3>
             <form onSubmit={cambiarPassword} className="profile-form-stack compact">
-              <input ref={passwordActualInputRef} type="password" placeholder="ContraseÃ±a actual" value={passwordActual} onChange={(e) => setPasswordActual(e.target.value)} className="profile-text-input" />
-              <input type="password" placeholder="Nueva contraseÃ±a" value={passwordNueva} onChange={(e) => setPasswordNueva(e.target.value)} className="profile-text-input" />
-              <input type="password" placeholder="Confirmar contraseÃ±a" value={passwordNuevaConfirmacion} onChange={(e) => setPasswordNuevaConfirmacion(e.target.value)} className="profile-text-input" />
+              <input ref={passwordActualInputRef} type="password" placeholder="Contraseña actual" value={passwordActual} onChange={(e) => setPasswordActual(e.target.value)} className="profile-text-input" />
+              <input type="password" placeholder="Nueva contraseña" value={passwordNueva} onChange={(e) => setPasswordNueva(e.target.value)} className="profile-text-input" />
+              <input type="password" placeholder="Confirmar contraseña" value={passwordNuevaConfirmacion} onChange={(e) => setPasswordNuevaConfirmacion(e.target.value)} className="profile-text-input" />
               {mensajePassword && <p className="profile-feedback error">{mensajePassword.texto}</p>}
               <div className="profile-cta-row">
                 <button type="submit" className="profile-action-primary" disabled={guardandoPassword}>Actualizar</button>
@@ -1059,18 +1058,18 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
         </div>
       )}
 
-      {/* Modal de PrevisualizaciÃ³n / Encuadre de Imagen */}
+      {/* Modal de Previsualización / Encuadre de Imagen */}
       {mostrarModalRecorte && (
         <div className="profile-modal-overlay" onMouseDown={(e) => e.target === e.currentTarget && cerrarModalRecorte()}>
           <div className="profile-modal-card image-edit-modal">
             <h3>{tipoEdicionImagen === 'avatar' ? 'Encuadrar Foto de Perfil' : 'Encuadrar Banner'}</h3>
-            <p className="modal-subtitle">Ajusta la posiciÃ³n y zoom de tu imagen antes de confirmar.</p>
+            <p className="modal-subtitle">Ajusta la posición y zoom de tu imagen antes de confirmar.</p>
             
             <div className={`image-preview-frame ${tipoEdicionImagen}`}>
               <div className="preview-container">
                 <img 
                   src={imagenTemporal} 
-                  alt="PrevisualizaciÃ³n" 
+                  alt="Previsualización" 
                   style={{ transform: `scale(${zoomImagen})` }} 
                 />
               </div>

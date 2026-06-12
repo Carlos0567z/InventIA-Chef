@@ -1,11 +1,8 @@
 .recetas-container {
-  max-width: var(--page-max-width);
-  width: var(--page-fluid-width);
-  padding: 12px 0 28px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 18px;
+  box-sizing: border-box;
 }
 
 .recetas-hero {
@@ -754,10 +751,6 @@
 }
 
 @media (max-width: 900px) {
-  .recetas-container {
-    padding: 16px 0 24px;
-  }
-
   .recetas-hero {
     flex-direction: column;
     align-items: stretch;
@@ -1281,10 +1274,6 @@
 
 /* Receta comunidad (detalle): no usar la misma clase que recetas normales */
 .receta-comunidad-detalle {
-  max-width: var(--page-max-width);
-  width: var(--page-fluid-width);
-  margin: 0 auto;
-  padding: 40px 20px;
   box-sizing: border-box;
 }
 
@@ -1912,11 +1901,6 @@
   }
   .quick-stats-row {
     gap: 16px;
-  }
-
-  .receta-comunidad-detalle {
-    max-width: 100%;
-    padding: 12px 0 28px;
   }
 
   .receta-comunidad-detalle .receta-detalle-back {

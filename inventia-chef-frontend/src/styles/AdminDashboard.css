@@ -1,8 +1,5 @@
 .admin-container {
-  max-width: var(--page-max-width);
-  width: var(--page-fluid-width);
-  padding: 12px 0 28px;
-  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .admin-hero {

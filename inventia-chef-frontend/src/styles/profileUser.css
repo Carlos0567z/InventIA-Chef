@@ -2,10 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  max-width: var(--page-max-width);
-  width: var(--page-fluid-width);
-  margin: 0 auto;
-  padding: 12px 0 28px;
+  box-sizing: border-box;
 }
 
 .profile-hero-card {
@@ -506,9 +503,6 @@ textarea.profile-text-input {
 
 
 .cocinero-profile-view {
-  max-width: var(--page-max-width);
-  margin: 0 auto;
-  padding: 0 0 60px;
   animation: fadeIn 0.5s ease-out;
 }
 
@@ -2354,22 +2348,12 @@ textarea.profile-text-input {
 
 /* —— Perfil de usuario (Mi cuenta) y perfil de cocinero: ajustes móvil —— */
 @media (max-width: 900px) {
-  .profile-shell {
-    padding: 8px 0 96px;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+  .view-section.profile-shell {
+    padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
   }
 
   .cocinero-profile-view {
-    padding: 0 0 96px;
-    max-width: 100%;
     box-sizing: border-box;
-  }
-
-  .profile-shell.cocinero-profile-view {
-    padding-left: 0;
-    padding-right: 0;
   }
 
   .chef-unified-container {

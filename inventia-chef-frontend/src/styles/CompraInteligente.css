@@ -1,39 +1,83 @@
-.compra-page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 28px 24px;
+.compra-page,
+.historial-embed {
+  padding: 0 0 8px;
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.compra-loading {
-  padding: 20px;
+.compras-loading-card {
+  padding: 48px 24px;
+  text-align: center;
   color: var(--text-muted);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
 }
 
-.compra-title {
-  margin: 0 0 8px;
-  font-size: 2rem;
-  color: var(--text-main);
-  letter-spacing: -0.02em;
+.compras-list-header {
+  margin: 0 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.compra-subtitle {
-  margin: 0 0 28px;
-  color: var(--text-muted);
-  max-width: 760px;
+.compras-list-header .view-title h2 {
+  font-size: 1.55rem;
+  font-family: 'Manrope', system-ui, sans-serif;
+  color: #0f172a;
+  margin: 0 0 4px;
+  letter-spacing: -0.03em;
+}
+
+.compras-list-header .view-title p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.92rem;
+  line-height: 1.5;
 }
 
 .compra-section {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
-.compra-section-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin: 0 0 16px;
-  color: var(--text-main);
+.compras-recetas-grid {
+  margin-top: 4px;
+}
+
+.compras-recetas-grid .receta-card {
+  border-radius: 22px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(241, 245, 249, 0.7), transparent 34%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.96));
+  box-shadow: 0 16px 28px -24px rgba(15, 23, 42, 0.28);
+  overflow: hidden;
+}
+
+.compras-recetas-grid .receta-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 34px -22px rgba(15, 23, 42, 0.32);
+}
+
+
+/* Se han eliminado las reglas específicas de width para que las tabs ocupen el 100% del contenedor y mantengan consistencia */
+
+.compra-page nav.page-tabs .page-tab {
+  padding: 8px 12px;
+}
+
+@media (max-width: 900px) {
+  .compra-page nav.page-tabs {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 12px;
+  }
 }
 
 .compra-download-wrap {
@@ -113,23 +157,33 @@
 }
 
 .compra-empty-state {
-  padding: 40px 20px;
   text-align: center;
-  background: linear-gradient(135deg, #ffffff, #fff8fa);
-  border-radius: 18px;
-  border: 1px solid var(--border);
+  padding: 64px 28px;
+  border-radius: 24px;
+  border: 1px dashed #cbd5e1;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.95));
+  box-shadow: 0 16px 28px -24px rgba(15, 23, 42, 0.24);
+}
+
+.compra-empty-icon {
+  font-size: 3rem;
+  color: #e11d48;
+  margin-bottom: 14px;
 }
 
 .compra-empty-title {
-  margin: 0 0 8px;
-  font-size: 18px;
-  color: var(--text-muted);
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.4rem;
+  font-family: 'Manrope', system-ui, sans-serif;
 }
 
 .compra-empty-text {
-  margin: 0;
-  font-size: 14px;
-  color: var(--text-muted);
+  margin: 10px auto 0;
+  font-size: 0.95rem;
+  color: #64748b;
+  max-width: 46ch;
+  line-height: 1.6;
 }
 
 .compra-pendiente-card {
@@ -380,18 +434,31 @@
   }
 
   .compra-page {
-    padding: 24px 0;
-    max-width: 100%;
+    padding: 0 0 8px;
     box-sizing: border-box;
   }
 }
 
-@media (max-width: 640px) {
-  .compra-page {
-    padding: 20px 0;
+@media (max-width: 900px) {
+  .compras-list-header {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .compra-title {
-    font-size: 1.6rem;
+  .compras-list-header .historial-clear-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .compra-page,
+  .historial-embed {
+    padding: 0 0 8px;
+  }
+
+  .compra-empty-state,
+  .historial-empty {
+    padding: 42px 18px;
   }
 }

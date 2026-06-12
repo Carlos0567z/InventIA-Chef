@@ -1,8 +1,5 @@
 .receta-detalle-page {
-  max-width: var(--page-max-width);
-  width: var(--page-fluid-width);
-  margin: 0 auto;
-  padding: 10px 0 28px;
+  box-sizing: border-box;
 }
 
 .receta-detalle-loading {

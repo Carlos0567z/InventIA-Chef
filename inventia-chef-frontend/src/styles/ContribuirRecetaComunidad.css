@@ -1,8 +1,5 @@
 .contribuir-container {
-  max-width: 1000px;
-  width: 95%;
-  padding: 40px 0 80px;
-  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .contribuir-top-bar {
@@ -411,11 +408,8 @@
 }
 
 @media (max-width: 900px) {
-  .contribuir-container {
-    width: 100%;
-    max-width: 100%;
-    padding: 24px 16px 64px;
-    box-sizing: border-box;
+  .app-main > .contribuir-container {
+    padding-bottom: 64px;
   }
 
   .contribuir-grid-2 {
@@ -429,8 +423,8 @@
 }
 
 @media (max-width: 768px) {
-  .contribuir-container {
-    padding: 16px 12px 96px;
+  .app-main > .contribuir-container {
+    padding-bottom: 96px;
   }
 
   .contribuir-top-bar {

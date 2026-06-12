@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaDownload, FaTimes, FaTrash } from 'react-icons/fa';
+import { FaDownload, FaReceipt, FaTrash } from 'react-icons/fa';
 import TicketModal from '../components/TicketModal';
+import PageHeader from '../components/PageHeader';
 import '../styles/Historial.css';
+import '../styles/CompraInteligente.css';
 import '../styles/pageTabs.css';
 
 const Historial = ({ embedded = false } = {}) => {
@@ -12,6 +14,15 @@ const Historial = ({ embedded = false } = {}) => {
   const [cargando, setCargando] = useState(true);
   const [ticketActivo, setTicketActivo] = useState(null);
   const [borrandoHistorial, setBorrandoHistorial] = useState(false);
+
+  const resumenHistorial = useMemo(() => {
+    const listasIa = tickets.filter((ticket) => ticket.tipo === 'ticket_ia').length;
+    return {
+      total: tickets.length,
+      listasIa,
+      manuales: tickets.length - listasIa,
+    };
+  }, [tickets]);
 
   useEffect(() => {
     const cargarHistorial = async () => {
@@ -80,9 +91,7 @@ const Historial = ({ embedded = false } = {}) => {
   if (cargando) {
     return (
       <HistorialShell className={historialShellClass}>
-        <div className="card historial-loading-card">
-          Cargando tus tickets...
-        </div>
+        <div className="card compras-loading-card">Cargando tus tickets...</div>
       </HistorialShell>
     );
   }
@@ -102,10 +111,35 @@ const Historial = ({ embedded = false } = {}) => {
         </nav>
       )}
 
-      <div className="view-header">
+      <PageHeader
+        kicker="Compras"
+        title="Historial de tickets"
+        description="Consulta listas generadas por la app y tickets manuales que hayas guardado."
+      >
+        <div className="page-hero-stats">
+          <div>
+            <strong>{resumenHistorial.total}</strong>
+            <span>Tickets</span>
+          </div>
+          <div>
+            <strong>{resumenHistorial.listasIa}</strong>
+            <span>Listas IA</span>
+          </div>
+          <div>
+            <strong>{resumenHistorial.manuales}</strong>
+            <span>Manuales</span>
+          </div>
+        </div>
+      </PageHeader>
+
+      <div className="view-header compras-list-header">
         <div className="view-title">
-          <h1>Historial de Tickets</h1>
-          <p>Registro de listas manuales y las que arma el planificador.</p>
+          <h2>Tus tickets guardados</h2>
+          <p>
+            {tickets.length === 0
+              ? 'Cuando generes una lista o guardes un ticket, aparecerá aquí.'
+              : `${tickets.length} ticket${tickets.length !== 1 ? 's' : ''} en tu historial.`}
+          </p>
         </div>
         {tickets.length > 0 && (
           <button
@@ -162,7 +196,9 @@ const Historial = ({ embedded = false } = {}) => {
           ))
         ) : (
           <div className="historial-empty">
-            <p>Todavia no hay tickets.</p>
+            <FaReceipt className="historial-empty-icon" aria-hidden="true" />
+            <h3>Todavía no hay tickets</h3>
+            <p>Genera una lista de compra o guarda un ticket para verlo en este historial.</p>
           </div>
         )}
       </div>

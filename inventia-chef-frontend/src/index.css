@@ -28,6 +28,9 @@
   --motion-slow: 0.36s;
   --page-max-width: 1200px;
   --page-fluid-width: min(var(--page-max-width), calc(100% - 2px));
+  --page-padding-top: clamp(18px, 3.5vw, 30px);
+  --page-padding-inline: clamp(10px, 2.8vw, 20px);
+  --page-padding-bottom: clamp(20px, 3vw, 32px);
   /* margen lateral movil (lo mismo que la cabecera) */
   --layout-inline-mobile: 16px;
   /* Corte único vista táctil/compacta en la app: max-width 900px (PageHeader, nav, recetas, etc.) */
@@ -117,14 +120,57 @@ canvas {
   color: #7f1d1d;
 }
 
-/* --- CONTENEDOR PRINCIPAL --- */
+/* --- CONTENEDOR PRINCIPAL (mismo ancho en todas las vistas) --- */
 .view-section {
   max-width: var(--page-max-width);
   margin: 0 auto;
-  padding: clamp(18px, 3.5vw, 30px) clamp(10px, 2.8vw, 20px);
+  padding: var(--page-padding-top) var(--page-padding-inline) var(--page-padding-bottom);
   animation: fadeIn 0.4s ease-out;
   box-sizing: border-box;
   width: 100%;
+}
+
+/* Anula max-width/padding duplicados en clases de página del mismo elemento */
+.view-section.inventario-home,
+.view-section.escaner-page,
+.view-section.recetas-container,
+.view-section.receta-detalle-page,
+.view-section.receta-comunidad-detalle,
+.view-section.profile-shell,
+.view-section.cocinero-profile-view,
+.view-section.compras-shell {
+  max-width: var(--page-max-width);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--page-padding-top) var(--page-padding-inline) var(--page-padding-bottom);
+}
+
+/* Rutas sin .view-section: misma caja que lista de compra */
+.app-main > .admin-container,
+.app-main > .recetas-pendientes-container,
+.app-main > .contribuir-container,
+.app-main > .home-layout {
+  max-width: var(--page-max-width);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--page-padding-top) var(--page-padding-inline) var(--page-padding-bottom);
+  box-sizing: border-box;
+}
+
+/* Hijos del contenedor: no vuelven a estrechar el ancho */
+.view-section .compra-page,
+.view-section .favoritas-container,
+.compras-shell .compra-page,
+.compras-shell .historial-embed {
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  box-sizing: border-box;
 }
 
 /* pestañas compra/historial: mismos bordes que el contenido */
@@ -133,9 +179,8 @@ canvas {
   flex-direction: column;
   align-items: stretch;
   width: 100%;
-  max-width: 100%;
   box-sizing: border-box;
-  gap: 14px;
+  gap: 18px;
 }
 
 .compras-shell > .page-tabs {
@@ -265,7 +310,19 @@ canvas {
     padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
   }
 
-  .view-section {
+  .view-section,
+  .view-section.inventario-home,
+  .view-section.escaner-page,
+  .view-section.recetas-container,
+  .view-section.receta-detalle-page,
+  .view-section.receta-comunidad-detalle,
+  .view-section.profile-shell,
+  .view-section.cocinero-profile-view,
+  .view-section.compras-shell,
+  .app-main > .admin-container,
+  .app-main > .recetas-pendientes-container,
+  .app-main > .contribuir-container,
+  .app-main > .home-layout {
     padding-left: 0;
     padding-right: 0;
   }

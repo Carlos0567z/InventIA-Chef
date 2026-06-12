@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaSync, FaTrash, FaClock, FaUsers } from 'react-icons/fa';
+import { FaSync, FaTrash, FaClock, FaUsers, FaShoppingBasket } from 'react-icons/fa';
 import TicketModal from '../components/TicketModal';
+import PageHeader from '../components/PageHeader';
 import '../styles/Recetas.css';
 import '../styles/CompraInteligente.css';
 import '../styles/pageTabs.css';
@@ -26,6 +27,18 @@ export default function CompraInteligente({ embedded = false } = {}) {
   const [error, setError] = useState(null);
   const location = useLocation();
   const activeTab = location.pathname === '/historial' ? 'historial' : 'compra';
+
+  const resumenCompra = useMemo(() => {
+    const minutos = pendientes.reduce(
+      (acc, receta) => acc + (Number(receta.readyInMinutes) || 0),
+      0
+    );
+    return {
+      recetas: pendientes.length,
+      minutos,
+      listas: pendientes.length > 0 ? 1 : 0,
+    };
+  }, [pendientes]);
 
   useEffect(() => {
     // Si venimos de un navigate con un ticket, lo abrimos.
@@ -127,7 +140,11 @@ export default function CompraInteligente({ embedded = false } = {}) {
   };
 
   if (loading) {
-    return <div className="compra-loading">Cargando...</div>;
+    return (
+      <div className="compra-page">
+        <div className="card compras-loading-card">Cargando tu lista de compra...</div>
+      </div>
+    );
   }
 
   return (
@@ -143,27 +160,49 @@ export default function CompraInteligente({ embedded = false } = {}) {
         </nav>
       )}
 
-      <h1 className="compra-title">Gestión de compras</h1>
-      <p className="compra-subtitle">
-        Usa las pestanas para alternar entre la lista y el historial de tickets.
-      </p>
+      <PageHeader
+        kicker="Compras"
+        title="Gestión de compras"
+        description="Prepara recetas, genera la lista y consulta tickets guardados desde las pestañas superiores."
+      >
+        <div className="page-hero-stats">
+          <div>
+            <strong>{resumenCompra.recetas}</strong>
+            <span>Recetas</span>
+          </div>
+          <div>
+            <strong>{resumenCompra.minutos}</strong>
+            <span>Minutos</span>
+          </div>
+          <div>
+            <strong>{resumenCompra.listas}</strong>
+            <span>Listas</span>
+          </div>
+        </div>
+      </PageHeader>
 
       <section className="compra-section">
-        <h2 className="compra-section-title">
-          Recetas Seleccionadas
-        </h2>
+        <div className="view-header compras-list-header">
+          <div className="view-title">
+            <h2>Recetas seleccionadas</h2>
+            <p>
+              {pendientes.length === 0
+                ? 'Añade recetas desde Recetas sugeridas para empezar tu plan.'
+                : `${pendientes.length} receta${pendientes.length !== 1 ? 's' : ''} listas para generar la compra.`}
+            </p>
+          </div>
+        </div>
 
         {pendientes.length === 0 ? (
           <div className="compra-empty-state">
-            <p className="compra-empty-title">
-              Todavia no tienes recetas seleccionadas
-            </p>
+            <FaShoppingBasket className="compra-empty-icon" aria-hidden="true" />
+            <h3 className="compra-empty-title">Todavía no tienes recetas seleccionadas</h3>
             <p className="compra-empty-text">
-              Ve a "Recetas sugeridas" y usa la acción de añadir para traerlas aquí
+              Ve a Recetas sugeridas y usa la acción de añadir para traerlas aquí.
             </p>
           </div>
         ) : (
-          <div className="recetas-grid">
+          <div className="recetas-grid compras-recetas-grid">
             {pendientes.map((receta) => {
               const imagen = receta.image || 'https://via.placeholder.com/600x400?text=Receta';
               return (

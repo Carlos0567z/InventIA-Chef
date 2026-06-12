@@ -1,13 +1,7 @@
-.historial-loading-card {
-  padding: 40px;
-  text-align: center;
-}
-
 .historial-embed {
-  display: block;
-  width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .historial-list {
@@ -44,8 +38,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  border-radius: 16px;
+  padding: 20px 22px;
+  border-radius: 20px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(241, 245, 249, 0.65), transparent 38%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.96));
+  box-shadow: 0 16px 28px -24px rgba(15, 23, 42, 0.24);
+  transition: transform var(--motion-fast) var(--motion-ease-soft), box-shadow var(--motion-fast) var(--motion-ease-soft);
+}
+
+.historial-ticket-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 32px -22px rgba(15, 23, 42, 0.3);
 }
 
 .historial-ticket-main {
@@ -127,11 +132,32 @@
 
 .historial-empty {
   text-align: center;
-  padding: 50px;
-  color: var(--text-muted);
-  border: 1px dashed var(--border);
-  border-radius: 16px;
-  background: #ffffffbf;
+  padding: 64px 28px;
+  border-radius: 24px;
+  border: 1px dashed #cbd5e1;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.95));
+  box-shadow: 0 16px 28px -24px rgba(15, 23, 42, 0.24);
+}
+
+.historial-empty-icon {
+  font-size: 3rem;
+  color: #e11d48;
+  margin-bottom: 14px;
+}
+
+.historial-empty h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.4rem;
+  font-family: 'Manrope', system-ui, sans-serif;
+}
+
+.historial-empty p {
+  margin: 10px auto 0;
+  color: #64748b;
+  max-width: 46ch;
+  line-height: 1.6;
+  font-size: 0.95rem;
 }
 
 .historial-modal-overlay {
@@ -312,12 +338,8 @@
     line-height: 1.25;
   }
 
-  .historial-loading-card {
-    padding: 28px 16px;
-  }
-
   .historial-empty {
-    padding: 32px 16px;
+    padding: 42px 18px;
   }
 }
 

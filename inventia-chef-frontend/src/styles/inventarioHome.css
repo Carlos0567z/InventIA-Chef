@@ -17,18 +17,18 @@
   gap: 14px;
   align-items: center;
   border-radius: 24px;
-  border: 1px solid rgba(226, 232, 240, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   background:
-    radial-gradient(circle at top left, rgba(255, 241, 242, 0.46), transparent 32%),
-    radial-gradient(circle at 100% 10%, rgba(224, 231, 255, 0.34), transparent 34%),
-    linear-gradient(150deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.95));
-  box-shadow: 0 24px 40px -34px rgba(15, 23, 42, 0.34);
+    radial-gradient(circle at top left, rgba(255, 51, 102, 0.12), transparent 45%),
+    rgba(18, 20, 31, 0.85);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5);
 }
 
 .inventario-manager-title h1 {
   margin: 0;
   font-family: var(--font-heading);
-  color: #0f172a;
+  color: #ffffff;
   letter-spacing: -0.04em;
   font-size: clamp(2rem, 3.1vw, 2.7rem);
 }
@@ -53,21 +53,17 @@
   transition: min-height var(--motion-base) var(--motion-ease-soft);
 }
 
-/* Tarjeta de filtros: intento que se parezca a la de la pagina de recetas */
 .inventario-filters.card {
   margin: 0 0 18px;
-  padding: 10px 16px;
-  border-radius: 16px;
-  border: 1px solid rgba(226, 232, 240, 0.96);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.98) 100%);
-  box-shadow: 0 12px 24px -24px rgba(15, 23, 42, 0.35);
+  padding: 12px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(18, 20, 31, 0.85);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition:
-    box-shadow var(--motion-base) var(--motion-ease-soft),
-    border-color var(--motion-base) var(--motion-ease-soft),
-    background var(--motion-base) var(--motion-ease-soft);
 }
 
 .inventario-filters.card:hover {
@@ -90,7 +86,6 @@
   align-self: center;
 }
 
-/* caja del input de buscar */
 .inventario-filter-search {
   display: inline-flex;
   align-items: center;
@@ -98,12 +93,12 @@
   gap: 10px;
   width: 100%;
   box-sizing: border-box;
-  border-radius: 10px;
-  border: 1px solid #dbe3ef;
-  background: #fff;
-  padding: 6px 12px;
-  min-height: 36px;
-  color: #64748b;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 14px;
+  min-height: 40px;
+  color: #f1f5f9;
   transition:
     border-color var(--motion-fast) var(--motion-ease-soft),
     box-shadow var(--motion-fast) var(--motion-ease-soft),
@@ -646,6 +641,7 @@
   font-family: var(--font-heading);
   font-size: 1.14rem;
   letter-spacing: -0.02em;
+  color: #ffffff;
 }
 
 .inventario-grid .food-meta-line {
@@ -778,29 +774,34 @@
 }
 
 .inventario-grid .btn-edit {
-  background: linear-gradient(180deg, #f8fafc, #f1f5f9);
-  color: #334155;
-  border: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .inventario-grid .btn-edit:hover {
-  box-shadow: 0 12px 20px -16px rgba(15, 23, 42, 0.4);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
 }
 
 .inventario-grid .btn-delete {
-  background: linear-gradient(180deg, #fff1f2, #ffe8ec);
-  color: #e11d48;
-  border: 1px solid #ffd7dd;
+  background: rgba(255, 51, 102, 0.12);
+  color: #ff6b8b;
+  border: 1px solid rgba(255, 51, 102, 0.25);
 }
 
 .inventario-grid .btn-delete:hover {
-  box-shadow: 0 12px 20px -16px rgba(225, 29, 72, 0.45);
+  background: rgba(255, 51, 102, 0.22);
+  color: #ffffff;
+  box-shadow: 0 8px 20px -6px rgba(255, 51, 102, 0.5);
 }
 
 .inventario-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.62);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -810,10 +811,11 @@
 
 .inventario-modal-card {
   width: min(430px, 100%);
-  border-radius: 20px;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.96));
-  box-shadow: 0 38px 70px -40px rgba(15, 23, 42, 0.58);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 20, 31, 0.96);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 38px 70px -20px rgba(0, 0, 0, 0.8);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -831,12 +833,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 18px;
-  border-bottom: 1px solid #e2e8f0;
-  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 12px;
 }
 
 .inventario-modal-head h3 {
-  color: #0f172a;
+  color: #ffffff;
   letter-spacing: -0.02em;
 }
 

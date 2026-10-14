@@ -92,14 +92,12 @@
 }
 
 .recetas-hero h1 {
-  font-size: clamp(1.7rem, 2.8vw, 2.35rem);
   margin: 0;
   color: var(--text-main);
-  letter-spacing: -0.035em;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(1.8rem, 3.2vw, 2.6rem);
   font-weight: 800;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
   line-height: 1.1;
 }
 
@@ -277,7 +275,7 @@
   outline: none;
   background: transparent;
   color: #0f172a;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.92rem;
   box-shadow: none;
   appearance: none;

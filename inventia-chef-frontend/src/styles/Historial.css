@@ -149,7 +149,7 @@
   margin: 0;
   color: #0f172a;
   font-size: 1.4rem;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
 }
 
 .historial-empty p {

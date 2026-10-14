@@ -38,10 +38,10 @@
 }
 
 .recetas-pendientes-hero-copy h1 {
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(1.8rem, 3.2vw, 2.6rem);
   font-weight: 800;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
   margin: 0;
   color: #0f172a;
   line-height: 1.1;
@@ -187,10 +187,10 @@
 }
 
 .recetas-pendientes-done-header h2 {
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(1.5rem, 2.8vw, 2rem);
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   margin: 0 0 8px;
   color: #0f172a;
 }
@@ -270,7 +270,7 @@
   border: none;
   font-size: 0.9rem;
   font-weight: 700;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-ui);
   cursor: pointer;
   transition:
     transform var(--motion-fast) var(--motion-ease-soft),

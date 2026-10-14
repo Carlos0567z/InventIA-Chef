@@ -54,10 +54,10 @@
 
 .auth-hero-head h2 {
   margin: 0;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
   font-size: 1.7rem;
   color: #0f172a;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   font-weight: 800;
 }
 
@@ -142,7 +142,7 @@
   border: none;
   background: transparent;
   color: #0f172a;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-ui);
 }
 
 .auth-input:focus {

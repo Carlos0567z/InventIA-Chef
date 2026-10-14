@@ -27,9 +27,9 @@
 
 .inventario-manager-title h1 {
   margin: 0;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
   color: #0f172a;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
   font-size: clamp(2rem, 3.1vw, 2.7rem);
 }
 
@@ -118,7 +118,7 @@
   outline: none;
   background: transparent;
   color: #0f172a;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.92rem;
   box-shadow: none;
   appearance: none;
@@ -509,10 +509,10 @@
 .inventario-stat-card strong {
   display: block;
   margin-top: 10px;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
   color: #0f172a;
   font-size: clamp(1.4rem, 2vw, 2rem);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 
 .inventario-stat-card p {
@@ -533,10 +533,10 @@
 
 .inventario-list-header .view-title h2 {
   font-size: 1.55rem;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
   color: #0f172a;
   margin-bottom: 4px;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 
 .inventario-header-actions {
@@ -643,9 +643,9 @@
 }
 
 .inventario-grid .food-card .card-body h3 {
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
   font-size: 1.14rem;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
 }
 
 .inventario-grid .food-meta-line {

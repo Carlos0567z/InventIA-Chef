@@ -29,10 +29,10 @@
 
 .compras-list-header .view-title h2 {
   font-size: 1.55rem;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
   color: #0f172a;
   margin: 0 0 4px;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 
 .compras-list-header .view-title p {
@@ -175,7 +175,7 @@
   margin: 0;
   color: #0f172a;
   font-size: 1.4rem;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
 }
 
 .compra-empty-text {
@@ -247,7 +247,7 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 14px;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-ui);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -308,7 +308,7 @@
   margin: 0 0 18px;
   padding-bottom: 14px;
   border-bottom: 1px solid #e2e8f0;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
   display: flex;
   align-items: center;
   gap: 10px;

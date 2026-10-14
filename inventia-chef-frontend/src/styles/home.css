@@ -1,196 +1,332 @@
 /* ==========================================================================
-   ESTILOS GENERALES DE LA PÁGINA DE INICIO (HOME) - INVENTIA CHEF
-   Diseño práctico, limpio, accesible para todas las edades y ultra profesional.
+   INVENTIA CHEF - CULINARY OPERATING SYSTEM (HOME HUD & BENTO GRID)
+   Diseño futurista, moderno, ultra pulido, sin clichés de IA genérica.
    ========================================================================== */
 
 .home-layout {
-  --home-brand: #e11d48;
-  --home-brand-dark: #be123c;
-  --home-bg: #f8fafc;
-  --home-surface: #ffffff;
-  --home-border: #e2e8f0;
-  --home-text: #0f172a;
-  --home-text-muted: #475569;
+  --hud-brand: #ff2a5f;
+  --hud-brand-glow: rgba(255, 42, 95, 0.4);
+  --hud-ai: #a855f7;
+  --hud-ai-glow: rgba(168, 85, 247, 0.35);
+  --hud-fresh: #10b981;
+  --hud-urgent: #f59e0b;
+  --hud-bg-glass: rgba(255, 255, 255, 0.88);
+  --hud-border-glass: rgba(226, 232, 240, 0.85);
+  --hud-text-primary: #0f172a;
+  --hud-text-secondary: #475569;
+  --hud-text-dim: #64748b;
 
   width: 100%;
-  max-width: 1240px;
+  max-width: 1280px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 32px;
   box-sizing: border-box;
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  background: linear-gradient(135deg, #ff2a5f 0%, #ff5e3a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }
 
 /* ==========================================================================
-   1. PANEL PARA USUARIOS CONECTADOS (DASHBOARD DEL CHEF)
+   1. COCKPIT DEL CHEF (USUARIOS REGISTRADOS / EN SESIÓN)
    ========================================================================== */
-.home-dashboard-view {
+.home-cockpit {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 28px;
   width: 100%;
 }
 
-/* Banner de bienvenida */
-.home-welcome-banner {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(254, 242, 242, 0.65));
-  border: 1px solid var(--home-border);
-  border-radius: 24px;
+/* Telemetría y Cabecera HUD */
+.cockpit-hud-header {
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(255, 42, 95, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 0%, rgba(168, 85, 247, 0.07) 0%, transparent 50%),
+    var(--hud-bg-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--hud-border-glass);
+  border-radius: 26px;
   padding: clamp(24px, 4vw, 36px);
-  box-shadow: 0 4px 20px -8px rgba(15, 23, 42, 0.06);
+  box-shadow:
+    0 10px 30px -10px rgba(15, 23, 42, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.welcome-pill {
+.hud-telemetry-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+
+.hud-status-beacon {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
-  background: #fff1f2;
-  color: #be123c;
+  padding: 4px 12px;
   border-radius: 999px;
-  font-size: 0.86rem;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
   font-weight: 700;
-  border: 1px solid #ffe4e6;
-  margin-bottom: 12px;
+  position: relative;
 }
 
-.welcome-pill-icon {
-  color: #16a34a;
+.beacon-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 8px rgba(22, 163, 74, 0.8);
 }
 
-.welcome-title {
-  font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+.beacon-ping {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #16a34a;
+  animation: beacon-wave 2s infinite ease-out;
+}
+
+@keyframes beacon-wave {
+  0% { transform: translateY(-50%) scale(1); opacity: 0.8; }
+  100% { transform: translateY(-50%) scale(2.8); opacity: 0; }
+}
+
+.hud-telemetry-item {
+  color: var(--hud-text-secondary);
+  font-weight: 600;
+}
+
+.hud-telemetry-item strong {
+  color: var(--hud-text-primary);
   font-weight: 800;
-  color: var(--home-text);
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  margin: 0 0 10px;
 }
 
-.welcome-subtitle {
-  font-size: clamp(1rem, 1.8vw, 1.12rem);
+.hud-pill-ai {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: #faf5ff;
+  border: 1px solid #e9d5ff;
+  color: #7e22ce;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.hud-pill-fresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.hud-pill-warning {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #b45309;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.cockpit-title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.cockpit-main-title {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: 800;
+  color: var(--hud-text-primary);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin: 0 0 8px;
+}
+
+.cockpit-sub-title {
+  font-size: clamp(0.96rem, 1.6vw, 1.08rem);
+  color: var(--hud-text-secondary);
   line-height: 1.6;
-  color: var(--home-text-muted);
-  max-width: 65ch;
+  max-width: 62ch;
   margin: 0;
 }
 
-/* 4 Accesos Rápidos */
-.home-quick-actions {
+.cockpit-quick-triggers {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hud-trigger-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hud-trigger-btn.btn-scan {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #1e293b;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
+}
+
+.hud-trigger-btn.btn-scan:hover {
+  background: #1e293b;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.3);
+}
+
+.hud-trigger-btn.btn-ai {
+  background: linear-gradient(135deg, #ff2a5f 0%, #e11d48 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(255, 42, 95, 0.35);
+}
+
+.hud-trigger-btn.btn-ai:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(255, 42, 95, 0.5);
+}
+
+/* ==========================================================================
+   BENTO GRID (CONSOLA CULINARIA ASIMÉTRICA)
+   ========================================================================== */
+.cockpit-bento-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
   width: 100%;
 }
 
-.quick-action-card {
-  background: var(--home-surface);
-  border: 1px solid var(--home-border);
-  border-radius: 20px;
+.bento-card {
+  background: var(--hud-bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--hud-border-glass);
+  border-radius: 24px;
   padding: 24px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 16px;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-  box-shadow: 0 2px 10px -4px rgba(15, 23, 42, 0.05);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  box-shadow:
+    0 4px 20px -6px rgba(15, 23, 42, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.quick-action-card:hover {
+.bento-card:hover {
   transform: translateY(-4px);
-  border-color: #cbd5e1;
-  box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.12);
+  border-color: rgba(255, 42, 95, 0.35);
+  box-shadow:
+    0 20px 40px -15px rgba(255, 42, 95, 0.15),
+    0 0 0 1px rgba(255, 42, 95, 0.25) inset;
 }
 
-.action-card-icon-box {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  transition: transform 0.2s ease;
-}
-
-.quick-action-card:hover .action-card-icon-box {
-  transform: scale(1.08);
-}
-
-/* Variaciones cromáticas suaves y elegantes */
-.card-despensa .action-card-icon-box {
-  background: #f0fdf4;
-  color: #16a34a;
-}
-.card-chef-ia .action-card-icon-box {
-  background: #faf5ff;
-  color: #9333ea;
-}
-.card-comunidad .action-card-icon-box {
-  background: #eff6ff;
-  color: #2563eb;
-}
-.card-compras .action-card-icon-box {
-  background: #fff7ed;
-  color: #ea580c;
-}
-
-.action-card-text h3 {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--home-text);
-  margin: 0 0 6px;
-  letter-spacing: -0.02em;
-}
-
-.action-card-text p {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--home-text-muted);
-  margin: 0;
-}
-
-.action-card-actions {
+.bento-card-hud-label {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding-top: 14px;
-  border-top: 1px solid #f1f5f9;
-  margin-top: auto;
+  margin-bottom: 16px;
+  z-index: 5;
 }
 
-.action-card-link {
-  font-size: 0.92rem;
+.hud-mono-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
   font-weight: 700;
-  color: var(--home-brand);
+  letter-spacing: 0.08em;
+  color: var(--hud-text-dim);
+  text-transform: uppercase;
+}
+
+.hud-match-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 42, 95, 0.15), rgba(168, 85, 247, 0.15));
+  border: 1px solid rgba(255, 42, 95, 0.3);
+  color: #ff2a5f;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.bento-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(226, 232, 240, 0.6);
+  z-index: 5;
+}
+
+.bento-link-arrow {
+  color: var(--hud-brand);
+  font-weight: 700;
+  font-size: 0.92rem;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   transition: gap 0.2s ease;
 }
 
-.quick-action-card:hover .action-card-link {
+.bento-card:hover .bento-link-arrow {
   gap: 10px;
 }
 
-.quick-scan-pill-btn {
+.bento-inline-btn {
   background: #f1f5f9;
   color: #334155;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #cbd5e1;
   border-radius: 999px;
   padding: 6px 14px;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -199,423 +335,607 @@
   transition: all 0.2s ease;
 }
 
-.quick-scan-pill-btn:hover {
-  background: #e2e8f0;
-  color: #0f172a;
+.bento-inline-btn:hover {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
 }
 
 /* ==========================================================================
-   ALERTAS DE CADUCIDAD
+   CELDA 1: HERO NEURAL AI (DESTACADO 2 COLUMNAS)
    ========================================================================== */
-.home-alerts-section {
-  background: #ffffff;
-  border: 1px solid #fed7aa;
-  border-radius: 22px;
-  padding: 24px;
-  box-shadow: 0 4px 16px -8px rgba(234, 88, 12, 0.1);
+.bento-hero-ai {
+  grid-column: span 2;
+  grid-row: span 2;
+  padding: 32px;
+  background: #0b1120;
+  border-color: rgba(255, 42, 95, 0.25);
+  box-shadow:
+    0 16px 40px -10px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.alerts-section-header {
+.bento-hero-ai:hover {
+  border-color: rgba(255, 42, 95, 0.6);
+  box-shadow:
+    0 24px 50px -10px rgba(255, 42, 95, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.bento-hero-ai .hud-mono-tag {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hero-ai-content {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 380px;
+  position: relative;
+  z-index: 4;
 }
 
-.alerts-header-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.hero-ai-image-backdrop {
+  position: absolute;
+  inset: -32px;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 24px;
 }
 
-.alert-icon-warning {
-  color: #ea580c;
-  font-size: 1.3rem;
-  flex-shrink: 0;
+.hero-ai-image-backdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: brightness(0.75);
 }
 
-.alerts-header-title h2 {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: #9a3412;
-  margin: 0;
-  letter-spacing: -0.02em;
+.bento-hero-ai:hover .hero-ai-image-backdrop img {
+  transform: scale(1.04);
+  filter: brightness(0.85);
 }
 
-.alerts-view-all-link {
-  color: #c2410c;
-  font-weight: 700;
-  font-size: 0.9rem;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.hero-ai-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 17, 32, 0.4) 0%,
+    rgba(11, 17, 32, 0.85) 60%,
+    rgba(11, 17, 32, 0.98) 100%
+  );
 }
 
-.alerts-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 14px;
-}
-
-.alert-product-card {
-  padding: 16px;
-  border-radius: 16px;
-  background: #fffaf5;
-  border: 1px solid #fed7aa;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.hero-ai-details {
+  position: relative;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.alert-product-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px -6px rgba(234, 88, 12, 0.18);
+.hero-ai-kicker {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ff2a5f;
+  font-weight: 700;
 }
 
-.alert-product-card.is-expired {
-  background: #fff5f5;
-  border-color: #fca5a5;
+.hero-ai-title {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-.alert-product-top {
+.hero-ai-telemetry {
   display: flex;
   align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.telemetry-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+}
+
+.hero-ai-cta-row {
+  margin-top: 14px;
+}
+
+.hero-ai-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #ff2a5f 0%, #ff5e3a 100%);
+  color: #ffffff;
+  border-radius: 16px;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  box-shadow: 0 6px 20px rgba(255, 42, 95, 0.5);
+  transition: all 0.25s ease;
+}
+
+.bento-hero-ai:hover .hero-ai-action-btn {
+  transform: translateX(4px);
+  box-shadow: 0 8px 28px rgba(255, 42, 95, 0.7);
+}
+
+.hero-ai-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 300px;
+  gap: 16px;
+  color: #cbd5e1;
+}
+
+.empty-ai-icon {
+  font-size: 3rem;
+  color: #a855f7;
+  filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.5));
+}
+
+/* ==========================================================================
+   CELDA 2: TELEMETRÍA DE DESPENSA
+   ========================================================================== */
+.pantry-stat-display {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.pantry-big-number {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--hud-text-primary);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.pantry-number-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pantry-number-label strong {
+  font-size: 1.05rem;
+  color: var(--hud-text-primary);
+  font-weight: 800;
+}
+
+.pantry-number-label span {
+  font-size: 0.85rem;
+  color: var(--hud-text-dim);
+}
+
+.pantry-meter-wrapper {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pantry-meter-header {
+  display: flex;
   justify-content: space-between;
+  font-size: 0.82rem;
+  color: var(--hud-text-dim);
+  font-weight: 600;
+}
+
+.pantry-meter-header strong {
+  color: #16a34a;
+}
+
+.pantry-meter-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.pantry-meter-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+  transition: width 0.6s ease;
+}
+
+/* ==========================================================================
+   CELDA 3: RADAR DE CADUCIDADES
+   ========================================================================== */
+.radar-alert-active {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.95), rgba(255, 251, 235, 0.9));
+}
+
+.hud-badge-urgent {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-badge-ok {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.radar-warning-text {
+  font-size: 0.88rem;
+  color: #92400e;
+  line-height: 1.4;
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+
+.radar-items-scroll {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
-.alert-status-badge {
-  font-size: 0.76rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 3px 8px;
-  border-radius: 999px;
+.radar-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #fed7aa;
 }
 
-.badge-urgent {
+.radar-item-row.is-expired {
+  border-color: #fca5a5;
+  background: #fff5f5;
+}
+
+.radar-item-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--hud-text-primary);
+}
+
+.radar-item-pill {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
   background: #ffedd5;
   color: #c2410c;
 }
 
-.badge-expired {
+.radar-item-row.is-expired .radar-item-pill {
   background: #fee2e2;
   color: #b91c1c;
 }
 
-.alert-product-qty {
-  font-size: 0.85rem;
-  color: #64748b;
-  font-weight: 600;
+.radar-nominal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 12px 0;
+  gap: 6px;
 }
 
-.alert-product-name {
-  font-size: 1.05rem;
+.radar-sweep-icon {
+  font-size: 2.2rem;
+  color: #10b981;
+  filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4));
+  margin-bottom: 4px;
+}
+
+.radar-nominal-content h4 {
+  font-size: 1.15rem;
   font-weight: 800;
-  color: var(--home-text);
+  color: var(--hud-text-primary);
   margin: 0;
+}
+
+.radar-nominal-content p {
+  font-size: 0.9rem;
+  color: var(--hud-text-dim);
+  margin: 0;
+}
+
+/* ==========================================================================
+   CELDA 4: RED SOCIAL (COMUNIDAD)
+   ========================================================================== */
+.hud-community-chip {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.community-card-body {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.community-image-thumb {
+  width: 90px;
+  height: 90px;
+  border-radius: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #f1f5f9;
+}
+
+.community-image-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.community-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.community-author-tag {
+  font-size: 0.8rem;
+  color: var(--hud-text-dim);
+}
+
+.community-author-tag strong {
+  color: var(--hud-text-primary);
+}
+
+.community-title {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--hud-text-primary);
+  margin: 0;
+  line-height: 1.25;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.alert-product-footer {
+.community-metrics {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  font-size: 0.82rem;
+  gap: 12px;
+  font-size: 0.84rem;
   font-weight: 700;
-  color: #c2410c;
+  color: var(--hud-text-secondary);
   margin-top: 4px;
 }
 
-/* ==========================================================================
-   INSPIRACIÓN RECOMENDADA DE HOY
-   ========================================================================== */
-.home-inspo-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-}
-
-.inspo-section-header {
-  display: flex;
-  flex-direction: column;
+.community-metrics span {
+  display: inline-flex;
+  align-items: center;
   gap: 4px;
 }
 
-.inspo-header-title {
+/* ==========================================================================
+   CELDA 5 & 6: COMPRAS Y CATÁLOGO CLÁSICO
+   ========================================================================== */
+.shopping-card-body,
+.classic-card-body {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
+  margin-bottom: 12px;
 }
 
-.inspo-header-icon {
-  color: var(--home-brand);
-  font-size: 1.25rem;
-}
-
-.inspo-header-title h2 {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--home-text);
-  margin: 0;
-  letter-spacing: -0.02em;
-}
-
-.inspo-section-header p {
-  font-size: 0.98rem;
-  color: var(--home-text-muted);
-  margin: 0;
-}
-
-.inspo-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 22px;
-}
-
-.inspo-card {
-  background: var(--home-surface);
-  border: 1px solid var(--home-border);
-  border-radius: 22px;
-  overflow: hidden;
+.shopping-icon-box,
+.classic-icon-box {
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
   display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-  box-shadow: 0 4px 16px -6px rgba(15, 23, 42, 0.06);
-  position: relative;
-}
-
-.inspo-card:hover {
-  transform: translateY(-4px);
-  border-color: #cbd5e1;
-  box-shadow: 0 16px 30px -10px rgba(15, 23, 42, 0.12);
-}
-
-.inspo-card-badge {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  z-index: 10;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  backdrop-filter: blur(8px);
-}
-
-.badge-chef {
-  background: rgba(147, 51, 234, 0.92);
-  color: #ffffff;
-}
-
-.badge-comunidad {
-  background: rgba(225, 29, 72, 0.92);
-  color: #ffffff;
-}
-
-.badge-clasica {
-  background: rgba(30, 41, 59, 0.92);
-  color: #ffffff;
-}
-
-.inspo-card-image-wrapper {
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-  background: #f1f5f9;
-}
-
-.inspo-card-image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.inspo-card:hover .inspo-card-image-wrapper img {
-  transform: scale(1.05);
-}
-
-.inspo-card-info {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 12px;
-}
-
-.inspo-card-info h3 {
-  font-size: 1.18rem;
-  font-weight: 800;
-  color: var(--home-text);
-  margin: 0;
-  line-height: 1.3;
-  letter-spacing: -0.02em;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.inspo-card-meta {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--home-text-muted);
-}
-
-.inspo-card-meta span {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.inspo-card-btn {
-  margin-top: auto;
-  padding-top: 14px;
-  border-top: 1px solid #f1f5f9;
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--home-brand);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: gap 0.2s ease;
-}
-
-.inspo-card:hover .inspo-card-btn {
-  gap: 10px;
-}
-
-.inspo-card-empty {
-  padding: 32px 20px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  min-height: 220px;
+  font-size: 1.3rem;
+  flex-shrink: 0;
 }
 
-.inspo-card-empty p {
-  font-size: 0.95rem;
-  color: var(--home-text-muted);
-  line-height: 1.5;
+.shopping-icon-box {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.classic-icon-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+}
+
+.shopping-info h3,
+.classic-info h3 {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--hud-text-primary);
+  margin: 0 0 4px;
+}
+
+.shopping-info p,
+.classic-info p {
+  font-size: 0.88rem;
+  color: var(--hud-text-dim);
+  line-height: 1.45;
   margin: 0;
+}
+
+.hud-mono-sub {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  color: var(--hud-text-dim);
+  font-weight: 700;
 }
 
 /* ==========================================================================
-   2. PRESENTACIÓN PARA VISITANTES / INVITADOS
+   2. PRESENTACIÓN PARA VISITANTES (CYBER-GASTRONOMY GUEST HERO)
    ========================================================================== */
-.home-guest-view {
+.home-guest-futuristic {
   display: flex;
   flex-direction: column;
   gap: 48px;
   width: 100%;
 }
 
-.home-guest-hero {
+.guest-futuristic-hero {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 40px;
+  grid-template-columns: 1.25fr 0.85fr;
+  gap: 36px;
   align-items: center;
-  background: linear-gradient(145deg, #ffffff 0%, #fff8f8 100%);
-  border: 1px solid var(--home-border);
-  border-radius: 28px;
-  padding: clamp(32px, 5vw, 60px);
-  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
 }
 
-.guest-hero-content {
+.guest-hero-glass-card {
+  background:
+    radial-gradient(ellipse at top left, rgba(255, 42, 95, 0.08) 0%, transparent 50%),
+    var(--hud-bg-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--hud-border-glass);
+  border-radius: 32px;
+  padding: clamp(32px, 5vw, 56px);
+  box-shadow:
+    0 20px 50px -20px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
+  gap: 22px;
 }
 
-.guest-hero-pill {
+.guest-telemetry-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  background: #fff1f2;
-  color: #be123c;
+  padding: 6px 16px;
   border-radius: 999px;
-  font-size: 0.88rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
   font-weight: 700;
-  border: 1px solid #ffe4e6;
+  letter-spacing: 0.04em;
 }
 
-.guest-hero-title {
-  font-size: clamp(2.4rem, 4.2vw, 3.8rem);
+.telemetry-beacon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff2a5f;
+  box-shadow: 0 0 10px rgba(255, 42, 95, 0.8);
+}
+
+.guest-futuristic-title {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: clamp(2.5rem, 4.4vw, 4rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.08;
   letter-spacing: -0.04em;
-  color: var(--home-text);
+  color: var(--hud-text-primary);
   margin: 0;
 }
 
-.guest-hero-description {
-  font-size: 1.12rem;
+.guest-futuristic-desc {
+  font-size: 1.15rem;
   line-height: 1.65;
-  color: var(--home-text-muted);
-  max-width: 52ch;
+  color: var(--hud-text-secondary);
+  max-width: 50ch;
   margin: 0;
 }
 
-.guest-hero-actions {
+.guest-cta-row {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-top: 8px;
   flex-wrap: wrap;
+  margin-top: 6px;
 }
 
-.btn-primary-hero {
+.btn-futuristic-primary {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 16px 32px;
   min-height: 52px;
-  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  background: linear-gradient(135deg, #ff2a5f 0%, #ff5e3a 100%);
   color: #ffffff;
   border-radius: 16px;
   font-weight: 800;
   font-size: 1.05rem;
   text-decoration: none;
+  box-shadow: 0 8px 24px rgba(255, 42, 95, 0.4);
   transition: all 0.25s ease;
-  box-shadow: 0 10px 24px -6px rgba(225, 29, 72, 0.4);
 }
 
-.btn-primary-hero:hover {
+.btn-futuristic-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 32px -6px rgba(225, 29, 72, 0.55);
+  box-shadow: 0 14px 34px rgba(255, 42, 95, 0.6);
 }
 
-.btn-secondary-hero {
+.btn-futuristic-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 16px 28px;
   min-height: 52px;
   background: #ffffff;
-  color: var(--home-text);
+  color: var(--hud-text-primary);
   border: 1px solid #cbd5e1;
   border-radius: 16px;
   font-weight: 700;
@@ -624,256 +944,319 @@
   transition: all 0.2s ease;
 }
 
-.btn-secondary-hero:hover {
+.btn-futuristic-secondary:hover {
   background: #f8fafc;
   border-color: #94a3b8;
   transform: translateY(-2px);
 }
 
-.guest-hero-badges {
+.guest-tech-metrics {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-top: 10px;
-  padding-top: 20px;
-  border-top: 1px solid #f1f5f9;
-  flex-wrap: wrap;
+  gap: 24px;
+  padding-top: 24px;
+  margin-top: 8px;
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+  width: 100%;
 }
 
-.guest-badge-item {
+.tech-metric-box {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: var(--home-text);
+  flex-direction: column;
+  gap: 4px;
 }
 
-.badge-check-icon {
-  color: #16a34a;
+.metric-figure {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--hud-text-primary);
+  line-height: 1;
 }
 
-/* Tarjeta preview gourmet del hero (real, atractiva y sin wireframes grises) */
-.guest-hero-preview {
+.metric-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  color: var(--hud-text-dim);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.tech-metric-divider {
+  width: 1px;
+  height: 34px;
+  background: #e2e8f0;
+}
+
+/* Hologram Showcase */
+.guest-hologram-showcase {
   display: flex;
   justify-content: center;
+  perspective: 1000px;
 }
 
-.guest-recipe-card {
+.hologram-recipe-panel {
   width: 100%;
-  max-width: 380px;
-  background: #ffffff;
-  border-radius: 24px;
+  max-width: 400px;
+  background: #0f172a;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 42, 95, 0.35);
+  box-shadow:
+    0 25px 60px -15px rgba(0, 0, 0, 0.4),
+    0 0 35px -10px rgba(255, 42, 95, 0.3);
   overflow: hidden;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.14);
+  transform: rotateY(-4deg) rotateX(3deg);
+  transition: transform 0.4s ease;
 }
 
-.guest-recipe-media {
+.hologram-recipe-panel:hover {
+  transform: rotateY(0deg) rotateX(0deg);
+}
+
+.hologram-hud-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: rgba(15, 23, 42, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.74rem;
+}
+
+.hologram-tag {
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+.hologram-chip {
+  color: #ff2a5f;
+  font-weight: 800;
+}
+
+.hologram-image-wrapper {
   position: relative;
   height: 220px;
-  background: #f1f5f9;
+  background: #020617;
+  overflow: hidden;
 }
 
-.guest-recipe-media img {
+.hologram-image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: brightness(0.85);
 }
 
-.guest-card-chip {
+.hologram-scanline {
   position: absolute;
-  top: 14px;
-  left: 14px;
-  background: rgba(15, 23, 42, 0.85);
-  color: #ffffff;
-  padding: 5px 12px;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  backdrop-filter: blur(6px);
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff2a5f, transparent);
+  box-shadow: 0 0 10px #ff2a5f;
+  animation: scanline 3s infinite linear;
 }
 
-.guest-recipe-body {
+@keyframes scanline {
+  0% { top: 0%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.hologram-body {
   padding: 22px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.guest-recipe-stars {
+.hologram-stars {
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #eab308;
-  font-size: 0.92rem;
+  color: #f59e0b;
+  font-size: 0.88rem;
 }
 
-.guest-recipe-stars span {
-  color: #475569;
-  font-weight: 700;
+.hologram-stars span {
+  font-family: var(--font-mono, monospace);
+  color: #94a3b8;
+  font-size: 0.76rem;
   margin-left: 6px;
-  font-size: 0.84rem;
+  font-weight: 700;
 }
 
-.guest-recipe-body h3 {
-  font-size: 1.25rem;
+.hologram-body h3 {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 1.3rem;
   font-weight: 800;
-  color: var(--home-text);
+  color: #ffffff;
   margin: 0;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
+  line-height: 1.2;
 }
 
-.guest-recipe-body p {
-  font-size: 0.94rem;
+.hologram-body p {
+  font-size: 0.92rem;
+  color: #94a3b8;
   line-height: 1.5;
-  color: var(--home-text-muted);
   margin: 0;
 }
 
-.guest-recipe-meta {
+.hologram-telemetry {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding-top: 12px;
-  border-top: 1px solid #f1f5f9;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: #64748b;
+  gap: 12px;
+  padding-top: 14px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  font-weight: 700;
+  flex-wrap: wrap;
 }
 
-.guest-recipe-meta span {
+.hologram-telemetry span {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
-/* ==========================================================================
-   CARACTERÍSTICAS / 3 PILARES
-   ========================================================================== */
-.home-features-section {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+/* 3 Pilares Tecnológicos */
+.guest-pillars-section {
   width: 100%;
 }
 
-.section-header {
-  text-align: center;
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-.section-header h2 {
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
-  font-weight: 800;
-  color: var(--home-text);
-  letter-spacing: -0.03em;
-  margin: 0 0 10px;
-}
-
-.section-header p {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: var(--home-text-muted);
-  margin: 0;
-}
-
-.features-grid {
+.pillars-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
 }
 
-.feature-card {
-  background: var(--home-surface);
-  border: 1px solid var(--home-border);
-  border-radius: 22px;
-  padding: 32px 24px;
+.pillar-module {
+  background: var(--hud-bg-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--hud-border-glass);
+  border-radius: 26px;
+  padding: 32px 26px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  box-shadow: 0 4px 16px -6px rgba(15, 23, 42, 0.05);
-  transition: all 0.25s ease;
+  box-shadow: 0 4px 20px -8px rgba(15, 23, 42, 0.06);
+  transition: all 0.28s ease;
 }
 
-.feature-card:hover {
+.pillar-module:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 32px -10px rgba(15, 23, 42, 0.1);
+  border-color: rgba(255, 42, 95, 0.4);
+  box-shadow: 0 16px 36px -10px rgba(255, 42, 95, 0.15);
 }
 
-.feature-card.highlighted {
-  border-color: #fecdd3;
-  background: linear-gradient(165deg, #ffffff 0%, #fff1f2 100%);
+.pillar-module.pillar-highlight {
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.95), rgba(255, 241, 242, 0.8));
+  border-color: rgba(255, 42, 95, 0.3);
 }
 
-.feature-icon-wrapper {
-  width: 56px;
-  height: 56px;
+.pillar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pillar-icon-box {
+  width: 52px;
+  height: 52px;
   border-radius: 16px;
-  background: #fff1f2;
-  color: var(--home-brand);
+  background: #0f172a;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
 }
 
-.feature-card.highlighted .feature-icon-wrapper {
-  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
-  color: #ffffff;
+.pillar-module.pillar-highlight .pillar-icon-box {
+  background: linear-gradient(135deg, #ff2a5f 0%, #ff5e3a 100%);
+  box-shadow: 0 6px 18px rgba(255, 42, 95, 0.4);
 }
 
-.feature-card h3 {
-  font-size: 1.3rem;
+.pillar-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.74rem;
   font-weight: 800;
-  color: var(--home-text);
+  letter-spacing: 0.08em;
+  color: var(--hud-text-dim);
+}
+
+.pillar-module h3 {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--hud-text-primary);
   margin: 0;
   letter-spacing: -0.02em;
 }
 
-.feature-card p {
+.pillar-module p {
   font-size: 0.98rem;
   line-height: 1.6;
-  color: var(--home-text-muted);
+  color: var(--hud-text-secondary);
   margin: 0;
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (MÓVILES Y PANTALLAS COMPACTAS)
+   RESPONSIVE DESIGN (BENTO COCKPIT EN PANTALLAS COMPACTAS)
    ========================================================================== */
-@media (max-width: 900px) {
-  .home-layout {
-    gap: 28px;
+@media (max-width: 1024px) {
+  .cockpit-bento-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .home-guest-hero {
+  .bento-hero-ai {
+    grid-column: span 2;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .cockpit-bento-grid {
     grid-template-columns: 1fr;
-    padding: 28px 20px;
+    gap: 16px;
+  }
+
+  .bento-hero-ai {
+    grid-column: span 1;
+    padding: 22px;
+  }
+
+  .hero-ai-content {
+    min-height: 280px;
+  }
+
+  .hero-ai-title {
+    font-size: 1.6rem;
+  }
+
+  .guest-futuristic-hero {
+    grid-template-columns: 1fr;
     gap: 28px;
   }
 
-  .guest-hero-preview {
-    order: -1;
-  }
-
-  .guest-recipe-card {
-    max-width: 100%;
-  }
-
-  .guest-hero-badges {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .home-welcome-banner {
+  .guest-hero-glass-card {
     padding: 24px 18px;
   }
 
-  .alerts-section-header {
+  .guest-tech-metrics {
     flex-direction: column;
     align-items: flex-start;
+    gap: 12px;
+  }
+
+  .tech-metric-divider {
+    display: none;
   }
 }

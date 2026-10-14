@@ -37,7 +37,7 @@
 
 .escaner-hero h1 {
   margin: 0;
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(1.7rem, 2.8vw, 2.4rem);
   letter-spacing: -0.035em;
   color: #0f172a;

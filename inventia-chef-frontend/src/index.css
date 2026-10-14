@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
 
 /* Reseteo basico para que se vea igual en todos los navegadores */
 * {
@@ -14,11 +14,11 @@
   --border: #e2e8f0;
   --text-main: #0f172a;
   --text-muted: #475569;
-  --brand: #f43f5e;
+  --brand: #ff2a5f;
   --brand-hover: #e11d48;
-  --brand-gradient: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  --brand-gradient: linear-gradient(135deg, #ff2a5f 0%, #e11d48 100%);
   --brand-gradient-hover: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
-  --chef-accent: #e11d48;
+  --chef-accent: #ff2a5f;
   --success: #16a34a;
   --shadow-soft: 0 4px 14px -4px rgba(15, 23, 42, 0.08);
   --shadow-hover: 0 14px 28px -8px rgba(15, 23, 42, 0.12);
@@ -26,24 +26,27 @@
   --motion-fast: 0.2s;
   --motion-base: 0.3s;
   --motion-slow: 0.36s;
-  --page-max-width: 1200px;
+  --page-max-width: 1240px;
   --page-fluid-width: min(var(--page-max-width), calc(100% - 2px));
   --page-padding-top: clamp(18px, 3.5vw, 30px);
   --page-padding-inline: clamp(10px, 2.8vw, 20px);
   --page-padding-bottom: clamp(20px, 3vw, 32px);
   /* margen lateral movil (lo mismo que la cabecera) */
   --layout-inline-mobile: 16px;
-  /* Corte único vista táctil/compacta en la app: max-width 900px (PageHeader, nav, recetas, etc.) */
-  --font-ui: 'Manrope', system-ui, -apple-system, sans-serif;
+  /* Tipografía futurista y moderna */
+  --font-ui: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 body {
   font-family: var(--font-ui);
-  line-height: 1.5;
+  line-height: 1.55;
   font-size: 16px;
   background:
-    radial-gradient(circle at 10% 0%, rgba(241, 245, 249, 0.9) 0%, transparent 34%),
-    radial-gradient(circle at 95% 10%, rgba(226, 232, 240, 0.78) 0%, transparent 28%),
+    radial-gradient(circle at 10% 0%, rgba(255, 42, 95, 0.07) 0%, transparent 40%),
+    radial-gradient(circle at 90% 12%, rgba(139, 92, 246, 0.06) 0%, transparent 38%),
+    radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.05) 0%, transparent 35%),
     var(--bg);
   color: var(--text-main);
   -webkit-font-smoothing: antialiased;

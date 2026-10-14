@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaUser, FaEnvelope, FaShieldAlt, FaSignOutAlt, FaTrash, FaCheck, FaPlus, FaCheckCircle, FaLock, FaSave, FaExclamationTriangle, FaBookOpen, FaPencilAlt, FaStar, FaHeart } from 'react-icons/fa';
 import { authHeaders, clearSession, getCurrentUser, getToken, isAuthenticated, saveSession } from '../services/auth';
 import { listMisRecetasComunidad } from '../services/communityApi';
@@ -879,6 +879,17 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
                 <span className="badge-premium">Tu perfil</span>
                 <h1 className="chef-name">{nombreVisible}</h1>
                 <p className="chef-bio-text">{emailVisible} · {perfil?.rol || 'Usuario'}</p>
+                {user?.id && (
+                  <button
+                    type="button"
+                    className="profile-link-btn"
+                    style={{ marginTop: 4, display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 700 }}
+                    onClick={() => navigate(`/cocinero/${user.id}`)}
+                    title="Ver tu perfil público tal como lo ve la comunidad"
+                  >
+                    Ver cómo te ve la comunidad →
+                  </button>
+                )}
               </div>
               
               <div className="chef-info-right">

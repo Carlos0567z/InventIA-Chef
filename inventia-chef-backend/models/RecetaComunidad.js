@@ -56,4 +56,9 @@ const recetaComunidadSchema = new mongoose.Schema({
   fecha_ultima_edicion: { type: Date, default: Date.now },
 });
 
+recetaComunidadSchema.index({ autor_id: 1, estado: 1 });
+recetaComunidadSchema.index({ estado: 1, fecha_publicacion: -1 });
+recetaComunidadSchema.index({ estado: 1, numero_likes: -1 });
+recetaComunidadSchema.index({ estado: 1, puntuacion_media: -1 });
+
 module.exports = mongoose.model('RecetaComunidad', recetaComunidadSchema);

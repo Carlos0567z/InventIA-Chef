@@ -1,7 +1,9 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const Perfil = require('../models/Perfil');
 const Usuario = require('../models/Usuario');
+const RecetaComunidad = require('../models/RecetaComunidad');
 const requireAuth = require('../middleware/requireAuth');
 const {
   buildPasswordLimiterKey,
@@ -258,4 +260,117 @@ router.put('/password', requireAuth, async (req, res) => {
   }
 });
 
+// -------------------------------------------------------------
+// GET /cocinero/:id — Perfil publico del cocinero
+// -------------------------------------------------------------
+router.get('/cocinero/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    let usuario = null;
+
+    if (mongoose.isValidObjectId(id)) {
+      usuario = await Usuario.findById(id).select('nombre biografia rol fecha_registro').lean();
+    }
+    if (!usuario) {
+      // Intento buscar por nombre si no fue objectId
+      usuario = await Usuario.findOne({ nombre: id }).select('nombre biografia rol fecha_registro').lean();
+    }
+    if (!usuario) {
+      return res.status(404).json({ mensaje: 'Cocinero no encontrado' });
+    }
+
+    const perfil = await Perfil.findOne({ user_id: String(usuario._id) })
+      .select('imagen_perfil imagen_banner biografia nombre')
+      .lean();
+
+    // Calcular metricas de comunidad
+    const userObjectId = new mongoose.Types.ObjectId(String(usuario._id));
+    const [recetasCount, agregadosLikes, agregadosRatings] = await Promise.all([
+      RecetaComunidad.countDocuments({ autor_id: userObjectId, estado: 'publicada' }),
+      RecetaComunidad.aggregate([
+        { $match: { autor_id: userObjectId, estado: 'publicada' } },
+        { $group: { _id: null, totalLikes: { $sum: '$numero_likes' } } },
+      ]),
+      RecetaComunidad.aggregate([
+        { $match: { autor_id: userObjectId, estado: 'publicada', puntuacion_media: { $gt: 0 } } },
+        { $group: { _id: null, avgRating: { $avg: '$puntuacion_media' } } },
+      ]),
+    ]);
+
+    const totalLikes = agregadosLikes[0]?.totalLikes || 0;
+    const mediaRating = agregadosRatings[0]?.avgRating
+      ? Math.round(agregadosRatings[0].avgRating * 10) / 10
+      : 0;
+
+    // Calcular insignias sociales
+    const insignias = [];
+    if (usuario.rol === 'admin') {
+      insignias.push({ id: 'admin', nombre: 'Administrador / Chef Ejecutivo', icono: 'crown' });
+    }
+    if (recetasCount >= 1) {
+      insignias.push({ id: 'creador', nombre: 'Chef Creador', icono: 'utensils' });
+    }
+    if (recetasCount >= 3) {
+      insignias.push({ id: 'maestro', nombre: 'Maestro Culinario', icono: 'award' });
+    }
+    if (totalLikes >= 5) {
+      insignias.push({ id: 'popular', nombre: 'Estrella Comunitaria', icono: 'heart' });
+    }
+    if (mediaRating >= 4.0 && recetasCount >= 1) {
+      insignias.push({ id: 'alta_calidad', nombre: 'Sabor 5 Estrellas', icono: 'star' });
+    }
+
+    res.status(200).json({
+      cocinero: {
+        id: usuario._id,
+        nombre: perfil?.nombre || usuario.nombre,
+        imagen_perfil: perfil?.imagen_perfil || '',
+        imagen_banner: perfil?.imagen_banner || '',
+        biografia: perfil?.biografia || usuario.biografia || '',
+        fecha_registro: usuario.fecha_registro,
+        rol: usuario.rol || 'usuario',
+      },
+      metricas: {
+        recetas_count: recetasCount,
+        likes_totales: totalLikes,
+        puntuacion_media: mediaRating,
+      },
+      insignias,
+    });
+  } catch (error) {
+    console.error('Error al obtener perfil de cocinero:', error);
+    res.status(500).json({ mensaje: 'Error al cargar perfil de cocinero' });
+  }
+});
+
+// -------------------------------------------------------------
+// GET /cocinero/:id/recetas — Recetas publicas del cocinero
+// -------------------------------------------------------------
+router.get('/cocinero/:id/recetas', async (req, res) => {
+  try {
+    const { id } = req.params;
+    let autorId = id;
+
+    if (!mongoose.isValidObjectId(id)) {
+      const u = await Usuario.findOne({ nombre: id }).select('_id');
+      if (u) autorId = u._id;
+      else return res.status(404).json({ mensaje: 'Cocinero no encontrado' });
+    }
+
+    const recetas = await RecetaComunidad.find({
+      autor_id: autorId,
+      estado: 'publicada',
+    })
+      .sort({ fecha_publicacion: -1 })
+      .select('title image description readyInMinutes servings numero_likes puntuacion_media numero_comentarios fecha_publicacion id_externo versiones extendedIngredients')
+      .lean();
+
+    res.status(200).json(recetas);
+  } catch (error) {
+    console.error('Error al obtener recetas del cocinero:', error);
+    res.status(500).json({ mensaje: 'Error al listar recetas del cocinero' });
+  }
+});
+
 module.exports = router;
+

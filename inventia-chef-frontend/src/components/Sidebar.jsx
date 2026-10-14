@@ -37,6 +37,7 @@ const Sidebar = () => {
   const isActive = (ruta) => {
     // comprobamos la ruta para poner la clase active en el menu
     if (ruta === '/' && rutaActual === '/') return true;
+    if (ruta === '/recetas-comunidad' && rutaActual.startsWith('/cocinero')) return true;
     if (ruta !== '/' && rutaActual.startsWith(ruta)) return true;
     return false;
   };

@@ -41,6 +41,13 @@ export function authHeaders() {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
+export function getSession() {
+  return {
+    token: getToken(),
+    user: getCurrentUser(),
+  };
+}
+
 export function isAdmin() {
   const user = getCurrentUser();
   return String(user?.rol || '').toLowerCase() === 'admin';

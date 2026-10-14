@@ -28,7 +28,17 @@ async function ensureRecetaPendienteIndexes() {
         }
 
         const coll = mongoose.connection.collection('recetapendientes');
-        const indexes = await coll.indexes();
+        let indexes = [];
+        try {
+            indexes = await coll.indexes();
+        } catch (idxErr) {
+            if (idxErr.code === 26 || idxErr.codeName === 'NamespaceNotFound') {
+                // La coleccion aun no existe; se creara automaticamente
+                await RecetaPendiente.init();
+                return;
+            }
+            throw idxErr;
+        }
 
         for (const idx of indexes) {
             if (idx.key && idx.key.id_externo === 1 && Object.keys(idx.key).length === 1) {

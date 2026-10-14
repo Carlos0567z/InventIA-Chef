@@ -13,6 +13,7 @@ const RecetasComunidad = lazy(() => import('./pages/RecetasComunidad'))
 const ContribuirRecetaComunidad = lazy(() => import('./pages/ContribuirRecetaComunidad'))
 const MisRecetasComunidad = lazy(() => import('./pages/MisRecetasComunidad'))
 const RecetaComunidadDetalle = lazy(() => import('./pages/RecetaComunidadDetalle'))
+const CocineroPerfil = lazy(() => import('./pages/CocineroPerfil'))
 const RecetaDetalle = lazy(() => import('./pages/RecetaDetalle'))
 const Auth = lazy(() => import('./pages/Auth'))
 const Usuario = lazy(() => import('./pages/Usuario'))
@@ -140,6 +141,10 @@ function AppLayout() {
             <Route
               path="/recetas-comunidad/:id"
               element={<RequireAuth><RecetaComunidadDetalle /></RequireAuth>}
+            />
+            <Route
+              path="/cocinero/:id"
+              element={<RequireAuth><CocineroPerfil /></RequireAuth>}
             />
             <Route
               path="/favoritas"

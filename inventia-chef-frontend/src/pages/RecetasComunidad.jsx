@@ -9,6 +9,8 @@ import {
   FaClock,
   FaCheckCircle,
   FaExclamationCircle,
+  FaStar,
+  FaCommentAlt,
 } from 'react-icons/fa';
 import '../styles/Recetas.css';
 import FilterBar from '../components/FilterBar';
@@ -212,6 +214,10 @@ export default function RecetasComunidad() {
       filtradas = [...filtradas].sort((a, b) => getTiempo(a) - getTiempo(b));
     } else if (orden === 'relevancia') {
       filtradas = [...filtradas].sort((a, b) => new Date(b.fecha_publicacion) - new Date(a.fecha_publicacion));
+    } else if (orden === 'populares') {
+      filtradas = [...filtradas].sort((a, b) => (Number(b.numero_likes) || 0) - (Number(a.numero_likes) || 0));
+    } else if (orden === 'valoradas') {
+      filtradas = [...filtradas].sort((a, b) => (Number(b.puntuacion_media) || 0) - (Number(a.puntuacion_media) || 0) || (Number(b.numero_comentarios) || 0) - (Number(a.numero_comentarios) || 0));
     }
 
     return filtradas;
@@ -394,6 +400,8 @@ export default function RecetasComunidad() {
         neutralValue: 'mejor-match',
         options: [
           { value: 'mejor-match', label: 'Orden: mejor match (Ingredientes)' },
+          { value: 'populares', label: 'Orden: más populares (Likes)' },
+          { value: 'valoradas', label: 'Orden: mejor valoradas (Estrellas)' },
           { value: 'relevancia', label: 'Orden: más recientes' },
           { value: 'rapidez', label: 'Orden: más rápidas' },
         ],
@@ -484,10 +492,46 @@ export default function RecetasComunidad() {
                     <h3>{receta.title}</h3>
                     <div className="receta-card-stats-row">
                       <span className="stat-item"><FaClock className="stat-icon" /> {getTiempo(receta)} min</span>
+                      {Number(receta.numero_likes) > 0 && (
+                        <>
+                          <span className="stat-divider">·</span>
+                          <span className="stat-item" style={{ color: '#f43f5e' }}>
+                            <FaHeart className="stat-icon" /> {receta.numero_likes}
+                          </span>
+                        </>
+                      )}
+                      {Number(receta.puntuacion_media) > 0 && (
+                        <>
+                          <span className="stat-divider">·</span>
+                          <span className="stat-item" style={{ color: '#d97706' }}>
+                            <FaStar className="stat-icon" /> {Number(receta.puntuacion_media).toFixed(1)}
+                          </span>
+                        </>
+                      )}
+                      {Number(receta.numero_comentarios) > 0 && (
+                        <>
+                          <span className="stat-divider">·</span>
+                          <span className="stat-item">
+                            <FaCommentAlt className="stat-icon" /> {receta.numero_comentarios}
+                          </span>
+                        </>
+                      )}
                       {receta.autor_nombre ? (
                         <>
                           <span className="stat-divider">·</span>
-                          <span className="stat-item">{receta.autor_nombre}</span>
+                          <span
+                            className="stat-item"
+                            onClick={(e) => {
+                              if (receta.autor_id) {
+                                e.stopPropagation();
+                                navigate(`/cocinero/${receta.autor_id}`);
+                              }
+                            }}
+                            title={`Ver perfil del cocinero ${receta.autor_nombre}`}
+                            style={{ cursor: receta.autor_id ? 'pointer' : 'default', fontWeight: 700 }}
+                          >
+                            {receta.autor_nombre}
+                          </span>
                         </>
                       ) : null}
                     </div>

@@ -15,7 +15,7 @@
   color: var(--text-muted);
   border-radius: 20px;
   border: 1px solid var(--border);
-  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  background: var(--surface-card);
 }
 
 .compras-list-header {
@@ -30,14 +30,14 @@
 .compras-list-header .view-title h2 {
   font-size: 1.55rem;
   font-family: var(--font-heading);
-  color: #0f172a;
+  color: var(--text-main);
   margin: 0 0 4px;
   letter-spacing: -0.02em;
 }
 
 .compras-list-header .view-title p {
   margin: 0;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.92rem;
   line-height: 1.5;
 }
@@ -52,10 +52,8 @@
 
 .compras-recetas-grid .receta-card {
   border-radius: 22px;
-  border: 1px solid rgba(226, 232, 240, 0.95);
-  background:
-    radial-gradient(circle at 100% 0%, rgba(241, 245, 249, 0.7), transparent 34%),
-    linear-gradient(165deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.96));
+  border: 1px solid var(--border);
+  background: var(--surface-card); border: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: var(--shadow-card);
   box-shadow: 0 16px 28px -24px rgba(15, 23, 42, 0.28);
   overflow: hidden;
 }
@@ -94,18 +92,18 @@
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: 14px;
-  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  background: var(--surface-card);
 }
 
 .compra-manual-input,
 .compra-manual-qty,
 .compra-manual-select,
 .compra-manual-emoji {
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 10px 12px;
   font-size: 13px;
-  background: #fff;
+  background: var(--input-bg);
   color: var(--text-main);
 }
 
@@ -160,8 +158,8 @@
   text-align: center;
   padding: 64px 28px;
   border-radius: 24px;
-  border: 1px dashed #cbd5e1;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.95));
+  border: 1px dashed var(--border);
+  background: var(--surface-card);
   box-shadow: 0 16px 28px -24px rgba(15, 23, 42, 0.24);
 }
 
@@ -173,7 +171,7 @@
 
 .compra-empty-title {
   margin: 0;
-  color: #0f172a;
+  color: var(--text-main);
   font-size: 1.4rem;
   font-family: var(--font-heading);
 }
@@ -181,7 +179,7 @@
 .compra-empty-text {
   margin: 10px auto 0;
   font-size: 0.95rem;
-  color: #64748b;
+  color: var(--text-muted);
   max-width: 46ch;
   line-height: 1.6;
 }
@@ -195,7 +193,7 @@
   top: 10px;
   right: 10px;
   padding: 8px 12px;
-  background: #fee2e2;
+  background: rgba(239, 68, 68, 0.12);
   color: #dc2626;
   border: none;
   border-radius: 999px;
@@ -229,7 +227,7 @@
   padding: 18px 24px;
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   border: 1px solid #e2e8f0;
-  color: #0f172a;
+  color: var(--text-main);
   border-radius: 16px;
   display: flex;
   justify-content: space-between;
@@ -279,7 +277,7 @@
 
 .compra-error {
   padding: 16px 20px;
-  background: #fee2e2;
+  background: rgba(239, 68, 68, 0.12);
   border: 1px solid #fca5a5;
   color: #dc2626;
   border-radius: 12px;
@@ -304,7 +302,7 @@
 .compra-category-title {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-main);
   margin: 0 0 18px;
   padding-bottom: 14px;
   border-bottom: 1px solid #e2e8f0;
@@ -363,7 +361,7 @@
   height: 28px;
   border: none;
   border-radius: 8px;
-  background: #fee2e2;
+  background: rgba(239, 68, 68, 0.12);
   color: #dc2626;
   cursor: pointer;
   display: inline-flex;

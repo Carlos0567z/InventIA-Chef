@@ -22,7 +22,7 @@
 .profile-hero-main h1 {
   font-size: 2.2rem;
   margin: 0;
-  color: #0f172a;
+  color: var(--text-main);
   letter-spacing: -0.04em;
   font-weight: 800;
 }
@@ -75,7 +75,7 @@
 }
 
 .profile-meta-item strong {
-  color: #0f172a;
+  color: var(--text-main);
   font-size: 1.1rem;
   font-weight: 800;
 }
@@ -121,7 +121,7 @@
   font-size: 1.25rem;
   font-weight: 800;
   margin: 0;
-  color: #0f172a;
+  color: var(--text-main);
   letter-spacing: -0.02em;
 }
 
@@ -163,7 +163,7 @@
   border-radius: 14px;
   border: 1px solid #e2e8f0;
   background: #ffffff;
-  color: #0f172a;
+  color: var(--text-main);
   font-size: 0.95rem;
   line-height: 1.4;
   font-family: inherit;
@@ -414,7 +414,7 @@ textarea.profile-text-input {
   margin: 0 0 10px;
   font-size: 1.5rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .profile-modal-copy {
@@ -471,7 +471,7 @@ textarea.profile-text-input {
 
 .profile-receta-item-info strong {
   font-size: 0.9rem;
-  color: #0f172a;
+  color: var(--text-main);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1309,7 +1309,7 @@ textarea.profile-text-input {
 }
 
 .profile-status-item.active {
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .profile-status-item.active svg {
@@ -1330,7 +1330,7 @@ textarea.profile-text-input {
 
 .mini-stat strong {
   font-size: 1.5rem;
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .mini-stat span {
@@ -1483,7 +1483,7 @@ textarea.profile-text-input {
 .section-title-group h3 {
   font-size: 1.35rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 4px;
 }
 
@@ -1566,7 +1566,7 @@ textarea.profile-text-input {
 .profile-btn-outline {
   background: white;
   border: 1px solid #e2e8f0;
-  color: #0f172a;
+  color: var(--text-main);
   padding: 10px 20px;
   border-radius: 10px;
   font-weight: 700;
@@ -1955,7 +1955,7 @@ textarea.profile-text-input {
 }
 
 .checklist-item.done {
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .checklist-item .check-icon {
@@ -2146,7 +2146,7 @@ textarea.profile-text-input {
   border-radius: 8px;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-main);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -2302,7 +2302,7 @@ textarea.profile-text-input {
 
 .profile-action-secondary {
   background: white;
-  color: #0f172a;
+  color: var(--text-main);
   border: 1px solid #e2e8f0;
   padding: 10px 20px;
   border-radius: 12px;

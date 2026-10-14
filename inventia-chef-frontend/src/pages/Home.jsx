@@ -85,6 +85,35 @@ export default function Home() {
 
   return (
     <main className="home-layout">
+      {/* Ticker Live Ribbon (Estilo Luxe Store) */}
+      <div className="home-ticker-wrap" aria-hidden="true">
+        <div className="home-ticker-track">
+          <span>✨ Chef IA Adaptativo</span>
+          <span className="ticker-bullet">•</span>
+          <span>0% Desperdicio Alimentario</span>
+          <span className="ticker-bullet">•</span>
+          <span>Radar de Caducidades Activo</span>
+          <span className="ticker-bullet">•</span>
+          <span>Escaneo Inteligente con Visión IA</span>
+          <span className="ticker-bullet">•</span>
+          <span>Comunidad Gourmet en Vivo</span>
+          <span className="ticker-bullet">•</span>
+          <span>Despensa Digital Sincronizada</span>
+          <span className="ticker-bullet">•</span>
+          <span>✨ Chef IA Adaptativo</span>
+          <span className="ticker-bullet">•</span>
+          <span>0% Desperdicio Alimentario</span>
+          <span className="ticker-bullet">•</span>
+          <span>Radar de Caducidades Activo</span>
+          <span className="ticker-bullet">•</span>
+          <span>Escaneo Inteligente con Visión IA</span>
+          <span className="ticker-bullet">•</span>
+          <span>Comunidad Gourmet en Vivo</span>
+          <span className="ticker-bullet">•</span>
+          <span>Despensa Digital Sincronizada</span>
+        </div>
+      </div>
+
       {loggedIn ? (
         /* ====================================================================
            PANEL GASTRONÓMICO PRINCIPAL (USUARIO CONECTADO)

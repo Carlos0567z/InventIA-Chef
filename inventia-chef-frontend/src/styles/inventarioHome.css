@@ -55,8 +55,8 @@
   margin: 0 0 18px;
   padding: 12px 18px;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  background: rgba(18, 20, 31, 0.85);
+  border: 1px solid var(--border);
+  background: var(--surface-card);
   backdrop-filter: blur(20px);
   box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.4);
   display: flex;
@@ -92,8 +92,8 @@
   width: 100%;
   box-sizing: border-box;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  background: var(--input-bg);
   padding: 8px 14px;
   min-height: 40px;
   color: #f1f5f9;
@@ -110,7 +110,7 @@
   border: none;
   outline: none;
   background: transparent;
-  color: #0f172a;
+  color: var(--text-main);
   font-family: var(--font-ui);
   font-size: 0.92rem;
   box-shadow: none;
@@ -129,8 +129,8 @@
   justify-content: center;
   gap: 6px;
   flex-shrink: 0;
-  background: #fff5f5;
-  border: 1px solid #ffe4e6;
+  background: var(--pill-bg);
+  border: 1px solid var(--border);
   padding: 0 12px;
   min-height: 36px;
   border-radius: 10px;
@@ -148,7 +148,7 @@
 }
 
 .filter-toggle-btn:hover {
-  background: #ffe4e6;
+  background: var(--surface-soft);
   border-color: #fecdd3;
   color: #be123c;
 }
@@ -281,13 +281,13 @@
   font-size: clamp(2.35rem, 3.6vw, 4.4rem);
   line-height: 0.98;
   letter-spacing: -0.06em;
-  color: #0f172a;
+  color: var(--text-main);
   max-width: 12ch;
 }
 
 .inventario-hero-copy p {
   margin: 20px 0 0;
-  color: #475569;
+  color: var(--text-muted);
   font-size: 1.04rem;
   line-height: 1.7;
   max-width: 64ch;
@@ -452,7 +452,7 @@
 
 .inventario-panel-card strong {
   display: block;
-  color: #0f172a;
+  color: var(--text-main);
   font-size: 1rem;
   line-height: 1.2;
 }
@@ -460,7 +460,7 @@
 .inventario-panel-card span {
   display: block;
   margin-top: 2px;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.88rem;
   line-height: 1.35;
 }
@@ -492,7 +492,7 @@
 
 .inventario-stat-card span {
   display: block;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.84rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -503,14 +503,14 @@
   display: block;
   margin-top: 10px;
   font-family: var(--font-heading);
-  color: #0f172a;
+  color: var(--text-main);
   font-size: clamp(1.4rem, 2vw, 2rem);
   letter-spacing: -0.02em;
 }
 
 .inventario-stat-card p {
   margin: 10px 0 0;
-  color: #64748b;
+  color: var(--text-muted);
   line-height: 1.5;
   font-size: 0.92rem;
 }
@@ -527,7 +527,7 @@
 .inventario-list-header .view-title h2 {
   font-size: 1.55rem;
   font-family: var(--font-heading);
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 4px;
   letter-spacing: -0.02em;
 }
@@ -584,13 +584,13 @@
 
 .inventario-empty-state h3 {
   margin: 0;
-  color: #0f172a;
+  color: var(--text-main);
   font-size: 1.4rem;
 }
 
 .inventario-empty-state p {
   margin: 10px auto 22px;
-  color: #64748b;
+  color: var(--text-muted);
   max-width: 46ch;
   line-height: 1.6;
 }
@@ -650,7 +650,7 @@
 
 .inventario-grid .food-meta-icon {
   width: 18px;
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .inventario-grid .food-expiry-hint {
@@ -689,7 +689,7 @@
 .inventario-grid .food-icon-box {
   border: 1px solid #d6e0ec;
   background: linear-gradient(180deg, #f8fafc, #eef2f7);
-  color: #475569;
+  color: var(--text-muted);
   box-shadow: inset 0 -6px 12px rgba(255, 255, 255, 0.24), 0 10px 16px -16px rgba(15, 23, 42, 0.24);
 }
 
@@ -736,14 +736,14 @@
 
 .inventario-grid .card-body h3 {
   margin: 0;
-  color: #0f172a;
+  color: var(--text-main);
   font-size: 1.05rem;
   letter-spacing: -0.02em;
 }
 
 .inventario-grid .card-body p {
   margin: 8px 0 0;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
@@ -845,7 +845,7 @@
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .inventario-quick-form {
@@ -864,7 +864,7 @@
   display: block;
   margin-bottom: 5px;
   font-weight: 700;
-  color: #475569;
+  color: var(--text-muted);
   font-size: 0.86rem;
 }
 

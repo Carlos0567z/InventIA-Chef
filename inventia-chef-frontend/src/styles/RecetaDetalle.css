@@ -493,7 +493,7 @@
 }
 
 .receta-detalle-dark-btn {
-  background-color: #0f172a;
+  background-color: var(--text-main);
 }
 
 .receta-detalle-dark-btn:hover {

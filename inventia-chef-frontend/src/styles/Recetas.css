@@ -138,7 +138,7 @@
 
 .recetas-hero-stats strong {
   display: block;
-  color: #0f172a;
+  color: var(--text-main);
   font-size: 1.15rem;
   line-height: 1;
   margin-bottom: 4px;
@@ -274,7 +274,7 @@
   border: none;
   outline: none;
   background: transparent;
-  color: #0f172a;
+  color: var(--text-main);
   font-family: var(--font-ui);
   font-size: 0.92rem;
   box-shadow: none;
@@ -353,7 +353,7 @@
   border-radius: 14px;
   border: 1px solid #cbd5e1;
   background: #ffffff;
-  color: #0f172a;
+  color: var(--text-main);
   font-size: 0.92rem;
   transition:
     border-color var(--motion-fast) var(--motion-ease-soft),
@@ -969,7 +969,7 @@
 }
 
 .view-tab:hover {
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .view-tab.active {
@@ -1136,7 +1136,7 @@
 .recetas-header-premium h2 {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 6px;
 }
 
@@ -1178,7 +1178,7 @@
   border-radius: 8px;
   font-size: 0.75rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   backdrop-filter: blur(4px);
 }
@@ -1255,7 +1255,7 @@
 .manage-btn.edit:hover {
   background: #f1f5f9;
   border-color: #cbd5e1;
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .manage-btn.delete {
@@ -1286,7 +1286,7 @@
 .author-interaction-guide-premium p {
   margin: 0;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-main);
   font-size: 0.9rem;
   line-height: 1.45;
 }

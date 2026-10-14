@@ -40,7 +40,7 @@
   font-family: var(--font-heading);
   font-size: clamp(1.7rem, 2.8vw, 2.4rem);
   letter-spacing: -0.035em;
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .escaner-hero p {
@@ -66,7 +66,7 @@
 
 .escaner-hero-stats strong {
   display: block;
-  color: #0f172a;
+  color: var(--text-main);
   font-size: 1rem;
   margin-bottom: 2px;
 }
@@ -103,7 +103,7 @@
 
 .escaner-mode-help strong {
   display: block;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 3px;
 }
 
@@ -195,7 +195,7 @@
 }
 
 .escaner-panel-title {
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 2px;
   padding-bottom: 12px;
   border-bottom: 1px solid #e2e8f0;
@@ -404,7 +404,7 @@
   border: 1px solid #cbd5e1;
   background: #fff;
   font-size: 0.88rem;
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .escaner-flip-cam-btn {

@@ -1,16 +1,16 @@
 .page-tabs {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
-  margin: 0 0 18px;
-  padding: 6px;
-  padding-left: max(6px, env(safe-area-inset-left, 0px));
-  padding-right: max(6px, env(safe-area-inset-right, 0px));
+  margin: 0 0 22px;
+  padding: 8px 10px;
+  padding-left: max(10px, env(safe-area-inset-left, 0px));
+  padding-right: max(10px, env(safe-area-inset-right, 0px));
   border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 14px 30px -24px rgba(15, 23, 42, 0.35);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px -6px rgba(15, 23, 42, 0.08);
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -19,31 +19,47 @@
 .page-tab {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 12px;
+  gap: 9px;
+  padding: 10px 18px;
+  min-height: 44px;
+  border-radius: 14px;
   border: 1px solid transparent;
   background: transparent;
   color: #475569;
   text-decoration: none;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  transition: all 0.18s ease;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-sizing: border-box;
 }
 
 .page-tab:hover {
-  color: #e11d48;
+  color: #be123c;
   background: #fff1f2;
+  border-color: #ffe4e6;
 }
 
 .page-tab.active {
-  color: #e11d48;
-  background: #fff1f2;
-  border-color: #ffd5dc;
+  color: #ffffff;
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  border-color: #e11d48;
+  box-shadow: 0 4px 12px -2px rgba(225, 29, 72, 0.35);
 }
 
-.page-tab i {
-  font-size: 0.82rem;
+.page-tab svg {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* Barra unificada de recetas: visible y accesible en todas las pantallas */
+.recetas-chef-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  margin-bottom: 22px;
 }
 
 @media (max-width: 900px) {
@@ -53,59 +69,30 @@
     box-sizing: border-box;
     display: flex;
     flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     gap: 6px;
-    padding: 5px;
-    margin-bottom: 14px;
+    padding: 6px;
+    margin-bottom: 16px;
+    border-radius: 16px;
+  }
+
+  .page-tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .page-tab {
-    flex: 1;
+    flex: 0 0 auto;
     justify-content: center;
-    min-width: 0;
-    padding: 10px 8px;
-    font-size: 0.82rem;
-    line-height: 1.25;
-    gap: 6px;
+    padding: 8px 14px;
+    font-size: 0.88rem;
+    min-height: 40px;
+    gap: 7px;
     text-align: center;
+    white-space: nowrap;
   }
 
-  .page-tab svg {
-    flex-shrink: 0;
-    width: 0.9em;
-    height: 0.9em;
-  }
-}
-
-/* Toggle clásicas / Chef IA: solo móvil (en escritorio, menú Recetas del header) */
-.recetas-chef-toggle {
-  display: none;
-}
-
-@media (max-width: 900px) {
   .recetas-chef-toggle {
-    display: flex;
-    flex-wrap: nowrap;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    margin: 0 0 16px;
-    padding: 5px;
-    gap: 6px;
-    border-radius: 999px;
-  }
-
-  .recetas-chef-toggle .page-tab {
-    flex: 1;
-    justify-content: center;
-    text-align: center;
-    padding: 10px 10px;
-    font-size: 0.84rem;
-    line-height: 1.2;
-    border-radius: 999px;
-    min-width: 0;
-  }
-
-  .recetas-chef-toggle .page-tab.active {
-    box-shadow: 0 2px 8px -4px rgba(225, 29, 72, 0.35);
+    margin-bottom: 16px;
   }
 }

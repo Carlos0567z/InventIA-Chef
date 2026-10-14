@@ -15,10 +15,9 @@ const Sidebar = () => {
   const menuRecetasRef = useRef(null);
 
   const recetasItems = [
-    { nombre: 'Recetas clásicas', ruta: '/recetas', descripcion: 'Recetas del catálogo principal' },
+    { nombre: 'Recetas clásicas', ruta: '/recetas', descripcion: 'Catálogo de recetas sugeridas para ti' },
     { nombre: 'Chef IA', ruta: '/recetas-ia', descripcion: 'Ideas con IA a partir de tu despensa' },
-    { nombre: 'Comunidad', ruta: '/recetas-comunidad', descripcion: 'Recetas publicadas por otros usuarios' },
-    { nombre: 'Pendientes', ruta: '/recetas-pendientes', descripcion: 'Recetas guardadas para cocinar después' },
+    { nombre: 'Pendientes para cocinar', ruta: '/recetas-pendientes', descripcion: 'Recetas guardadas para preparar después' },
   ];
 
   const comprasItems = [
@@ -179,6 +178,7 @@ const Sidebar = () => {
               to={comprasItems[0].ruta}
               className={isActive('/compra-inteligente') || isActive('/historial') ? 'menu-title icon-only nav-icon-link active' : 'menu-title icon-only nav-icon-link'}
               aria-label="Compras"
+              title="Compras e historial"
             >
               <FiShoppingCart size={18} strokeWidth={2.5} />
             </Link>
@@ -187,6 +187,7 @@ const Sidebar = () => {
               to={favoritosItem.ruta}
               className={isActive(favoritosItem.ruta) ? 'menu-title icon-only nav-icon-link active' : 'menu-title icon-only nav-icon-link'}
               aria-label={favoritosItem.nombre}
+              title="Mis recetas favoritas"
             >
               <FiHeart size={18} strokeWidth={2.5} />
             </Link>
@@ -195,6 +196,7 @@ const Sidebar = () => {
               to={perfilItem.ruta}
               className={isActive(perfilItem.ruta) ? 'menu-title icon-only nav-icon-link active' : 'menu-title icon-only nav-icon-link'}
               aria-label={perfilItem.nombre}
+              title="Mi perfil de usuario"
             >
               <FiUser size={18} strokeWidth={2.5} />
             </Link>
@@ -222,7 +224,7 @@ const Sidebar = () => {
         </Link>
         <Link to="/recetas-comunidad" className={isActive('/recetas-comunidad') ? 'tab-item active' : 'tab-item'}>
           <FiUsers />
-          <span>Chef Hub</span>
+          <span>Comunidad</span>
         </Link>
       </nav>
     </>

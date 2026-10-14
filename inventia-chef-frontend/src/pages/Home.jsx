@@ -227,7 +227,16 @@ const Home = () => {
             </div>
 
             {/* tarjeta: comunidad */}
-            <div className="dashboard-card com-card" onClick={() => navigate(`/recetas-comunidad/${sugerenciaComunidad?._id}`, { state: { receta: sugerenciaComunidad } })}>
+            <div
+              className="dashboard-card com-card"
+              onClick={() => {
+                if (sugerenciaComunidad?._id) {
+                  navigate(`/recetas-comunidad/${sugerenciaComunidad._id}`, { state: { receta: sugerenciaComunidad } });
+                } else {
+                  navigate('/recetas-comunidad');
+                }
+              }}
+            >
               <div className="card-source-badge com">
                 <FaUsers /> Comunidad
               </div>
@@ -240,12 +249,18 @@ const Home = () => {
                     <h3>{sugerenciaComunidad.title}</h3>
                     <div className="card-stats">
                       <span><FaClock /> {sugerenciaComunidad.readyInMinutes || 25} min</span>
+                      {Number(sugerenciaComunidad.numero_likes) > 0 && (
+                        <span><FaHeart style={{ color: '#ef4444' }} /> {sugerenciaComunidad.numero_likes}</span>
+                      )}
+                      {Number(sugerenciaComunidad.puntuacion_media) > 0 && (
+                        <span><FaStar style={{ color: '#eab308' }} /> {Number(sugerenciaComunidad.puntuacion_media).toFixed(1)}</span>
+                      )}
                     </div>
                   </div>
                 </>
               ) : (
                 <div className="card-placeholder">
-                  <p>{cargando ? 'Buscando...' : 'Explora lo que cocinan otros'}</p>
+                  <p>{cargando ? 'Buscando...' : 'Explora lo que cocinan otros chefs'}</p>
                 </div>
               )}
             </div>

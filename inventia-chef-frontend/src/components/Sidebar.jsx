@@ -44,7 +44,13 @@ const Sidebar = () => {
 
   const isExactActive = (ruta) => rutaActual === ruta;
 
-  const tieneRecetaActiva = recetasItems.some((item) => isExactActive(item.ruta));
+  const isComunidadActive =
+    rutaActual.startsWith('/recetas-comunidad') || rutaActual.startsWith('/cocinero');
+
+  const tieneRecetaActiva =
+    (rutaActual.startsWith('/recetas') && !rutaActual.startsWith('/recetas-comunidad')) ||
+    rutaActual.startsWith('/recetas-ia') ||
+    rutaActual.startsWith('/recetas-pendientes');
 
   // en movil /recetas-comunidad no debe marcar como activa la pestaña Recetas del bottom bar
   const isMobileRecetasTabActive =
@@ -147,6 +153,14 @@ const Sidebar = () => {
                   </div>
                 </div>
               )}
+
+              <Link
+                to="/recetas-comunidad"
+                className={isComunidadActive ? 'menu-title nav-link active' : 'menu-title nav-link'}
+                aria-current={isComunidadActive ? 'page' : undefined}
+              >
+                Comunidad
+              </Link>
 
               {admin && (
                 <Link

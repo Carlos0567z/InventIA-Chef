@@ -19,9 +19,21 @@ mongoose
   .then(() => console.log('Base de datos conectada: OK'))
   .catch((err) => console.error('Error al conectar con la BD:', err));
 
-// Ruta principal
+// Ruta principal y health check
 app.get('/', (req, res) => {
   res.send('Servidor de InventIA Chef funcionando correctamente');
+});
+
+app.get('/api/health', (req, res) => {
+  const estados = ['desconectada', 'conectada', 'conectando', 'desconectando'];
+  const estadoActual = estados[mongoose.connection.readyState] || 'desconocido';
+  res.status(200).json({
+    ok: true,
+    servidor: 'InventIA Chef API',
+    base_de_datos: estadoActual,
+    conectado_a_bd: mongoose.connection.readyState === 1,
+    time: new Date().toISOString(),
+  });
 });
 
 // Rutas de la app

@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const { OAuth2Client } = require('google-auth-library');
@@ -12,6 +13,12 @@ const googleClient = new OAuth2Client();
 
 router.post('/register', async (req, res) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({
+        mensaje: 'La base de datos (MongoDB) no está conectada en el servidor. Revisa MONGODB_URI y el acceso de red (0.0.0.0/0) en MongoDB Atlas.',
+      });
+    }
+
     const nombre = String(req.body?.nombre || '').trim();
     const email = normalizarEmail(req.body?.email || '');
     const password = String(req.body?.password || '');
@@ -51,13 +58,22 @@ router.post('/register', async (req, res) => {
     });
   } catch (error) {
     console.error('Error en el registro:', error);
-    return res.status(500).json({ mensaje: 'No se ha podido crear el usuario' });
+    if (String(error?.message || '').includes('JWT_SECRET')) {
+      return res.status(500).json({ mensaje: 'Error de configuración: JWT_SECRET no está definido en el servidor.' });
+    }
+    return res.status(500).json({ mensaje: error?.message || 'No se ha podido crear el usuario' });
   }
 });
 
 // Login con email y password
 router.post('/login', async (req, res) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({
+        mensaje: 'La base de datos (MongoDB) no está conectada en el servidor. Revisa MONGODB_URI y el acceso de red (0.0.0.0/0) en MongoDB Atlas.',
+      });
+    }
+
     const email = normalizarEmail(req.body?.email || '');
     const password = String(req.body?.password || '');
 
@@ -95,7 +111,10 @@ router.post('/login', async (req, res) => {
     });
   } catch (err) {
     console.error('Error en el login:', err);
-    return res.status(500).json({ mensaje: 'Error al intentar entrar' });
+    if (String(err?.message || '').includes('JWT_SECRET')) {
+      return res.status(500).json({ mensaje: 'Error de configuración: JWT_SECRET no está definido en el servidor.' });
+    }
+    return res.status(500).json({ mensaje: err?.message || 'Error al intentar entrar' });
   }
 });
 

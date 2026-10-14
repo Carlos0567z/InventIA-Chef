@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiShoppingCart, FiHeart, FiUser, FiHome, FiBox, FiCamera, FiLayout, FiUsers, FiSun, FiMoon } from 'react-icons/fi';
+import { FiShoppingCart, FiHeart, FiUser, FiHome, FiBox, FiCamera, FiLayout, FiUsers } from 'react-icons/fi';
 import '../styles/navigation.css';
 import { useAuthRefresh } from '../hooks/useAuthRefresh';
-import { useTheme } from '../hooks/useTheme';
 import { isAdmin } from '../services/auth';
 
 const Sidebar = () => {
   useAuthRefresh();
-  const { theme, toggleTheme, isDark } = useTheme();
   const location = useLocation();
   const rutaActual = location.pathname;
   const admin = isAdmin();
@@ -17,9 +15,10 @@ const Sidebar = () => {
   const menuRecetasRef = useRef(null);
 
   const recetasItems = [
-    { nombre: 'Recetas clásicas', ruta: '/recetas', descripcion: 'Catálogo de recetas sugeridas para ti' },
+    { nombre: 'Recetas clásicas', ruta: '/recetas', descripcion: 'Recetas del catálogo principal' },
     { nombre: 'Chef IA', ruta: '/recetas-ia', descripcion: 'Ideas con IA a partir de tu despensa' },
-    { nombre: 'Pendientes para cocinar', ruta: '/recetas-pendientes', descripcion: 'Recetas guardadas para preparar después' },
+    { nombre: 'Comunidad', ruta: '/recetas-comunidad', descripcion: 'Recetas publicadas por otros usuarios' },
+    { nombre: 'Pendientes', ruta: '/recetas-pendientes', descripcion: 'Recetas guardadas para cocinar después' },
   ];
 
   const comprasItems = [
@@ -180,7 +179,6 @@ const Sidebar = () => {
               to={comprasItems[0].ruta}
               className={isActive('/compra-inteligente') || isActive('/historial') ? 'menu-title icon-only nav-icon-link active' : 'menu-title icon-only nav-icon-link'}
               aria-label="Compras"
-              title="Compras e historial"
             >
               <FiShoppingCart size={18} strokeWidth={2.5} />
             </Link>
@@ -189,26 +187,14 @@ const Sidebar = () => {
               to={favoritosItem.ruta}
               className={isActive(favoritosItem.ruta) ? 'menu-title icon-only nav-icon-link active' : 'menu-title icon-only nav-icon-link'}
               aria-label={favoritosItem.nombre}
-              title="Mis recetas favoritas"
             >
               <FiHeart size={18} strokeWidth={2.5} />
             </Link>
-
-            <button
-              type="button"
-              className="menu-title icon-only nav-icon-link theme-toggle-btn"
-              onClick={toggleTheme}
-              aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-              title={isDark ? "Cambiar a modo claro (☀️)" : "Cambiar a modo oscuro (🌙)"}
-            >
-              {isDark ? <FiSun size={18} strokeWidth={2.5} /> : <FiMoon size={18} strokeWidth={2.5} />}
-            </button>
 
             <Link
               to={perfilItem.ruta}
               className={isActive(perfilItem.ruta) ? 'menu-title icon-only nav-icon-link active' : 'menu-title icon-only nav-icon-link'}
               aria-label={perfilItem.nombre}
-              title="Mi perfil de usuario"
             >
               <FiUser size={18} strokeWidth={2.5} />
             </Link>
@@ -236,7 +222,7 @@ const Sidebar = () => {
         </Link>
         <Link to="/recetas-comunidad" className={isActive('/recetas-comunidad') ? 'tab-item active' : 'tab-item'}>
           <FiUsers />
-          <span>Comunidad</span>
+          <span>Chef Hub</span>
         </Link>
       </nav>
     </>

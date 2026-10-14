@@ -17,23 +17,25 @@
   gap: 14px;
   align-items: center;
   border-radius: 24px;
-  border: 1px solid var(--border);
-  background: var(--surface-card);
-  backdrop-filter: blur(24px);
-  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background:
+    radial-gradient(circle at top left, rgba(255, 241, 242, 0.46), transparent 32%),
+    radial-gradient(circle at 100% 10%, rgba(224, 231, 255, 0.34), transparent 34%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.95));
+  box-shadow: 0 24px 40px -34px rgba(15, 23, 42, 0.34);
 }
 
 .inventario-manager-title h1 {
   margin: 0;
-  font-family: var(--font-heading);
-  color: var(--text-main);
-  letter-spacing: -0.04em;
+  font-family: 'Manrope', system-ui, sans-serif;
+  color: #0f172a;
+  letter-spacing: -0.05em;
   font-size: clamp(2rem, 3.1vw, 2.7rem);
 }
 
 .inventario-manager-title p {
   margin-top: 8px;
-  color: var(--text-muted);
+  color: #64748b;
   max-width: 54ch;
   line-height: 1.55;
 }
@@ -51,17 +53,21 @@
   transition: min-height var(--motion-base) var(--motion-ease-soft);
 }
 
+/* Tarjeta de filtros: intento que se parezca a la de la pagina de recetas */
 .inventario-filters.card {
   margin: 0 0 18px;
-  padding: 12px 18px;
-  border-radius: 18px;
-  border: 1px solid var(--border);
-  background: var(--surface-card);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.4);
+  padding: 10px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(226, 232, 240, 0.96);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.98) 100%);
+  box-shadow: 0 12px 24px -24px rgba(15, 23, 42, 0.35);
   display: flex;
   flex-direction: column;
   gap: 12px;
+  transition:
+    box-shadow var(--motion-base) var(--motion-ease-soft),
+    border-color var(--motion-base) var(--motion-ease-soft),
+    background var(--motion-base) var(--motion-ease-soft);
 }
 
 .inventario-filters.card:hover {
@@ -84,6 +90,7 @@
   align-self: center;
 }
 
+/* caja del input de buscar */
 .inventario-filter-search {
   display: inline-flex;
   align-items: center;
@@ -91,12 +98,12 @@
   gap: 10px;
   width: 100%;
   box-sizing: border-box;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--input-bg);
-  padding: 8px 14px;
-  min-height: 40px;
-  color: #f1f5f9;
+  border-radius: 10px;
+  border: 1px solid #dbe3ef;
+  background: #fff;
+  padding: 6px 12px;
+  min-height: 36px;
+  color: #64748b;
   transition:
     border-color var(--motion-fast) var(--motion-ease-soft),
     box-shadow var(--motion-fast) var(--motion-ease-soft),
@@ -110,8 +117,8 @@
   border: none;
   outline: none;
   background: transparent;
-  color: var(--text-main);
-  font-family: var(--font-ui);
+  color: #0f172a;
+  font-family: 'Manrope', system-ui, sans-serif;
   font-size: 0.92rem;
   box-shadow: none;
   appearance: none;
@@ -129,8 +136,8 @@
   justify-content: center;
   gap: 6px;
   flex-shrink: 0;
-  background: var(--pill-bg);
-  border: 1px solid var(--border);
+  background: #fff5f5;
+  border: 1px solid #ffe4e6;
   padding: 0 12px;
   min-height: 36px;
   border-radius: 10px;
@@ -148,7 +155,7 @@
 }
 
 .filter-toggle-btn:hover {
-  background: var(--surface-soft);
+  background: #ffe4e6;
   border-color: #fecdd3;
   color: #be123c;
 }
@@ -211,21 +218,21 @@
   animation: inventario-filter-dock var(--motion-base) var(--motion-ease-soft);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-color: var(--border);
-  background: var(--surface-card);
+  border-color: rgba(203, 213, 225, 0.92);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.94));
 }
 
 @media (max-width: 900px) {
   .inventario-filters.card.is-fixed {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    background: var(--surface-card);
-    border-color: var(--border);
+    background: #ffffff;
+    border-color: #e2e8f0;
   }
 
   .inventario-filters.card:not(.is-fixed) {
-    background: var(--surface-card);
-    border-color: var(--border);
+    background: #ffffff;
+    border-color: #e2e8f0;
   }
 }
 
@@ -281,13 +288,13 @@
   font-size: clamp(2.35rem, 3.6vw, 4.4rem);
   line-height: 0.98;
   letter-spacing: -0.06em;
-  color: var(--text-main);
+  color: #0f172a;
   max-width: 12ch;
 }
 
 .inventario-hero-copy p {
   margin: 20px 0 0;
-  color: var(--text-muted);
+  color: #475569;
   font-size: 1.04rem;
   line-height: 1.7;
   max-width: 64ch;
@@ -452,7 +459,7 @@
 
 .inventario-panel-card strong {
   display: block;
-  color: var(--text-main);
+  color: #0f172a;
   font-size: 1rem;
   line-height: 1.2;
 }
@@ -460,7 +467,7 @@
 .inventario-panel-card span {
   display: block;
   margin-top: 2px;
-  color: var(--text-muted);
+  color: #64748b;
   font-size: 0.88rem;
   line-height: 1.35;
 }
@@ -492,7 +499,7 @@
 
 .inventario-stat-card span {
   display: block;
-  color: var(--text-muted);
+  color: #64748b;
   font-size: 0.84rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -502,15 +509,15 @@
 .inventario-stat-card strong {
   display: block;
   margin-top: 10px;
-  font-family: var(--font-heading);
-  color: var(--text-main);
+  font-family: 'Manrope', system-ui, sans-serif;
+  color: #0f172a;
   font-size: clamp(1.4rem, 2vw, 2rem);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .inventario-stat-card p {
   margin: 10px 0 0;
-  color: var(--text-muted);
+  color: #64748b;
   line-height: 1.5;
   font-size: 0.92rem;
 }
@@ -526,10 +533,10 @@
 
 .inventario-list-header .view-title h2 {
   font-size: 1.55rem;
-  font-family: var(--font-heading);
-  color: var(--text-main);
+  font-family: 'Manrope', system-ui, sans-serif;
+  color: #0f172a;
   margin-bottom: 4px;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .inventario-header-actions {
@@ -584,13 +591,13 @@
 
 .inventario-empty-state h3 {
   margin: 0;
-  color: var(--text-main);
+  color: #0f172a;
   font-size: 1.4rem;
 }
 
 .inventario-empty-state p {
   margin: 10px auto 22px;
-  color: var(--text-muted);
+  color: #64748b;
   max-width: 46ch;
   line-height: 1.6;
 }
@@ -636,10 +643,9 @@
 }
 
 .inventario-grid .food-card .card-body h3 {
-  font-family: var(--font-heading);
+  font-family: 'Manrope', system-ui, sans-serif;
   font-size: 1.14rem;
-  letter-spacing: -0.02em;
-  color: #ffffff;
+  letter-spacing: -0.025em;
 }
 
 .inventario-grid .food-meta-line {
@@ -650,7 +656,7 @@
 
 .inventario-grid .food-meta-icon {
   width: 18px;
-  color: var(--text-muted);
+  color: #64748b;
 }
 
 .inventario-grid .food-expiry-hint {
@@ -689,7 +695,7 @@
 .inventario-grid .food-icon-box {
   border: 1px solid #d6e0ec;
   background: linear-gradient(180deg, #f8fafc, #eef2f7);
-  color: var(--text-muted);
+  color: #475569;
   box-shadow: inset 0 -6px 12px rgba(255, 255, 255, 0.24), 0 10px 16px -16px rgba(15, 23, 42, 0.24);
 }
 
@@ -736,14 +742,14 @@
 
 .inventario-grid .card-body h3 {
   margin: 0;
-  color: var(--text-main);
+  color: #0f172a;
   font-size: 1.05rem;
   letter-spacing: -0.02em;
 }
 
 .inventario-grid .card-body p {
   margin: 8px 0 0;
-  color: var(--text-muted);
+  color: #64748b;
   font-size: 0.9rem;
 }
 
@@ -772,34 +778,29 @@
 }
 
 .inventario-grid .btn-edit {
-  background: rgba(255, 255, 255, 0.06);
-  color: #e2e8f0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+  color: #334155;
+  border: 1px solid #e2e8f0;
 }
 
 .inventario-grid .btn-edit:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 20px -16px rgba(15, 23, 42, 0.4);
 }
 
 .inventario-grid .btn-delete {
-  background: rgba(255, 51, 102, 0.12);
-  color: #ff6b8b;
-  border: 1px solid rgba(255, 51, 102, 0.25);
+  background: linear-gradient(180deg, #fff1f2, #ffe8ec);
+  color: #e11d48;
+  border: 1px solid #ffd7dd;
 }
 
 .inventario-grid .btn-delete:hover {
-  background: rgba(255, 51, 102, 0.22);
-  color: #ffffff;
-  box-shadow: 0 8px 20px -6px rgba(255, 51, 102, 0.5);
+  box-shadow: 0 12px 20px -16px rgba(225, 29, 72, 0.45);
 }
 
 .inventario-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(12px);
+  background: rgba(15, 23, 42, 0.62);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -809,11 +810,10 @@
 
 .inventario-modal-card {
   width: min(430px, 100%);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(18, 20, 31, 0.96);
-  backdrop-filter: blur(24px);
-  box-shadow: 0 38px 70px -20px rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.96));
+  box-shadow: 0 38px 70px -40px rgba(15, 23, 42, 0.58);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -831,12 +831,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 18px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 10px;
 }
 
 .inventario-modal-head h3 {
-  color: #ffffff;
+  color: #0f172a;
   letter-spacing: -0.02em;
 }
 
@@ -845,7 +845,7 @@
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
-  color: var(--text-muted);
+  color: #64748b;
 }
 
 .inventario-quick-form {
@@ -864,7 +864,7 @@
   display: block;
   margin-bottom: 5px;
   font-weight: 700;
-  color: var(--text-muted);
+  color: #475569;
   font-size: 0.86rem;
 }
 

@@ -1,577 +1,370 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  FaArrowRight,
-  FaUtensils,
-  FaCamera,
-  FaShoppingBasket,
-  FaUsers,
-  FaBook,
-  FaClock,
-  FaBoxOpen,
-  FaHeart,
-  FaStar,
-  FaExclamationTriangle,
-  FaCheckCircle,
-  FaMagic,
-  FaBarcode,
-  FaShieldAlt,
-} from 'react-icons/fa';
+import { FaArrowRight, FaUtensils, FaListUl, FaSearch, FaCamera, FaShoppingBasket, FaDrumstickBite, FaFire, FaUsers, FaBook, FaClock, FaBoxOpen, FaHeart, FaStar } from 'react-icons/fa';
 import '../styles/home.css';
-import { isAuthenticated, getCurrentUser } from '../services/auth';
+import { isAuthenticated } from '../services/auth';
 
-export default function Home() {
+const Home = () => {
   const navigate = useNavigate();
   const loggedIn = isAuthenticated();
-  const currentUser = useMemo(() => getCurrentUser(), [loggedIn]);
-  const userFirstName = currentUser?.nombre ? currentUser.nombre.split(' ')[0] : '';
-
   const [sugerenciaChef, setSugerenciaChef] = useState(null);
   const [sugerenciaComunidad, setSugerenciaComunidad] = useState(null);
   const [sugerenciaClasica, setSugerenciaClasica] = useState(null);
   const [alertas, setAlertas] = useState([]);
-  const [totalAlimentos, setTotalAlimentos] = useState(0);
   const [cargando, setCargando] = useState(false);
 
   useEffect(() => {
     if (!loggedIn) return;
 
-    const cargarDatosInicio = async () => {
+    const cargarSugerenciasTop = async () => {
       setCargando(true);
       try {
-        // 1. Sugerencia Chef IA
+        // 1. Bloque sugerencias (chef)
         const resChef = await fetch('/api/recetas-ia/sugerencias?total=1');
         if (resChef.ok) {
           const dataChef = await resChef.json();
           if (dataChef && dataChef[0]) setSugerenciaChef(dataChef[0]);
         }
 
-        // 2. Sugerencia destacada Comunidad
+        // 2. Sugerencia destacada (comunidad)
         const resCom = await fetch('/api/recetas-comunidad');
         if (resCom.ok) {
           const dataCom = await resCom.json();
-          if (Array.isArray(dataCom) && dataCom[0]) setSugerenciaComunidad(dataCom[0]);
+          // cojo la primera de la lista (como un "mejor match" rapido)
+          if (dataCom && dataCom[0]) setSugerenciaComunidad(dataCom[0]);
         }
 
-        // 3. Sugerencia receta clasica
+        // 3. Sugerencia destacada (recetas clasicas)
         const resCla = await fetch('/api/recetas/sugerencias');
         if (resCla.ok) {
           const dataCla = await resCla.json();
-          if (Array.isArray(dataCla) && dataCla[0]) setSugerenciaClasica(dataCla[0]);
+          if (dataCla && dataCla[0]) setSugerenciaClasica(dataCla[0]);
         }
 
-        // 4. Inventario y alertas de caducidad
+        // 4. Alertas de la despensa para el resumen
         const resInv = await fetch('/api/alimentos');
         if (resInv.ok) {
           const dataInv = await resInv.json();
-          if (Array.isArray(dataInv)) {
-            setTotalAlimentos(dataInv.length);
-            const urgentes = dataInv.filter((item) => {
-              const est = String(item.estado_alerta || '').toLowerCase();
-              return est === 'urgente' || est === 'caducado';
-            });
-            setAlertas(urgentes);
-          }
+          const urgentes = dataInv.filter(item => 
+            item.estado_alerta === 'Urgente' || item.estado_alerta === 'Caducado'
+          );
+          setAlertas(urgentes);
         }
       } catch (error) {
-        console.error('Error cargando datos del inicio:', error);
+        console.error('Error cargando sugerencias del inicio:', error);
       } finally {
         setCargando(false);
       }
     };
 
-    cargarDatosInicio();
+    cargarSugerenciasTop();
   }, [loggedIn]);
 
   return (
     <main className="home-layout">
-      {/* Ticker Live Ribbon (Estilo Luxe Store) */}
-      <div className="home-ticker-wrap" aria-hidden="true">
-        <div className="home-ticker-track">
-          <span>✨ Chef IA Adaptativo</span>
-          <span className="ticker-bullet">•</span>
-          <span>0% Desperdicio Alimentario</span>
-          <span className="ticker-bullet">•</span>
-          <span>Radar de Caducidades Activo</span>
-          <span className="ticker-bullet">•</span>
-          <span>Escaneo Inteligente con Visión IA</span>
-          <span className="ticker-bullet">•</span>
-          <span>Comunidad Gourmet en Vivo</span>
-          <span className="ticker-bullet">•</span>
-          <span>Despensa Digital Sincronizada</span>
-          <span className="ticker-bullet">•</span>
-          <span>✨ Chef IA Adaptativo</span>
-          <span className="ticker-bullet">•</span>
-          <span>0% Desperdicio Alimentario</span>
-          <span className="ticker-bullet">•</span>
-          <span>Radar de Caducidades Activo</span>
-          <span className="ticker-bullet">•</span>
-          <span>Escaneo Inteligente con Visión IA</span>
-          <span className="ticker-bullet">•</span>
-          <span>Comunidad Gourmet en Vivo</span>
-          <span className="ticker-bullet">•</span>
-          <span>Despensa Digital Sincronizada</span>
+      {/* bloque hero */}
+      <section className="home-hero-premium">
+        <div className="home-hero-content">
+          <div className="home-badge">
+            <span className="badge-dot"></span>
+            {loggedIn ? 'Hola de nuevo' : 'InventIA Chef'}
+          </div>
+          
+          <h1 className="home-title">
+            {loggedIn ? 'Tu cocina,' : 'Tu cocina,'}<br />
+            <span className="text-gradient">
+              {loggedIn ? 'al día.' : 'ordenada y clara.'}
+            </span>
+          </h1>
+          
+          <p className="home-description">
+            {loggedIn 
+              ? 'Revisa la despensa, las recetas sugeridas y la lista de la compra desde el menu.'
+              : 'Controla la despensa, busca recetas y prepara listas de compra desde una sola app.'
+            }
+          </p>
+
+          <div className="home-cta-group">
+            {loggedIn ? (
+              <>
+                <Link to="/recetas-ia" className="btn-primary-hero">
+                  Ver Chef IA <FaUtensils />
+                </Link>
+                <Link to="/despensa" className="btn-secondary-hero">
+                  Ver mi despensa
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/auth" className="btn-primary-hero">
+                  Comenzar ahora <FaArrowRight />
+                </Link>
+                <Link to="/recetas" className="btn-secondary-hero">
+                  Explorar recetas
+                </Link>
+              </>
+            )}
+          </div>
+
+          <div className="home-stats-row">
+            <div className="stat-item">
+              <span className="stat-value">3</span>
+              <span className="stat-label">Tipos receta</span>
+            </div>
+            <div className="stat-divider"></div>
+            <div className="stat-item">
+              <span className="stat-value">IA</span>
+              <span className="stat-label">Sugerencias</span>
+            </div>
+            <div className="stat-divider"></div>
+            <div className="stat-item">
+              <span className="stat-value">24/7</span>
+              <span className="stat-label">Despensa</span>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {loggedIn ? (
-        /* ====================================================================
-           PANEL GASTRONÓMICO PRINCIPAL (USUARIO CONECTADO)
-           ==================================================================== */
-        <div className="home-cockpit">
-          {/* Cabecera y Bienvenida de la Cocina */}
-          <header className="cockpit-hud-header">
-            <div className="cockpit-status-bar">
-              <span className="status-badge-live">
-                <span className="live-dot"></span>
-                Despensa sincronizada
-              </span>
-              <span className="status-item">
-                <strong>{totalAlimentos}</strong> {totalAlimentos === 1 ? 'alimento registrado' : 'alimentos registrados'}
-              </span>
-              {alertas.length > 0 ? (
-                <span className="status-item badge-urgent">
-                  <FaExclamationTriangle /> {alertas.length} por caducar pronto
-                </span>
-              ) : (
-                <span className="status-item badge-fresh">
-                  <FaCheckCircle /> Todo en fecha óptima
-                </span>
-              )}
-            </div>
-
-            <div className="cockpit-title-row">
-              <div className="cockpit-title-content">
-                <h1 className="cockpit-main-title">
-                  {userFirstName ? `Hola, Chef ${userFirstName}` : 'Tu Cocina Inteligente'}
-                </h1>
-                <p className="cockpit-sub-title">
-                  Aprovechamiento integral de ingredientes, recetas sugeridas por IA y control preventivo de caducidades.
-                </p>
+        <div className="home-hero-graphics">
+          <div className="graphic-main-card">
+            <div className="graphic-header">
+              <div className="window-controls">
+                <span></span><span></span><span></span>
               </div>
-
-              <div className="cockpit-quick-triggers">
-                <button
-                  type="button"
-                  className="hud-trigger-btn btn-scan"
-                  onClick={() => navigate('/escaner')}
-                  title="Escanear alimento o código de barras"
-                >
-                  <FaBarcode />
-                  <span>Escanear alimento</span>
-                </button>
-                <button
-                  type="button"
-                  className="hud-trigger-btn btn-ai"
-                  onClick={() => navigate('/recetas-ia')}
-                  title="Crear recetas con el Chef IA"
-                >
-                  <FaMagic />
-                  <span>Chef IA</span>
-                </button>
+              <div className="window-title">Resumen</div>
+            </div>
+            <div className="graphic-body">
+              <div className="graphic-recipe-card">
+                <div className="recipe-image-placeholder"></div>
+                <div className="recipe-text-placeholder">
+                  <div className="line title"></div>
+                  <div className="line subtitle"></div>
+                </div>
+              </div>
+              <div className="graphic-metrics">
+                <div className="metric-box alert"></div>
+                <div className="metric-box ok"></div>
               </div>
             </div>
-          </header>
+            
+            {/* decoracion flotante */}
+            <div className="floating-badge badge-1">
+              <FaUtensils /> Chef IA
+            </div>
+            <div className="floating-badge badge-2">
+              <FaShoppingBasket /> Lista auto
+            </div>
+          </div>
+        </div>
+      </section>
 
-          {/* Bento Grid Gastronómico */}
-          <section className="cockpit-bento-grid" aria-label="Panel gastronómico">
-            {/* CELDA 1 (GRANDE): Sugerencia destacada Chef IA */}
-            <article
-              className="bento-card bento-hero-ai"
-              onClick={() => {
-                if (sugerenciaChef?.id) {
-                  navigate(`/recetas-ia/${sugerenciaChef.id}`, { state: { receta: sugerenciaChef } });
-                } else {
-                  navigate('/recetas-ia');
-                }
-              }}
-            >
-              <div className="bento-card-header">
-                <span className="bento-section-tag">
-                  <FaMagic /> Sugerencia de hoy
-                </span>
-                <span className="bento-match-badge">
-                  95% compatible con tu despensa
-                </span>
+      {/* panel resumen (solo usuarios logueados) */}
+      {loggedIn && (
+        <section className="home-dashboard">
+          <div className="dashboard-welcome">
+            <div className="welcome-text">
+              <h2>Tu <span className="text-gradient">resumen</span></h2>
+              <p>Alertas de la despensa y accesos rápidos.</p>
+            </div>
+          </div>
+
+          {/* alertas importantes de la despensa */}
+          {alertas.length > 0 && (
+            <div className="dashboard-alerts-integration">
+              <div className="integration-header">
+                <span className="integration-badge">Urgente</span>
+                <h4>Productos a revisar</h4>
               </div>
+              <div className="alerts-unified-grid">
+                {alertas.map(alerta => (
+                  <div key={alerta._id} className={`unified-alert-card ${alerta.estado_alerta.toLowerCase()}`} onClick={() => navigate('/despensa')}>
+                    <div className="u-alert-header">
+                      <span className="u-alert-dot"></span>
+                      <span className="u-alert-name">{alerta.nombre}</span>
+                    </div>
+                    <p className="u-alert-desc">
+                      {alerta.estado_alerta === 'Caducado' ? 'Producto expirado' : 'Consumir pronto'}
+                    </p>
+                    <div className="u-alert-footer">
+                      <span>Ver en despensa</span>
+                      <FaArrowRight />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
+          <div className="dashboard-welcome dashboard-welcome-spaced">
+            <div className="welcome-text">
+              <h3 className="dashboard-inspo-title">Inspiración para hoy</h3>
+            </div>
+          </div>
+
+          <div className="suggestions-showcase">
+            {/* tarjeta: sugerencias chef */}
+            <div className="dashboard-card chef-card" onClick={() => navigate(`/recetas-ia/${sugerenciaChef?.id}`, { state: { receta: sugerenciaChef } })}>
+              <div className="card-source-badge chef">
+                <FaUtensils /> Chef IA
+              </div>
               {sugerenciaChef ? (
-                <div className="hero-ai-content">
-                  <div className="hero-ai-image-backdrop">
-                    <img src={sugerenciaChef.image} alt={sugerenciaChef.title} loading="lazy" />
-                    <div className="hero-ai-gradient-overlay"></div>
+                <>
+                  <div className="card-image-wrapper">
+                    <img src={sugerenciaChef.image} alt={sugerenciaChef.title} />
                   </div>
-
-                  <div className="hero-ai-details">
-                    <span className="hero-ai-kicker">Recomendado según tus existencias</span>
-                    <h2 className="hero-ai-title">{sugerenciaChef.title}</h2>
-                    <div className="hero-ai-telemetry">
-                      <span className="telemetry-chip">
-                        <FaClock /> {sugerenciaChef.readyInMinutes || 25} min
-                      </span>
-                      <span className="telemetry-chip">
-                        <FaBoxOpen /> {sugerenciaChef.usedIngredientCount || 0} en tu despensa
-                      </span>
-                    </div>
-                    <div className="hero-ai-cta-row">
-                      <span className="hero-ai-action-btn">
-                        Ver receta y cocinar <FaArrowRight />
-                      </span>
+                  <div className="card-info">
+                    <h3>{sugerenciaChef.title}</h3>
+                    <div className="card-stats">
+                      <span><FaClock /> {sugerenciaChef.readyInMinutes} min</span>
+                      <span><FaBoxOpen /> {sugerenciaChef.usedIngredientCount} disp.</span>
                     </div>
                   </div>
-                </div>
+                </>
               ) : (
-                <div className="hero-ai-empty">
-                  <div className="empty-ai-icon-circle">
-                    <FaMagic />
-                  </div>
-                  <h3>Chef IA preparado</h3>
-                  <p>{cargando ? 'Consultando los ingredientes de tu despensa...' : 'Genera una receta gourmet a la medida exacta de lo que tienes en casa.'}</p>
-                  <span className="hero-ai-action-btn">
-                    Explorar Chef IA <FaArrowRight />
-                  </span>
+                <div className="card-placeholder">
+                  <p>{cargando ? 'Cargando ideas...' : 'Añade cosas a la despensa para ver ideas nuevas'}</p>
                 </div>
               )}
-            </article>
+            </div>
 
-            {/* CELDA 2: Despensa en Tiempo Real */}
-            <article className="bento-card bento-pantry" onClick={() => navigate('/despensa')}>
-              <div className="bento-card-header">
-                <span className="bento-section-tag">
-                  <FaBoxOpen /> Tu Despensa
-                </span>
-                <span className="bento-chip-pill">Activa</span>
-              </div>
-
-              <div className="pantry-stat-display">
-                <div className="pantry-big-number">{totalAlimentos}</div>
-                <div className="pantry-number-label">
-                  <strong>Ingredientes listos</strong>
-                  <span>disponibles para cocinar</span>
-                </div>
-              </div>
-
-              <div className="pantry-meter-wrapper">
-                <div className="pantry-meter-header">
-                  <span>Aprovechamiento</span>
-                  <strong>{totalAlimentos > 0 ? 'Excelente' : 'Despensa vacía'}</strong>
-                </div>
-                <div className="pantry-meter-track">
-                  <div
-                    className="pantry-meter-fill"
-                    style={{ width: `${Math.min(100, Math.max(15, totalAlimentos * 10))}%` }}
-                  ></div>
-                </div>
-              </div>
-
-              <div className="bento-card-footer">
-                <button
-                  type="button"
-                  className="bento-inline-btn"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate('/escaner');
-                  }}
-                >
-                  <FaCamera /> Escanear
-                </button>
-                <span className="bento-link-arrow">
-                  Gestionar <FaArrowRight />
-                </span>
-              </div>
-            </article>
-
-            {/* CELDA 3: Radar de Caducidades */}
-            <article
-              className={`bento-card bento-radar ${alertas.length > 0 ? 'radar-alert-active' : 'radar-nominal'}`}
-              onClick={() => navigate('/despensa')}
-            >
-              <div className="bento-card-header">
-                <span className="bento-section-tag">
-                  <FaShieldAlt /> Caducidades
-                </span>
-                {alertas.length > 0 ? (
-                  <span className="hud-badge-urgent">
-                    <FaExclamationTriangle /> {alertas.length} urgentes
-                  </span>
-                ) : (
-                  <span className="hud-badge-ok">
-                    <FaCheckCircle /> 100% fresco
-                  </span>
-                )}
-              </div>
-
-              {alertas.length > 0 ? (
-                <div className="radar-alerts-list">
-                  <p className="radar-warning-text">Consúmelos pronto para evitar desperdicio:</p>
-                  <div className="radar-items-scroll">
-                    {alertas.slice(0, 3).map((alerta) => {
-                      const esCaducado = String(alerta.estado_alerta || '').toLowerCase() === 'caducado';
-                      return (
-                        <div key={alerta._id} className={`radar-item-row ${esCaducado ? 'is-expired' : 'is-urgent'}`}>
-                          <span className="radar-item-name">{alerta.nombre}</span>
-                          <span className="radar-item-pill">
-                            {esCaducado ? 'Caducado' : 'Consumir pronto'}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ) : (
-                <div className="radar-nominal-content">
-                  <div className="radar-sweep-icon">
-                    <FaCheckCircle />
-                  </div>
-                  <h4>Todo en fecha óptima</h4>
-                  <p>Ningún alimento en riesgo de caducar en los próximos días.</p>
-                </div>
-              )}
-
-              <div className="bento-card-footer">
-                <span className="bento-link-arrow">
-                  Revisar despensa <FaArrowRight />
-                </span>
-              </div>
-            </article>
-
-            {/* CELDA 4: Comunidad Gourmet */}
-            <article
-              className="bento-card bento-community"
+            {/* tarjeta: comunidad */}
+            <div
+              className="dashboard-card com-card"
               onClick={() => {
                 if (sugerenciaComunidad?._id) {
-                  navigate(`/recetas-comunidad/${sugerenciaComunidad._id}`);
+                  navigate(`/recetas-comunidad/${sugerenciaComunidad._id}`, { state: { receta: sugerenciaComunidad } });
                 } else {
                   navigate('/recetas-comunidad');
                 }
               }}
             >
-              <div className="bento-card-header">
-                <span className="bento-section-tag">
-                  <FaUsers /> Comunidad de Chefs
-                </span>
-                <span className="bento-chip-pill">Destacada</span>
+              <div className="card-source-badge com">
+                <FaUsers /> Comunidad
               </div>
-
               {sugerenciaComunidad ? (
-                <div className="community-card-inner">
-                  {sugerenciaComunidad.image && (
-                    <div className="community-thumb-wrap">
-                      <img src={sugerenciaComunidad.image} alt={sugerenciaComunidad.title} loading="lazy" />
-                    </div>
-                  )}
-                  <div className="community-info">
-                    <span className="community-author-tag">
-                      Por <strong>{sugerenciaComunidad.autor_nombre || 'Chef de la Comunidad'}</strong>
-                    </span>
-                    <h3 className="community-title">{sugerenciaComunidad.title}</h3>
-                    <div className="community-metrics">
-                      <span>
-                        <FaHeart style={{ color: '#ff3366' }} /> {sugerenciaComunidad.numero_likes || 0}
-                      </span>
-                      <span>
-                        <FaStar style={{ color: '#f59e0b' }} /> {Number(sugerenciaComunidad.puntuacion_media || 5).toFixed(1)}
-                      </span>
-                      <span>
-                        <FaClock /> {sugerenciaComunidad.readyInMinutes || 30}m
-                      </span>
+                <>
+                  <div className="card-image-wrapper">
+                    <img src={sugerenciaComunidad.image} alt={sugerenciaComunidad.title} />
+                  </div>
+                  <div className="card-info">
+                    <h3>{sugerenciaComunidad.title}</h3>
+                    <div className="card-stats">
+                      <span><FaClock /> {sugerenciaComunidad.readyInMinutes || 25} min</span>
+                      {Number(sugerenciaComunidad.numero_likes) > 0 && (
+                        <span><FaHeart style={{ color: '#ef4444' }} /> {sugerenciaComunidad.numero_likes}</span>
+                      )}
+                      {Number(sugerenciaComunidad.puntuacion_media) > 0 && (
+                        <span><FaStar style={{ color: '#eab308' }} /> {Number(sugerenciaComunidad.puntuacion_media).toFixed(1)}</span>
+                      )}
                     </div>
                   </div>
-                </div>
+                </>
               ) : (
-                <div className="community-card-empty">
-                  <p>Descubre platos publicados por otros miembros, vota y guarda ideas originales.</p>
+                <div className="card-placeholder">
+                  <p>{cargando ? 'Buscando...' : 'Explora lo que cocinan otros chefs'}</p>
                 </div>
               )}
-
-              <div className="bento-card-footer">
-                <span className="bento-link-arrow">
-                  Explorar comunidad <FaArrowRight />
-                </span>
-              </div>
-            </article>
-
-            {/* CELDA 5: Logística de Compras */}
-            <article className="bento-card bento-shopping" onClick={() => navigate('/compra-inteligente')}>
-              <div className="bento-card-header">
-                <span className="bento-section-tag">
-                  <FaShoppingBasket /> Lista de Compra
-                </span>
-                <span className="bento-chip-pill">Automática</span>
-              </div>
-
-              <div className="shopping-card-body">
-                <div className="shopping-icon-box">
-                  <FaShoppingBasket />
-                </div>
-                <div className="shopping-info">
-                  <h3>Ingredientes que te faltan</h3>
-                  <p>Añade con un clic los ingredientes necesarios para cocinar tus recetas pendientes.</p>
-                </div>
-              </div>
-
-              <div className="bento-card-footer">
-                <span className="bento-link-arrow">
-                  Abrir lista de compras <FaArrowRight />
-                </span>
-              </div>
-            </article>
-
-            {/* CELDA 6: Catálogo Clásico */}
-            <article
-              className="bento-card bento-classic"
-              onClick={() => {
-                if (sugerenciaClasica?.id) {
-                  navigate(`/recetas/${sugerenciaClasica.id}`);
-                } else {
-                  navigate('/recetas');
-                }
-              }}
-            >
-              <div className="bento-card-header">
-                <span className="bento-section-tag">
-                  <FaBook /> Recetario Clásico
-                </span>
-                <span className="bento-chip-pill">Tradicional</span>
-              </div>
-
-              <div className="classic-card-body">
-                <div className="classic-icon-box">
-                  <FaBook />
-                </div>
-                <div className="classic-info">
-                  <h3>{sugerenciaClasica?.title || 'Recetas de Siempre'}</h3>
-                  <p>Cientos de recetas tradicionales listas para cocinar con tus existencias.</p>
-                </div>
-              </div>
-
-              <div className="bento-card-footer">
-                <span className="bento-link-arrow">
-                  Ver recetario clásico <FaArrowRight />
-                </span>
-              </div>
-            </article>
-          </section>
-        </div>
-      ) : (
-        /* ====================================================================
-           LANDING DE AUTOR PARA INVITADOS (EDITORIAL GOURMET & TECNOLOGÍA)
-           ==================================================================== */
-        <div className="home-guest-futuristic">
-          <section className="guest-futuristic-hero">
-            <div className="guest-hero-glass-card">
-              <div className="guest-eyebrow-badge">
-                <span className="eyebrow-spark">✨</span>
-                <span>COCINA INTELIGENTE Y SOSTENIBLE</span>
-              </div>
-
-              <h1 className="guest-futuristic-title">
-                Cocina como un chef <br />
-                <span className="text-gradient">con lo que tienes en casa.</span>
-              </h1>
-
-              <p className="guest-futuristic-desc">
-                InventIA Chef analiza los ingredientes de tu despensa, anticipa caducidades y crea recetas excepcionales a tu medida para ahorrar tiempo y no tirar comida jamás.
-              </p>
-
-              <div className="guest-cta-row">
-                <Link to="/auth" className="btn-futuristic-primary">
-                  <span>Empezar gratis</span>
-                  <FaArrowRight />
-                </Link>
-                <Link to="/auth" className="btn-futuristic-secondary">
-                  <span>Iniciar sesión</span>
-                </Link>
-              </div>
-
-              <div className="guest-tech-metrics">
-                <div className="tech-metric-box">
-                  <span className="metric-figure">0%</span>
-                  <span className="metric-tag">Desperdicio</span>
-                </div>
-                <div className="tech-metric-divider"></div>
-                <div className="tech-metric-box">
-                  <span className="metric-figure">100%</span>
-                  <span className="metric-tag">Aprovechamiento</span>
-                </div>
-                <div className="tech-metric-divider"></div>
-                <div className="tech-metric-box">
-                  <span className="metric-figure">30s</span>
-                  <span className="metric-tag">Recetas a medida</span>
-                </div>
-              </div>
             </div>
 
-            {/* Showcase Visual: Tarjeta interactiva de receta */}
-            <div className="guest-hologram-showcase">
-              <div className="hologram-recipe-panel">
-                <div className="hologram-hud-top">
-                  <span className="hologram-tag">Plato recomendado</span>
-                  <span className="hologram-chip">98% de ingredientes listos</span>
-                </div>
-                <div className="hologram-image-wrapper">
-                  <img
-                    src="https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?w=900"
-                    alt="Risotto cremoso de boletus"
-                    loading="lazy"
-                  />
-                  <div className="hologram-overlay-gradient"></div>
-                </div>
-                <div className="hologram-body">
-                  <div className="hologram-stars">
-                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-                    <span>5.0 • RECETA DE LA SEMANA</span>
+            {/* tarjeta: receta clasica */}
+            <div className="dashboard-card classic-card" onClick={() => navigate(`/recetas/${sugerenciaClasica?.id}`)}>
+              <div className="card-source-badge classic">
+                <FaBook /> Clásica
+              </div>
+              {sugerenciaClasica ? (
+                <>
+                  <div className="card-image-wrapper">
+                    <img src={sugerenciaClasica.image} alt={sugerenciaClasica.title} />
                   </div>
-                  <h3>Risotto Cremoso de Boletus y Parmesano</h3>
-                  <p>Mantecado con mantequilla fría, queso curado y reducción de caldo casero.</p>
-                  <div className="hologram-telemetry">
-                    <span><FaClock /> 30 min</span>
-                    <span><FaUtensils /> 4 raciones</span>
-                    <span><FaBoxOpen /> 5 ingredientes en nevera</span>
+                  <div className="card-info">
+                    <h3>{sugerenciaClasica.title}</h3>
+                    <div className="card-stats">
+                      <span><FaClock /> {sugerenciaClasica.readyInMinutes} min</span>
+                      <span><FaBoxOpen /> {sugerenciaClasica.usedIngredientCount} disp.</span>
+                    </div>
                   </div>
+                </>
+              ) : (
+                <div className="card-placeholder">
+                  <p>{cargando ? 'Buscando...' : 'Recetas de toda la vida'}</p>
                 </div>
-              </div>
+              )}
             </div>
-          </section>
-
-          {/* 4 Pilares de Valor */}
-          <section className="guest-pillars-section">
-            <div className="pillars-grid">
-              <div className="pillar-module">
-                <div className="pillar-icon-box">
-                  <FaCamera />
-                </div>
-                <h3>Escaneo Inteligente</h3>
-                <p>Fotografía tus compras o escanea códigos de barras para registrar ingredientes en tu despensa sin escribir.</p>
-              </div>
-
-              <div className="pillar-module pillar-highlight">
-                <div className="pillar-icon-box">
-                  <FaMagic />
-                </div>
-                <h3>Chef IA Adaptativo</h3>
-                <p>Propuestas culinarias creativas que aprovechan exactamente lo que tienes a mano antes de que caduque.</p>
-              </div>
-
-              <div className="pillar-module">
-                <div className="pillar-icon-box">
-                  <FaShieldAlt />
-                </div>
-                <h3>Control de Caducidades</h3>
-                <p>Alertas visuales inteligentes y recordatorios para consumir cada alimento en su fecha óptima.</p>
-              </div>
-
-              <div className="pillar-module">
-                <div className="pillar-icon-box">
-                  <FaUsers />
-                </div>
-                <h3>Comunidad Gourmet</h3>
-                <p>Comparte tus propias creaciones, valora platos de otros comensales y forja tu reputación como chef.</p>
-              </div>
-            </div>
-          </section>
-        </div>
+          </div>
+        </section>
       )}
+
+      {/* rejilla de funciones */}
+      <section className="home-features-section">
+        <div className="section-header">
+          <h2>Todo lo que necesitas para cocinar mejor</h2>
+          <p>Herramientas diseñadas para ahorrarte tiempo, dinero y esfuerzo en tu día a día.</p>
+        </div>
+
+        <div className="features-grid">
+          <div className="feature-card">
+            <div className="feature-icon-wrapper">
+              <FaSearch className="feature-icon" />
+            </div>
+            <h3>Catálogo Extenso</h3>
+            <p>Miles de recetas clásicas y de la comunidad, listas para ser descubiertas y preparadas.</p>
+          </div>
+
+          <div className="feature-card highlighted">
+            <div className="feature-icon-wrapper">
+              <FaUtensils className="feature-icon" />
+            </div>
+            <h3>Recetas a tu medida</h3>
+            <p>Descubre recetas que encajan con los ingredientes que ya tienes en tu despensa.</p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon-wrapper">
+              <FaListUl className="feature-icon" />
+            </div>
+            <h3>Compras Fáciles</h3>
+            <p>Añade los ingredientes de tus recetas favoritas directamente a la lista de la compra.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* como funciona (pasos) */}
+      <section className="home-workflow-section">
+        <div className="workflow-content">
+          <h2>Cocina en 3 sencillos pasos</h2>
+          <p>Olvídate del estrés. InventIA te guía desde que abres la nevera hasta que te sientas a la mesa.</p>
+          
+          <div className="workflow-steps">
+            <div className="workflow-step">
+              <div className="step-number">1</div>
+              <div className="step-text">
+                <h4>Revisa tu despensa</h4>
+                <p>Mantén un registro de tus ingredientes y fechas de caducidad.</p>
+              </div>
+            </div>
+            <div className="workflow-step">
+              <div className="step-number">2</div>
+              <div className="step-text">
+                <h4>Encuentra tu receta</h4>
+                <p>Usa el buscador o las sugerencias para inspirarte según tus gustos.</p>
+              </div>
+            </div>
+            <div className="workflow-step">
+              <div className="step-number">3</div>
+              <div className="step-text">
+                <h4>Cocina y disfruta</h4>
+                <p>Sigue las instrucciones paso a paso y guarda tus favoritas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="workflow-visual">
+          <div className="visual-circle" aria-hidden="true">
+            <FaDrumstickBite className="workflow-pulse-icon" />
+          </div>
+        </div>
+      </section>
     </main>
   );
-}
+};
+
+export default Home;

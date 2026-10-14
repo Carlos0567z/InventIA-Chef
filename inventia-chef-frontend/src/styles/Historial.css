@@ -26,7 +26,7 @@
 }
 
 .historial-clear-btn:hover {
-  background: rgba(255, 51, 102, 0.12);
+  background: #ffe4e6;
 }
 
 .historial-clear-btn:disabled {
@@ -40,11 +40,11 @@
   align-items: center;
   padding: 20px 22px;
   border-radius: 20px;
-  border: 1px solid var(--border);
-  background: var(--surface-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(241, 245, 249, 0.65), transparent 38%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.96));
+  box-shadow: 0 16px 28px -24px rgba(15, 23, 42, 0.24);
   transition: transform var(--motion-fast) var(--motion-ease-soft), box-shadow var(--motion-fast) var(--motion-ease-soft);
 }
 
@@ -147,9 +147,9 @@
 
 .historial-empty h3 {
   margin: 0;
-  color: var(--text-main);
+  color: #0f172a;
   font-size: 1.4rem;
-  font-family: var(--font-heading);
+  font-family: 'Manrope', system-ui, sans-serif;
 }
 
 .historial-empty p {
@@ -210,18 +210,16 @@
   height: 36px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: var(--surface-card);
-  color: var(--text-main);
+  background: #fff;
+  color: #475569;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all var(--motion-fast) var(--motion-ease-soft);
 }
 
 .historial-icon-btn:hover {
-  background: var(--surface-soft);
-  color: var(--brand);
+  background: #f8fafc;
 }
 
 .historial-modal-body {
@@ -235,14 +233,14 @@
 .historial-modal-section {
   border: 1px solid var(--border);
   border-radius: 14px;
-  background: var(--surface-soft);
+  background: #ffffff;
   padding: 12px 14px;
 }
 
 .historial-modal-section h3 {
   margin: 0 0 10px;
   font-size: 0.95rem;
-  color: var(--text-main);
+  color: #334155;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -380,13 +378,13 @@
     align-items: center;
     justify-content: center;
     font-size: 0.9rem;
-    background: var(--pill-bg);
-    border: 1px solid var(--border);
-    color: var(--brand);
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    color: #e11d48;
   }
 
   .historial-link-btn:hover {
-    background: rgba(255, 51, 102, 0.12);
+    background: #ffe4e6;
     text-decoration: none;
   }
 

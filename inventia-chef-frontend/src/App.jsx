@@ -118,12 +118,6 @@ function AppLayout() {
   return (
     <div className="app-shell">
       <a className="skip-link" href="#main-content">Saltar al contenido principal</a>
-      <div className="bg-decor" aria-hidden="true">
-        <div className="bg-grid"></div>
-        <div className="blob blob--1"></div>
-        <div className="blob blob--2"></div>
-        <div className="blob blob--3"></div>
-      </div>
       <Sidebar />
       <main id="main-content" className="app-main" tabIndex={-1}>
         <Suspense fallback={<RouteFallback />}>

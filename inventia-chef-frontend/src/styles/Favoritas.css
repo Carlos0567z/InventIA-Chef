@@ -17,10 +17,8 @@
   position: relative;
   padding: 0;
   border-radius: 18px;
-  border: 1px solid var(--border);
-  background: var(--surface-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: linear-gradient(180deg, #fafbfc 0%, #f8fafc 100%);
   overflow: hidden;
   cursor: pointer;
   display: flex;
@@ -30,13 +28,13 @@
     transform var(--motion-base) var(--motion-ease-soft),
     box-shadow var(--motion-base) var(--motion-ease-soft),
     border-color var(--motion-base) var(--motion-ease-soft);
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 16px 28px -24px rgba(15, 23, 42, 0.28);
 }
 
 .favoritas-card:hover {
   transform: translateY(-4px);
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-hover);
+  border-color: rgba(226, 232, 240, 1);
+  box-shadow: 0 24px 40px -20px rgba(15, 23, 42, 0.42);
 }
 
 .favoritas-card-image {
@@ -57,17 +55,17 @@
   flex-direction: column;
   gap: 12px;
   flex: 1;
-  background: var(--surface-card);
+  background: #ffffff;
   position: relative;
   z-index: 2;
 }
 
 .favoritas-card-title {
   margin: 0;
-  font-family: var(--font-heading);
+  font-family: 'Manrope', system-ui, sans-serif;
   font-size: 1.15rem;
   font-weight: 800;
-  color: var(--text-main);
+  color: #0f172a;
   letter-spacing: -0.01em;
   line-height: 1.35;
 }
@@ -94,11 +92,10 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  background: var(--surface-glass);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: var(--brand);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  color: #e11d48;
+  border: 1px solid rgba(225, 29, 72, 0.1);
   border-radius: 50%;
   width: 36px;
   height: 36px;
@@ -108,23 +105,22 @@
   cursor: pointer;
   transition: all var(--motion-fast);
   z-index: 10;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .btn-delete-favorito:hover {
-  background: var(--brand);
+  background: #e11d48;
   color: #ffffff;
   transform: scale(1.1);
-  box-shadow: 0 6px 14px var(--brand-glow);
+  box-shadow: 0 6px 14px rgba(225, 29, 72, 0.3);
 }
 
 .favoritas-empty {
   text-align: center;
   padding: 80px 20px;
-  background: var(--surface-card);
+  background: #ffffff;
   border-radius: 24px;
-  border: 1px dashed var(--border);
-  box-shadow: var(--shadow-card);
+  border: 1px dashed #cbd5e1;
 }
 
 .favoritas-empty-icon {
@@ -136,7 +132,7 @@
 .favoritas-empty-text {
   font-size: 1.25rem;
   font-weight: 800;
-  color: var(--text-main);
+  color: #0f172a;
   margin: 0 0 10px;
 }
 

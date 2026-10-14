@@ -15,7 +15,6 @@ import {
 import '../styles/Recetas.css';
 import FilterBar from '../components/FilterBar';
 import PageHeader from '../components/PageHeader';
-import RecetasClasicasChefToggle from '../components/RecetasClasicasChefToggle';
 import { isAuthenticated } from '../services/auth';
 import { listRecetasComunidad } from '../services/communityApi';
 
@@ -414,7 +413,6 @@ export default function RecetasComunidad() {
   if (cargando) {
     return (
       <section className="view-section active recetas-container">
-        <RecetasClasicasChefToggle />
         {renderHero()}
         {renderActionsBar()}
         {renderFiltros()}
@@ -427,7 +425,6 @@ export default function RecetasComunidad() {
 
   return (
     <section className="view-section active recetas-container">
-      <RecetasClasicasChefToggle />
       {renderHero()}
       {renderActionsBar()}
       {renderFiltros()}

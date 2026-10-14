@@ -110,7 +110,7 @@ const FoodCard = ({ item, onDelete, onEdit }) => {
                     className="btn-card-action btn-edit"
                     onClick={handleEditClick}
                 >
-                    <i className="fa-solid fa-pen"></i> Edición rápida
+                    <i className="fa-solid fa-pen"></i> Edicion rapida
                 </button>
                 <button
                     type="button"

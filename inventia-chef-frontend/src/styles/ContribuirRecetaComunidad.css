@@ -23,7 +23,7 @@
 
 .contribuir-back-btn:hover {
   background: #f8fafc;
-  color: var(--text-main);
+  color: #0f172a;
   border-color: #cbd5e1;
 }
 
@@ -49,7 +49,7 @@
 .contribuir-section h3 {
   font-size: 1.1rem;
   font-weight: 800;
-  color: var(--text-main);
+  color: #0f172a;
 }
 
 .contribuir-grid-2 {
@@ -315,7 +315,7 @@
 
 .contribuir-add-btn:hover {
   background: #e2e8f0;
-  color: var(--text-main);
+  color: #0f172a;
 }
 
 .contribuir-delete-btn {

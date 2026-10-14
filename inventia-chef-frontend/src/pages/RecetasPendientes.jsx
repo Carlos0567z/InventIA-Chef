@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { FaTrash, FaCheckCircle, FaRegCircle, FaUtensilSpoon, FaTrophy, FaShoppingCart } from 'react-icons/fa';
 import '../styles/RecetasPendientes.css';
 import PageHeader from '../components/PageHeader';
-import RecetasClasicasChefToggle from '../components/RecetasClasicasChefToggle';
 import TicketModal from '../components/TicketModal';
 
 const HECHAS_KEY = 'inventia_recetas_hechas';
@@ -208,7 +207,6 @@ const RecetasPendientes = () => {
   if (cargando) {
     return (
       <div className="recetas-pendientes-container">
-        <RecetasClasicasChefToggle />
         <div style={{ padding: '40px', textAlign: 'center', color: '#64748b' }}>Cargando tus recetas pendientes...</div>
       </div>
     );
@@ -216,7 +214,6 @@ const RecetasPendientes = () => {
 
   return (
     <div className="recetas-pendientes-container">
-      <RecetasClasicasChefToggle />
       <PageHeader
         kicker="Guardadas"
         title="Recetas Pendientes"

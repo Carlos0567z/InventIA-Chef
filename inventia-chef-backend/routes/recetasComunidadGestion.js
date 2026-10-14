@@ -500,4 +500,240 @@ router.delete('/:id', requireAuth, async (req, res) => {
   }
 });
 
+// -------------------------------------------------------------
+// POST /seed-demo — Crear recetas de demostración con valoraciones y comentarios
+// -------------------------------------------------------------
+router.post('/seed-demo', async (req, res) => {
+  try {
+    const Usuario = require('../models/Usuario');
+    const bcrypt = require('bcryptjs');
+
+    // Buscar o crear Chef demo
+    let chef = await Usuario.findOne({ email: 'chef_demo@inventia.local' });
+    if (!chef) {
+      const hash = await bcrypt.hash('secreto123', 10);
+      chef = await Usuario.create({
+        nombre: 'Chef Mateo Rossi',
+        email: 'chef_demo@inventia.local',
+        password_hash: hash,
+        rol: 'admin',
+        biografia: 'Especialista en cocina mediterránea y fusión italiana. Formado en Bolonia y apasionado por los ingredientes frescos de temporada.',
+      });
+    }
+
+    let perfilChef = await Perfil.findOne({ user_id: String(chef._id) });
+    if (!perfilChef) {
+      perfilChef = await Perfil.create({
+        user_id: String(chef._id),
+        nombre: chef.nombre,
+        email: chef.email,
+        imagen_perfil: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400',
+        imagen_banner: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200',
+        biografia: chef.biografia,
+      });
+    }
+
+    // Buscar o crear Comensal demo
+    let comensal = await Usuario.findOne({ email: 'comensal_demo@inventia.local' });
+    if (!comensal) {
+      const hash = await bcrypt.hash('secreto123', 10);
+      comensal = await Usuario.create({
+        nombre: 'Lucía Gourmet',
+        email: 'comensal_demo@inventia.local',
+        password_hash: hash,
+        rol: 'usuario',
+        biografia: 'Foodie empedernida buscando siempre nuevas recetas para sorprender a mi familia.',
+      });
+    }
+
+    let perfilComensal = await Perfil.findOne({ user_id: String(comensal._id) });
+    if (!perfilComensal) {
+      perfilComensal = await Perfil.create({
+        user_id: String(comensal._id),
+        nombre: comensal.nombre,
+        email: comensal.email,
+        imagen_perfil: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
+        biografia: comensal.biografia,
+      });
+    }
+
+    // Recetas a sembrar
+    const recetasDemo = [
+      {
+        id_externo: 'com-risotto-boletus-demo',
+        title: 'Risotto Cremoso de Boletus y Parmesano',
+        description: 'Un clásico del norte de Italia con setas boletus edulis, caldo casero a fuego lento y mantecado con queso parmesano curado 24 meses.',
+        image: 'https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?w=900',
+        readyInMinutes: 30,
+        servings: 4,
+        autor_id: chef._id,
+        autor_nombre: chef.nombre,
+        estado: 'publicada',
+        numero_likes: 12,
+        likes: [comensal._id],
+        versiones: [
+          {
+            numero_personas: 4,
+            readyInMinutes: 30,
+            servings: 4,
+            extendedIngredients: [
+              { name: 'Arroz arborio', cantidad: 320, unidad: 'g', original: '320g arroz arborio' },
+              { name: 'Boletus frescos o hidratados', cantidad: 250, unidad: 'g', original: '250g boletus edulis' },
+              { name: 'Caldo de verduras', cantidad: 1, unidad: 'l', original: '1 litro de caldo caliente' },
+              { name: 'Queso Parmesano', cantidad: 70, unidad: 'g', original: '70g parmesano rallado' },
+              { name: 'Mantequilla fría', cantidad: 30, unidad: 'g', original: '30g mantequilla para mantecar' },
+            ],
+            analyzedInstructions: [
+              {
+                steps: [
+                  { number: 1, step: 'Picar la chalota muy fina y pocharla en aceite de oliva virgen extra.' },
+                  { number: 2, step: 'Añadir los boletus troceados y saltear hasta que suelten su agua aromática.' },
+                  { number: 3, step: 'Incorporar el arroz arborio y nacarar durante 2 minutos a fuego vivo.' },
+                  { number: 4, step: 'Verter el caldo cucharón a cucharón sin dejar de remover con cuchara de madera.' },
+                  { number: 5, step: 'Retirar del fuego y mantecar enérgicamente con la mantequilla fría y el parmesano.' },
+                ],
+              },
+            ],
+          },
+          {
+            numero_personas: 2,
+            readyInMinutes: 25,
+            servings: 2,
+            extendedIngredients: [
+              { name: 'Arroz arborio', cantidad: 160, unidad: 'g', original: '160g arroz arborio' },
+              { name: 'Boletus frescos o hidratados', cantidad: 130, unidad: 'g', original: '130g boletus edulis' },
+              { name: 'Caldo de verduras', cantidad: 500, unidad: 'ml', original: '500ml de caldo caliente' },
+              { name: 'Queso Parmesano', cantidad: 35, unidad: 'g', original: '35g parmesano rallado' },
+              { name: 'Mantequilla fría', cantidad: 15, unidad: 'g', original: '15g mantequilla para mantecar' },
+            ],
+            analyzedInstructions: [
+              {
+                steps: [
+                  { number: 1, step: 'Pochar la chalota en aceite de oliva virgen extra.' },
+                  { number: 2, step: 'Saltear los boletus y nacarar el arroz.' },
+                  { number: 3, step: 'Añadir caldo poco a poco y mantecar al final con parmesano.' },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id_externo: 'com-tacos-pastor-demo',
+        title: 'Tacos de Cerdo al Pastor Caseros',
+        description: 'Auténticos tacos mexicanos marinados en adobo de achiote, naranja agria y especias, acompañados de piña asada, cebolla y cilantro.',
+        image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=900',
+        readyInMinutes: 40,
+        servings: 4,
+        autor_id: chef._id,
+        autor_nombre: chef.nombre,
+        estado: 'publicada',
+        numero_likes: 18,
+        likes: [comensal._id],
+        versiones: [
+          {
+            numero_personas: 4,
+            readyInMinutes: 40,
+            servings: 4,
+            extendedIngredients: [
+              { name: 'Lomo de cerdo en tiras finas', cantidad: 600, unidad: 'g', original: '600g lomo de cerdo' },
+              { name: 'Pasta de achiote', cantidad: 50, unidad: 'g', original: '50g achiote' },
+              { name: 'Zumo de naranja y lima', cantidad: 100, unidad: 'ml', original: '100ml zumo cítrico' },
+              { name: 'Piña natural en rodajas', cantidad: 4, unidad: 'rodajas', original: '4 rodajas de piña fresca' },
+              { name: 'Tortillas de maíz', cantidad: 12, unidad: 'unidades', original: '12 tortillas de maíz' },
+            ],
+            analyzedInstructions: [
+              {
+                steps: [
+                  { number: 1, step: 'Mezclar el achiote con el zumo cítrico, orégano, comino y ajo machacado.' },
+                  { number: 2, step: 'Marinar el cerdo durante al menos 30 minutos (o toda la noche).' },
+                  { number: 3, step: 'Cocinar la carne a fuego fuerte en sartén de hierro o plancha bien caliente.' },
+                  { number: 4, step: 'Asar las rodajas de piña hasta caramelizar y cortar en dados pequeños.' },
+                  { number: 5, step: 'Montar sobre tortillas calientes con piña, cilantro fresco picado y cebolla.' },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id_externo: 'com-tarta-queso-demo',
+        title: 'Tarta de Queso Fluida Estilo La Viña',
+        description: 'La famosa tarta de queso vasca: tostada y dorada por fuera, ultra cremosa y semilíquida en el centro. Sin base de galleta.',
+        image: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=900',
+        readyInMinutes: 50,
+        servings: 6,
+        autor_id: chef._id,
+        autor_nombre: chef.nombre,
+        estado: 'publicada',
+        numero_likes: 25,
+        likes: [comensal._id],
+        versiones: [
+          {
+            numero_personas: 6,
+            readyInMinutes: 50,
+            servings: 6,
+            extendedIngredients: [
+              { name: 'Queso crema tipo Philadelphia', cantidad: 500, unidad: 'g', original: '500g queso crema' },
+              { name: 'Nata para montar 35% MG', cantidad: 250, unidad: 'ml', original: '250ml nata líquida' },
+              { name: 'Huevos grandes', cantidad: 4, unidad: 'unidades', original: '4 huevos camperos' },
+              { name: 'Azúcar blanco', cantidad: 175, unidad: 'g', original: '175g azúcar' },
+              { name: 'Harina de trigo', cantidad: 15, unidad: 'g', original: '1 cucharada de harina' },
+            ],
+            analyzedInstructions: [
+              {
+                steps: [
+                  { number: 1, step: 'Precalentar el horno a 210°C con calor arriba y abajo.' },
+                  { number: 2, step: 'Batir el queso crema con el azúcar hasta que quede suave y sin grumos.' },
+                  { number: 3, step: 'Añadir los huevos uno a uno, mezclando suavemente sin meter demasiado aire.' },
+                  { number: 4, step: 'Incorporar la nata y la cucharada de harina tamizada.' },
+                  { number: 5, step: 'Forrar un molde con papel de horno humedecido, verter la mezcla y hornear 40 minutos.' },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ];
+
+    const creadas = [];
+    for (const rData of recetasDemo) {
+      let r = await RecetaComunidad.findOne({ id_externo: rData.id_externo });
+      if (!r) {
+        r = await RecetaComunidad.create(rData);
+        creadas.push(r.title);
+
+        // Crear comentario con 5 estrellas
+        await Comentario.create({
+          receta_id: r._id,
+          autor_id: comensal._id,
+          autor_nombre: comensal.nombre,
+          autor_imagen: perfilComensal.imagen_perfil,
+          contenido: '¡Impresionante receta! La preparé ayer y a todos les encantó el punto de cocción y el aroma.',
+          puntuacion: 5,
+          respuestas: [
+            {
+              autor_id: chef._id,
+              autor_nombre: chef.nombre,
+              autor_imagen: perfilChef.imagen_perfil,
+              texto: '¡Muchísimas gracias Lucía! El secreto está en mimar cada paso.',
+              fecha: new Date(),
+            },
+          ],
+        });
+        await Comentario.recalcularEstadisticasReceta(r._id);
+      }
+    }
+
+    res.status(200).json({
+      mensaje: 'Sembrado de recetas demo completado',
+      recetas_creadas: creadas,
+      total_en_comunidad: await RecetaComunidad.countDocuments({ estado: 'publicada' }),
+    });
+  } catch (error) {
+    console.error('Error sembrando recetas demo:', error);
+    res.status(500).json({ mensaje: 'Error al sembrar recetas demo' });
+  }
+});
+
 module.exports = router;

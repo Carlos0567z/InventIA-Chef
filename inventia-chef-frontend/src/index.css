@@ -7,22 +7,28 @@
   padding: 0;
 }
 
-:root {
+:root,
+[data-theme="dark"] {
   --bg: #090a10;
   --bg-gradient: radial-gradient(circle at 12% 0%, rgba(255, 51, 102, 0.12) 0%, transparent 45%),
                  radial-gradient(circle at 88% 8%, rgba(245, 158, 11, 0.09) 0%, transparent 42%),
                  radial-gradient(circle at 50% 90%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
                  #090a10;
   --surface: #12141f;
-  --surface-glass: rgba(18, 20, 31, 0.78);
+  --surface-glass: rgba(18, 20, 31, 0.82);
+  --surface-card: rgba(18, 20, 31, 0.95);
   --surface-soft: #181b29;
   --surface-raised: #1f2334;
-  --border: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.09);
   --border-subtle: rgba(255, 255, 255, 0.05);
-  --border-hover: rgba(255, 255, 255, 0.18);
+  --border-hover: rgba(255, 255, 255, 0.2);
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
   --text-dim: #64748b;
+  --header-bg: rgba(9, 10, 16, 0.85);
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --pill-bg: rgba(255, 255, 255, 0.06);
+  --pill-text: #f1f5f9;
   --brand: #ff3366;
   --brand-hover: #ff4d79;
   --brand-gradient: linear-gradient(135deg, #ff3366 0%, #ff5e3a 100%);
@@ -49,6 +55,42 @@
   --font-ui: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-heading: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+}
+
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --bg-gradient: radial-gradient(circle at 12% 0%, rgba(255, 42, 95, 0.06) 0%, transparent 45%),
+                 radial-gradient(circle at 88% 8%, rgba(245, 158, 11, 0.05) 0%, transparent 42%),
+                 radial-gradient(circle at 50% 90%, rgba(139, 92, 246, 0.04) 0%, transparent 40%),
+                 #f8fafc;
+  --surface: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.92);
+  --surface-card: #ffffff;
+  --surface-soft: #f1f5f9;
+  --surface-raised: #ffffff;
+  --border: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --border-hover: #cbd5e1;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #94a3b8;
+  --header-bg: rgba(255, 255, 255, 0.92);
+  --input-bg: #ffffff;
+  --pill-bg: #f1f5f9;
+  --pill-text: #1e293b;
+  --brand: #ff2a5f;
+  --brand-hover: #e11d48;
+  --brand-gradient: linear-gradient(135deg, #ff2a5f 0%, #ff5e3a 100%);
+  --brand-gradient-hover: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  --brand-glow: rgba(255, 42, 95, 0.25);
+  --chef-accent: #ff2a5f;
+  --amber: #f59e0b;
+  --amber-soft: rgba(245, 158, 11, 0.1);
+  --success: #16a34a;
+  --success-soft: rgba(22, 163, 74, 0.1);
+  --shadow-soft: 0 4px 14px -4px rgba(15, 23, 42, 0.08);
+  --shadow-hover: 0 14px 28px -8px rgba(15, 23, 42, 0.12);
+  --shadow-card: 0 4px 18px rgba(15, 23, 42, 0.06);
 }
 
 body {

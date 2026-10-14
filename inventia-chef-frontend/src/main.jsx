@@ -6,6 +6,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import { clearSession, getToken } from './services/auth'
 
 document.documentElement.lang = 'es'
+const savedTheme = localStorage.getItem('inventia_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+document.documentElement.setAttribute('data-theme', savedTheme);
 
 const rawFetch = window.fetch.bind(window)
 

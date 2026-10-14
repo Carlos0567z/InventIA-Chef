@@ -418,6 +418,46 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
     }
   };
 
+  const entrarComoDemo = async () => {
+    setMensajeSesion(null);
+    setErrorAcceso('');
+    setCargandoAcceso(true);
+    try {
+      let res = await fetch('/api/auth/demo-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!res.ok) {
+        res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: 'demo@inventia.com', password: 'demo1234' }),
+        });
+      }
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data?.mensaje || 'No se pudo iniciar la sesión demo.');
+      }
+
+      saveSession({ token: data.token, user: data.user });
+      showToast('¡Bienvenido, Chef Demo! Despensa y recetas cargadas con éxito.', 'success');
+      redirigirTrasAcceso(data);
+    } catch (err) {
+      setErrorAcceso(err.message || 'Error al conectar con la cuenta demo.');
+    } finally {
+      setCargandoAcceso(false);
+    }
+  };
+
+  const autorellenarDemo = () => {
+    setModoAcceso('login');
+    setEmailAcceso('demo@inventia.com');
+    setPasswordAcceso('demo1234');
+    setErrorAcceso('');
+  };
+
   const recuperarPassword = () => {
     setErrorAcceso('La recuperación de contraseña por correo aún no está disponible.');
   };
@@ -692,6 +732,41 @@ const Perfil = ({ embedded = false, authOnly = false } = {}) => {
               Registrarse
             </button>
           </div>
+
+          {modoAcceso === 'login' && (
+            <div className="auth-demo-card">
+              <div className="auth-demo-header">
+                <span className="auth-demo-chip">
+                  <span className="demo-live-dot"></span> Modo Demostración
+                </span>
+                <span className="auth-demo-badge-sub">Experiencia Completa</span>
+              </div>
+              <p className="auth-demo-desc">
+                Explora la app con <strong>16 alimentos cargados</strong> (salmón fresco, boletus, carnes, lácteos, alertas de caducidad), <strong>recetas favoritas</strong> y un <strong>plan semanal</strong>.
+              </p>
+              <button
+                type="button"
+                className="action-btn auth-demo-instant-btn"
+                onClick={entrarComoDemo}
+                disabled={cargandoAcceso}
+              >
+                <i className="fa-solid fa-wand-magic-sparkles" />
+                {cargandoAcceso ? 'Iniciando Chef Demo...' : '🚀 Entrar con Usuario Demo (1 Clic)'}
+              </button>
+              <div className="auth-demo-creds-row">
+                <button
+                  type="button"
+                  className="auth-demo-fill-btn"
+                  onClick={autorellenarDemo}
+                  title="Haz clic para autorellenar estos datos en el formulario"
+                >
+                  <span className="demo-cred-item"><strong>Usuario:</strong> demo@inventia.com</span>
+                  <span className="demo-cred-item"><strong>Clave:</strong> demo1234</span>
+                  <span className="demo-fill-tag">Autorellenar</span>
+                </button>
+              </div>
+            </div>
+          )}
 
           <form onSubmit={submitAcceso} className="auth-access-form">
             {modoAcceso === 'register' && (

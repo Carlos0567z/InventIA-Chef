@@ -17,25 +17,23 @@
   gap: 14px;
   align-items: center;
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  background:
-    radial-gradient(circle at top left, rgba(255, 51, 102, 0.12), transparent 45%),
-    rgba(18, 20, 31, 0.85);
+  border: 1px solid var(--border);
+  background: var(--surface-card);
   backdrop-filter: blur(24px);
-  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--shadow-card);
 }
 
 .inventario-manager-title h1 {
   margin: 0;
   font-family: var(--font-heading);
-  color: #ffffff;
+  color: var(--text-main);
   letter-spacing: -0.04em;
   font-size: clamp(2rem, 3.1vw, 2.7rem);
 }
 
 .inventario-manager-title p {
   margin-top: 8px;
-  color: #64748b;
+  color: var(--text-muted);
   max-width: 54ch;
   line-height: 1.55;
 }
@@ -213,21 +211,21 @@
   animation: inventario-filter-dock var(--motion-base) var(--motion-ease-soft);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-color: rgba(203, 213, 225, 0.92);
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.94));
+  border-color: var(--border);
+  background: var(--surface-card);
 }
 
 @media (max-width: 900px) {
   .inventario-filters.card.is-fixed {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    background: #ffffff;
-    border-color: #e2e8f0;
+    background: var(--surface-card);
+    border-color: var(--border);
   }
 
   .inventario-filters.card:not(.is-fixed) {
-    background: #ffffff;
-    border-color: #e2e8f0;
+    background: var(--surface-card);
+    border-color: var(--border);
   }
 }
 

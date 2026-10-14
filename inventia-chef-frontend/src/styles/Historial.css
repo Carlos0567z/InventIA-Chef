@@ -210,16 +210,18 @@
   height: 36px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: #fff;
-  color: #475569;
+  background: var(--surface-card);
+  color: var(--text-main);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all var(--motion-fast) var(--motion-ease-soft);
 }
 
 .historial-icon-btn:hover {
-  background: #f8fafc;
+  background: var(--surface-soft);
+  color: var(--brand);
 }
 
 .historial-modal-body {
@@ -233,14 +235,14 @@
 .historial-modal-section {
   border: 1px solid var(--border);
   border-radius: 14px;
-  background: #ffffff;
+  background: var(--surface-soft);
   padding: 12px 14px;
 }
 
 .historial-modal-section h3 {
   margin: 0 0 10px;
   font-size: 0.95rem;
-  color: #334155;
+  color: var(--text-main);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }

@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiShoppingCart, FiHeart, FiUser, FiHome, FiBox, FiCamera, FiLayout, FiUsers } from 'react-icons/fi';
+import { FiShoppingCart, FiHeart, FiUser, FiHome, FiBox, FiCamera, FiLayout, FiUsers, FiSun, FiMoon } from 'react-icons/fi';
 import '../styles/navigation.css';
 import { useAuthRefresh } from '../hooks/useAuthRefresh';
+import { useTheme } from '../hooks/useTheme';
 import { isAdmin } from '../services/auth';
 
 const Sidebar = () => {
   useAuthRefresh();
+  const { theme, toggleTheme, isDark } = useTheme();
   const location = useLocation();
   const rutaActual = location.pathname;
   const admin = isAdmin();
@@ -191,6 +193,16 @@ const Sidebar = () => {
             >
               <FiHeart size={18} strokeWidth={2.5} />
             </Link>
+
+            <button
+              type="button"
+              className="menu-title icon-only nav-icon-link theme-toggle-btn"
+              onClick={toggleTheme}
+              aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+              title={isDark ? "Cambiar a modo claro (☀️)" : "Cambiar a modo oscuro (🌙)"}
+            >
+              {isDark ? <FiSun size={18} strokeWidth={2.5} /> : <FiMoon size={18} strokeWidth={2.5} />}
+            </button>
 
             <Link
               to={perfilItem.ruta}
